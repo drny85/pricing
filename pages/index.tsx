@@ -386,7 +386,15 @@ const Plans = () => {
                             {plansDetails.map((plan) => (
                                 <PlanCard
                                     key={plan.id}
-                                    price={plansPrice[plan.id]}
+                                    price={
+                                        plansPrice[
+                                            plan.id as
+                                                | 'do_more'
+                                                | 'get_more'
+                                                | 'start'
+                                                | 'play_more'
+                                        ]
+                                    }
                                     title={plan.name}
                                     details={plan.details}
                                 />
