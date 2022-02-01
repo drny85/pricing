@@ -182,7 +182,9 @@ const Plans = () => {
                                     padding: '12px',
                                 }}
                             >
-                                <p style={{ fontWeight: 'bold' }}>Has Fios?</p>
+                                <p style={{ fontWeight: 'bold' }}>
+                                    Has Fios Internet?
+                                </p>
                                 <Switch
                                     onChange={(e) => {
                                         const res = dispatch(

@@ -97,7 +97,6 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
                     }}
                 >
                     <h1>
-                        +
                         {Math.fround(
                             price -
                                 auto_pay -
