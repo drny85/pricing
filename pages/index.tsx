@@ -425,7 +425,7 @@ const Plans = () => {
                             >
                                 <CheckCircleIcon />
                                 <p style={{ paddingLeft: '6px' }}>
-                                    Unlimited Tal & Text
+                                    Unlimited Talk & Text
                                 </p>
                             </div>
                             <div
