@@ -68,6 +68,9 @@ const Plans = () => {
                     padding: '0px 20px',
                 }}
             >
+                <div style={{position:'absolute', top:'20px', right:'20px'}}>
+                    <h3 style={{textDecoration:'underline',fontStyle:'italic' }}>Note: This pricing are good only through 02/28/22</h3>
+                </div>
                 <div>
                     <h2
                         style={{ textAlign: 'center', marginBottom: '1rem' }}
