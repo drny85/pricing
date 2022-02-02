@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { setDiscount } from '../redux/dataSlide';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
+import AnimatedNumber from 'animated-number-react';
 
 interface Props {
     title: string;
@@ -10,6 +11,7 @@ interface Props {
 }
 const PlanCard: FC<Props> = ({ title, details, price }) => {
     const dispatch = useAppDispatch();
+
     const theme = useAppSelector((state) => state.theme);
     const {
         auto_pay,
@@ -73,6 +75,15 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
             return 0;
         }
     };
+
+    const [start, setStart] = useState<number>(
+        +Math.fround(
+            price -
+                auto_pay -
+                firstResponderDiscount()! -
+                mobilePlusHomeDiscount()!
+        ).toFixed(2)
+    );
     return (
         <Card
             style={{
@@ -96,14 +107,27 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
                         paddingBottom: '1rem',
                     }}
                 >
-                    <h1>
+                    {/* <h1>
                         {Math.fround(
                             price -
                                 auto_pay -
                                 firstResponderDiscount()! -
                                 mobilePlusHomeDiscount()!
                         ).toFixed(2)}
+                    </h1> */}
+                    <h1>
+                        <AnimatedNumber
+                            duration={300}
+                            formatValue={(n: number) => n.toFixed(2)}
+                            value={Math.fround(
+                                price -
+                                    auto_pay -
+                                    firstResponderDiscount()! -
+                                    mobilePlusHomeDiscount()!
+                            ).toFixed(2)}
+                        />
                     </h1>
+
                     <div
                         style={{
                             display: 'flex',
