@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from '@mui/material';
 import React, { FC } from 'react';
 import { setDiscount } from '../redux/dataSlide';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
+import AnimatedNumber from 'react-animated-numbers'
 
 interface Props {
     title: string;
@@ -96,14 +97,18 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
                         paddingBottom: '1rem',
                     }}
                 >
-                    <h1>
-                        {Math.fround(
+                    <div>
+                      <AnimatedNumber fontStyle={{fontSize:'2.8rem', fontWeight:'bold'}}  animateToNumber={+Math.fround(
                             price -
                                 auto_pay -
                                 firstResponderDiscount()! -
                                 mobilePlusHomeDiscount()!
-                        ).toFixed(2)}
-                    </h1>
+                        ).toFixed(2)}  />
+                    </div>
+                 
+                      
+                        
+                   
                     <div
                         style={{
                             display: 'flex',
