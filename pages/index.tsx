@@ -64,13 +64,23 @@ const Plans = () => {
                     margin: '0 auto',
                     display: 'flex',
                     width: '100%',
+                    height: '100%',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     padding: '0px 20px',
                 }}
             >
-                <div style={{position:'absolute', top:'20px', right:'20px'}}>
-                    <h3 style={{textDecoration:'underline',fontStyle:'italic' }}>Note: This pricing are good only through 02/28/22</h3>
+                <div
+                    style={{ position: 'absolute', top: '20px', right: '20px' }}
+                >
+                    <h3
+                        style={{
+                            textDecoration: 'underline',
+                            fontStyle: 'italic',
+                        }}
+                    >
+                        Note: This pricing are good only through 02/28/22
+                    </h3>
                 </div>
                 <div>
                     <h2
@@ -382,11 +392,10 @@ const Plans = () => {
                         </div>
                         <div
                             style={{
-                                display: 'inline-flex',
+                                display: 'flex',
                                 width: '100%',
                                 margin: '0 auto',
                                 justifyContent: 'center',
-                                flexWrap: 'wrap',
                             }}
                         >
                             {plansDetails.map((plan) => (

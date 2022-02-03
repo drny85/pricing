@@ -76,20 +76,12 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
         }
     };
 
-    const [start, setStart] = useState<number>(
-        +Math.fround(
-            price -
-                auto_pay -
-                firstResponderDiscount()! -
-                mobilePlusHomeDiscount()!
-        ).toFixed(2)
-    );
     return (
         <Card
             style={{
                 backgroundColor: theme.BACKGROUND_COLOR,
-                minWidth: '24%',
-                width: '18rem',
+                minWidth: '12rem',
+                width: '100%',
             }}
         >
             <CardHeader
