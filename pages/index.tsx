@@ -17,6 +17,7 @@ import moment from 'moment';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import {
     decreaseLine,
@@ -25,21 +26,17 @@ import {
     setCurrentFiosCustomer,
     setInternet,
     setIsFirstResponder,
-    setLineDiscount,
     setWithin30Days,
     setNumbersOfLines,
-    setWiressDiscount,
     setPlansPrice,
     setDiscount,
-    setCurrentWirelessCustomer,
-    setUnlimitedData,
     dataReset,
 } from '../redux/dataSlide';
 import PlanCard from '../components/PlanCard';
 import plansDetails from '../plansDetails';
 
 import React, { FC, useEffect, useState } from 'react';
-import { has } from 'immer/dist/internal';
+
 import {
     fiosReset,
     setFiosAutoPay,
@@ -52,6 +49,7 @@ import fiosPlans from '../fiosPlans';
 import FiosCard from '../components/FiosCard';
 import TvCard from '../components/TvCard';
 import tvPlans from '../tvPlans';
+import Switcher from '../components/Switcher';
 
 interface Props {
     children: React.ReactChild;
@@ -171,6 +169,11 @@ const Plans = () => {
                             icon={<LiveTvIcon />}
                             iconPosition="start"
                             label="Fios TV"
+                        />
+                        <Tab
+                            icon={<AddShoppingCartIcon />}
+                            iconPosition="start"
+                            label="Express Store"
                         />
                     </Tabs>
                 </Box>
@@ -576,7 +579,7 @@ const Plans = () => {
                                         >
                                             <CheckCircleIcon />
                                             <p style={{ paddingLeft: '6px' }}>
-                                                Unlimited Talk & Text
+                                                Unlimited Talk & Text & Data
                                             </p>
                                         </div>
                                         <div
@@ -678,7 +681,7 @@ const Plans = () => {
                                                 fontWeight: 'bold',
                                             }}
                                         >
-                                            Star Over
+                                            Start Over
                                         </p>
                                     </div>
                                 </div>
@@ -981,7 +984,7 @@ const Plans = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    Star Over
+                                    Start Over
                                 </p>
                             </div>
                         </div>
@@ -1042,6 +1045,30 @@ const Plans = () => {
                                     aspectRatio: 'auto',
                                 }}
                                 src="https://ss7.vzw.com/is/image/VerizonWireless/fios-mixnmatch-200-062221-d?scl=1&extend=300,135,300,135&&bgc=f6f6f6"
+                            />
+                        </div>
+                    </div>
+                </TabPanel>
+                <TabPanel index={3} value={value}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-evenly',
+                                padding: '1rem',
+                            }}
+                        >
+                            <Switcher
+                                text="Auto Pay"
+                                value={true}
+                                checked={true}
+                                onChange={() => {}}
                             />
                         </div>
                     </div>

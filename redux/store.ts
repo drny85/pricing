@@ -3,6 +3,7 @@ import dataSlide from './dataSlide';
 import fiosData from './fiosData';
 
 import themeSlide from './themeSlide';
+import wireless from './wirelessSlide';
 // ...
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
         theme: themeSlide,
         data: dataSlide,
         fiosData: fiosData,
+        wireless: wireless,
     },
 });
 
