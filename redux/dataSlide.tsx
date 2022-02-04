@@ -13,6 +13,8 @@ interface DataState {
     mobilePlusHomeDiscountAmount: number;
     discount: number;
     within30Days: boolean;
+    unlimitedData: boolean;
+    wirelessDiscount: number;
     isFirstResponder: boolean;
     plansPrice: {
         start: number;
@@ -29,12 +31,14 @@ const initialState: DataState = {
     currentFios: undefined,
     currentWireless: undefined,
     interestedOn: undefined,
+    wirelessDiscount: 0,
     numberOfLines: 4,
     discount: 0,
     isFirstResponder: false,
     mobilePlusHomeDiscountAmount: 20,
     internet: undefined,
     within30Days: false,
+    unlimitedData: true,
     plansPrice: {
         start: 80,
         play_more: 90,
@@ -196,6 +200,15 @@ const dataSlide = createSlice({
         setDiscount: (state, { payload }: PayloadAction<number>) => {
             state.discount = payload;
         },
+        setUnlimitedData: (state, { payload }: PayloadAction<boolean>) => {
+            state.unlimitedData = payload;
+        },
+        setWiressDiscount: (state, { payload }: PayloadAction<number>) => {
+            state.wirelessDiscount = payload;
+        },
+        dataReset: (state) => {
+            return (state = initialState);
+        },
     },
 });
 
@@ -211,8 +224,11 @@ export const {
     increaseLine,
     decreaseLine,
     setInternet,
+    setUnlimitedData,
     setLineDiscount,
+    setWiressDiscount,
     setDiscount,
+    dataReset,
 } = dataSlide.actions;
 
 export default dataSlide.reducer;

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dataSlide from './dataSlide';
+import fiosData from './fiosData';
 
 import themeSlide from './themeSlide';
 // ...
@@ -8,6 +9,7 @@ export const store = configureStore({
     reducer: {
         theme: themeSlide,
         data: dataSlide,
+        fiosData: fiosData,
     },
 });
 

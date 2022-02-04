@@ -8,6 +8,7 @@ interface Props {
     title: string;
     details: string[];
     price: number;
+    subtitle?: string;
 }
 const PlanCard: FC<Props> = ({ title, details, price }) => {
     const dispatch = useAppDispatch();
