@@ -748,7 +748,7 @@ const Plans = () => {
                                             value={fiosAutoPay}
                                             checked={fiosAutoPay === 10}
                                         />
-                                        {fiosAutoPay && (
+                                        {fiosAutoPay === 10 && (
                                             <span
                                                 style={{
                                                     textDecoration: 'underline',
