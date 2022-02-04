@@ -158,14 +158,14 @@ const Plans = () => {
                         aria-label="basic tabs example"
                     >
                         <Tab
-                            icon={<SignalCellularAltIcon />}
-                            iconPosition="start"
-                            label="Wireless"
-                        />
-                        <Tab
                             icon={<NetworkCheckIcon />}
                             iconPosition="start"
                             label="Fios Internet"
+                        />
+                        <Tab
+                            icon={<SignalCellularAltIcon />}
+                            iconPosition="start"
+                            label="Wireless"
                         />
                         <Tab
                             icon={<LiveTvIcon />}
@@ -174,7 +174,7 @@ const Plans = () => {
                         />
                     </Tabs>
                 </Box>
-                <TabPanel value={value} index={0}>
+                <TabPanel value={value} index={1}>
                     <div>
                         <div>
                             <h2
@@ -686,7 +686,7 @@ const Plans = () => {
                         </div>
                     </div>
                 </TabPanel>
-                <TabPanel value={value} index={1}>
+                <TabPanel value={value} index={0}>
                     {/* INTERNET INFO */}
                     <div>
                         <h2
