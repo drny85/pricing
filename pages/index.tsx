@@ -1020,6 +1020,30 @@ const Plans = () => {
                                 />
                             ))}
                         </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                padding: '2rem',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <h2>Fios Tv Plans</h2>
+                            <p style={{ padding: '1rem', fontSize: '1.2rem' }}>
+                                Pick the package that works for you. And with no
+                                surcharges, broadcast, regional sports network
+                                fees, the price is the price.
+                            </p>
+                            <img
+                                style={{
+                                    width: '200px',
+                                    height: '100px',
+                                    aspectRatio: 'auto',
+                                }}
+                                src="https://ss7.vzw.com/is/image/VerizonWireless/fios-mixnmatch-200-062221-d?scl=1&extend=300,135,300,135&&bgc=f6f6f6"
+                            />
+                        </div>
                     </div>
                 </TabPanel>
             </div>
