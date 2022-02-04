@@ -20,8 +20,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
             style={{
                 backgroundColor: theme.BACKGROUND_COLOR,
                 display: 'flex',
-                width: '100vw',
-                height: '100vh',
+                
                 maxWidth: '1440px',
                 margin: '0 auto',
             }}

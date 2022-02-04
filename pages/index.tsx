@@ -1,4 +1,12 @@
-import { Button, ButtonGroup, Switch } from '@mui/material';
+import {
+    Button,
+    ButtonGroup,
+    Switch,
+    Box,
+    Tabs,
+    Tab,
+    Typography,
+} from '@mui/material';
 import Head from 'next/head';
 import MainContainer from '../components/MainContainer';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
@@ -23,10 +31,32 @@ import {
 import PlanCard from '../components/PlanCard';
 import plansDetails from '../plansDetails';
 
-import { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+
+interface Props {
+    children: React.ReactChild;
+    value: number;
+    index: number;
+    others?: any;
+}
+
+const TabPanel: FC<Props> = ({ children, others, value, index }) => {
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...others}
+        >
+            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+        </div>
+    );
+};
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
+    const [value, setValue] = useState(0);
     const {
         currentFios,
         mobilePlusHomeDiscountAmount,
@@ -40,6 +70,10 @@ const Plans = () => {
     } = useAppSelector((state) => state.data);
     const theme = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
+
+    const handleChange = (event: any, newValue: number) => {
+        setValue(newValue);
+    };
 
     useEffect(() => {
         dispatch(
@@ -61,7 +95,7 @@ const Plans = () => {
             </Head>
             <div
                 style={{
-                    margin: '0 auto',
+                    margin: '12px auto',
                     display: 'flex',
                     width: '100%',
                     height: '100%',
@@ -70,7 +104,7 @@ const Plans = () => {
                     padding: '0px 20px',
                 }}
             >
-                <div
+                {/* <div
                     style={{ position: 'absolute', top: '20px', right: '20px' }}
                 >
                     <h3
@@ -81,7 +115,28 @@ const Plans = () => {
                     >
                         Note: This pricing are good only through 02/28/22
                     </h3>
-                </div>
+                </div> */}
+                {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    
+                    <Tabs
+                    
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="basic tabs example"
+                    >
+                        <Tab label="Wireless" />
+                        <Tab label="Fios Internet" />
+                    </Tabs>
+                  
+                   
+                </Box>
+                <TabPanel value={value} index={0}>
+                    <div>hello</div>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    Item Two
+                </TabPanel> */}
+
                 <div>
                     <h2
                         style={{ textAlign: 'center', marginBottom: '1rem' }}
@@ -396,6 +451,7 @@ const Plans = () => {
                                 width: '100%',
                                 margin: '0 auto',
                                 justifyContent: 'center',
+                               
                             }}
                         >
                             {plansDetails.map((plan) => (
