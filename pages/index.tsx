@@ -1482,7 +1482,7 @@ const Plans = () => {
                                             <p
                                                 style={{
                                                     padding: '5px 0px',
-                                                    fontSize: '1.3rem',
+                                                    fontSize: '1.8rem',
                                                     fontWeight: 'bold',
                                                     textDecoration: 'underline',
                                                     textDecorationStyle:
@@ -1516,8 +1516,10 @@ const Plans = () => {
                                                 style={{
                                                     fontStyle: 'italic',
                                                     fontWeight: 'bold',
-                                                    fontSize: '2rem',
+                                                    fontSize: '1.6rem',
                                                     padding: '8px',
+                                                    textAlign: 'right',
+                                                    color: theme.DANGER,
                                                 }}
                                             >
                                                 Total Saving: $

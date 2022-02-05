@@ -20,7 +20,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
             style={{
                 backgroundColor: theme.BACKGROUND_COLOR,
                 display: 'flex',
-                
+
                 maxWidth: '1440px',
                 margin: '0 auto',
             }}
@@ -37,7 +37,8 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                 }
                 style={{
                     position: 'absolute',
-                    right: '30px',
+
+                    left: '30px',
                     bottom: '30px',
                     backgroundColor: theme.TEXT_COLOR,
                 }}

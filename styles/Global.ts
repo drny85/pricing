@@ -25,7 +25,7 @@ a {
     text-decoration:none;
     color: ${({ theme }) => theme.TEXT_COLOR}
 }
-p, h1, h2, h3, h4, h5, h6, span {
+p, h1, h2, h3, h4, h5, h6, span , i, b{
     color: ${({ theme }) => theme.TEXT_COLOR}
 }
 .container {
