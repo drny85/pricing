@@ -3,12 +3,21 @@ import { FC } from 'react';
 
 interface Props {
     onChange: () => void;
-    value: string | boolean;
+    value: string | boolean | number;
     checked: boolean;
     text: string;
+    savingText?: string | number;
+    saving?: boolean;
 }
 
-const Switcher: FC<Props> = ({ onChange, value, checked, text }) => {
+const Switcher: FC<Props> = ({
+    onChange,
+    value,
+    checked,
+    text,
+    saving,
+    savingText,
+}) => {
     return (
         <div
             style={{
@@ -27,6 +36,16 @@ const Switcher: FC<Props> = ({ onChange, value, checked, text }) => {
             </p>
 
             <Switch onChange={onChange} value={value} checked={checked} />
+            {checked && saving && (
+                <span
+                    style={{
+                        textDecoration: 'underline',
+                        fontSize: '1.2rem',
+                    }}
+                >
+                    ${savingText} saving
+                </span>
+            )}
         </div>
     );
 };

@@ -66,7 +66,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
     return (
         <Card
             style={{
-                backgroundColor: theme.BACKGROUND_COLOR,
+                backgroundColor: theme.CARD_BACKGROUND,
                 minWidth: '12rem',
                 width: '100%',
             }}

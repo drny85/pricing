@@ -20,7 +20,7 @@ export const darkTheme: DefaultTheme = {
     BACKGROUND_COLOR: '#212529',
     TEXT_COLOR: '#ffffff',
     DANGER: '#e07a5f',
-    CARD_BACKGROUND: '#a5a58d',
+    CARD_BACKGROUND: '#006466',
     DONE_COLOR: '#023e8a',
     BUTTON_TEXT_COLOR: '#ffffff',
     PRIMARY_BUTTON_COLOR: '#ffffff',

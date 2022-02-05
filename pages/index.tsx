@@ -18,6 +18,7 @@ import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AnimatedNumber from 'animated-number-react';
 
 import {
     decreaseLine,
@@ -50,12 +51,29 @@ import FiosCard from '../components/FiosCard';
 import TvCard from '../components/TvCard';
 import tvPlans from '../tvPlans';
 import Switcher from '../components/Switcher';
+import {
+    setExpressAutoPay,
+    setExpressFirstResponder,
+    setExpressHasFios,
+    setExpressInternet,
+    setExpressReset,
+    setExpressWithin30Days,
+} from '../redux/wirelessSlide';
+import PlanLine from '../components/PlanLine';
+import { firstResponderDiscount } from '../utils/firstResponderDiscount';
+import { mobilePlusHomeRewards } from '../utils/mobilePlusHomeRewards';
 
 interface Props {
     children: React.ReactChild;
     value: number;
     index: number;
     others?: any;
+}
+enum PlanId {
+    start = 'start',
+    play_more = 'play_more',
+    do_more = 'do_more',
+    get_more = 'get_more',
 }
 
 const TabPanel: FC<Props> = ({ children, others, value, index }) => {
@@ -74,10 +92,15 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
+    const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
+    const [start, setStart] = useState(0);
+    const [playMore, setPlayMore] = useState(0);
+    const [doMore, setDoMore] = useState(0);
+    const [getMore, setGetMore] = useState(0);
+    const [jk, setJk] = useState(0);
     const {
         currentFios,
-        mobilePlusHomeDiscountAmount,
         isFirstResponder,
         internet,
         numberOfLines,
@@ -87,7 +110,6 @@ const Plans = () => {
         auto_pay,
     } = useAppSelector((state) => state.data);
     const {
-        wirelessDiscount,
         hasWireless,
         isFiosFirstResponder,
         fiosPrice,
@@ -95,11 +117,173 @@ const Plans = () => {
         isUnlimited,
         wirelessWithin30Days,
     } = useAppSelector((state) => state.fiosData);
+    const {
+        expressAutoPay,
+        expressFirstResponder,
+        expressHasFios,
+        expressInternet,
+        expressWhithin30Days,
+        expressBonus,
+    } = useAppSelector((state) => state.wireless);
     const theme = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
 
     const handleChange = (event: any, newValue: number) => {
         setValue(newValue);
+    };
+    const activationFee = (lines: number, amount: number = 35) => {
+        return lines * amount;
+    };
+
+    const autoPayDiscount = (lines: number, amount: number) => {
+        return lines * amount;
+    };
+
+    const plans = [
+        {
+            id: 'start',
+            name: '5G Start',
+            line: start,
+            price:
+                lines === 1
+                    ? 80 - expressAutoPay
+                    : lines === 2
+                    ? 70 - expressAutoPay
+                    : lines === 3
+                    ? 55 - expressAutoPay
+                    : lines === 4
+                    ? 45 - expressAutoPay
+                    : lines >= 5
+                    ? 40 - expressAutoPay
+                    : 0,
+        },
+        {
+            id: 'play_more',
+            name: '5G Play More',
+            line: playMore,
+            price:
+                lines === 1
+                    ? 90 - expressAutoPay
+                    : lines === 2
+                    ? 80 - expressAutoPay
+                    : lines === 3
+                    ? 65 - expressAutoPay
+                    : lines === 4
+                    ? 55 - expressAutoPay
+                    : lines >= 5
+                    ? 50 - expressAutoPay
+                    : 0,
+        },
+        {
+            id: 'do_more',
+            name: '5G Do More',
+            line: doMore,
+            price:
+                lines === 1
+                    ? 90 - expressAutoPay
+                    : lines === 2
+                    ? 80 - expressAutoPay
+                    : lines === 3
+                    ? 65 - expressAutoPay
+                    : lines === 4
+                    ? 55 - expressAutoPay
+                    : lines >= 5
+                    ? 50 - expressAutoPay
+                    : 0,
+        },
+        {
+            id: 'get_more',
+            name: '5G Get More',
+            line: getMore,
+            price:
+                lines === 1
+                    ? 100 - expressAutoPay
+                    : lines === 2
+                    ? 90 - expressAutoPay
+                    : lines === 3
+                    ? 75 - expressAutoPay
+                    : lines === 4
+                    ? 65 - expressAutoPay
+                    : lines >= 5
+                    ? 60 - expressAutoPay
+                    : 0,
+        },
+    ];
+    const calculateGrandTotal = (lines: number, isFirst: boolean) => {
+        const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
+        return total - firstResponderDiscount(lines, isFirst);
+    };
+
+    const calculatePriceByLineMinus = (plan_id: PlanId) => {
+        switch (plan_id) {
+            case 'start':
+                if (start > 0) {
+                    setLines((prev) => prev - 1);
+                    setStart((prev) => prev - 1);
+                }
+                break;
+            case 'play_more':
+                if (playMore > 0) {
+                    setLines((prev) => prev - 1);
+                    setPlayMore((prev) => prev - 1);
+                }
+                break;
+            case 'do_more':
+                if (doMore > 0) {
+                    setLines((prev) => prev - 1);
+                    setDoMore((prev) => prev - 1);
+                }
+                break;
+            case 'get_more':
+                if (getMore > 0) {
+                    setLines((prev) => prev - 1);
+                    setGetMore((prev) => prev - 1);
+                }
+                break;
+            default:
+                break;
+        }
+    };
+    const calculatePriceByLinePlus = (plan_id: PlanId) => {
+        switch (plan_id) {
+            case 'start':
+                if (start < 10) {
+                    setStart((prev) => prev + 1);
+                    setLines((prev) => prev + 1);
+                }
+                break;
+            case 'play_more':
+                if (playMore < 10) {
+                    setPlayMore((prev) => prev + 1);
+                    setLines((prev) => prev + 1);
+                }
+                break;
+            case 'do_more':
+                if (doMore < 10) {
+                    setDoMore((prev) => prev + 1);
+                    setLines((prev) => prev + 1);
+                }
+                break;
+            case 'get_more':
+                if (getMore < 10) {
+                    setGetMore((prev) => prev + 1);
+                    setLines((prev) => prev + 1);
+                }
+                break;
+            default:
+                break;
+        }
+    };
+    const calculateTotalPriceBeforeTaxes = () => {
+        return plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
+    };
+
+    const resetAll = () => {
+        setPlayMore(0);
+        setDoMore(0);
+        setStart(0);
+        setGetMore(0);
+        setLines(0);
     };
 
     useEffect(() => {
@@ -131,18 +315,6 @@ const Plans = () => {
                     padding: '0px 20px',
                 }}
             >
-                {/* <div
-                    style={{ position: 'absolute', top: '20px', right: '20px' }}
-                >
-                    <h3
-                        style={{
-                            textDecoration: 'underline',
-                            fontStyle: 'italic',
-                        }}
-                    >
-                        Note: This pricing are good only through 02/28/22
-                    </h3>
-                </div> */}
                 <Box
                     alignItems="center"
                     width="100%"
@@ -196,115 +368,80 @@ const Plans = () => {
                                     display: 'flex',
                                     flex: 1,
                                     borderRadius: '15px',
-                                    backgroundColor: theme.SHADOW_COLOR,
+                                    backgroundColor: theme.CARD_BACKGROUND,
                                     overflow: 'hidden',
+                                    minHeight: '3.5rem',
                                 }}
                             >
                                 <div
                                     style={{
                                         flex: '0.5',
                                         display: 'flex',
-                                        justifyContent: 'center',
+                                        justifyContent: 'space-evenly',
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            padding: '12px',
-                                        }}
-                                    >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Auto Pay
-                                        </p>
-                                        <Switch
-                                            onChange={(e) =>
-                                                dispatch(
-                                                    setAutoPay(
-                                                        auto_pay === 0 ? 10 : 0
-                                                    )
+                                    <Switcher
+                                        value={auto_pay}
+                                        checked={auto_pay === 10}
+                                        text="Auto Pay"
+                                        saving={auto_pay !== 0}
+                                        savingText={(
+                                            auto_pay * numberOfLines
+                                        ).toString()}
+                                        onChange={() =>
+                                            dispatch(
+                                                setAutoPay(
+                                                    auto_pay === 0 ? 10 : 0
                                                 )
-                                            }
-                                            value={auto_pay}
-                                            checked={auto_pay === 10}
-                                        />
-                                        {auto_pay === 10 && (
-                                            <span
-                                                style={{
-                                                    textDecoration: 'underline',
-                                                    fontSize: '1.2rem',
-                                                }}
-                                            >
-                                                ${numberOfLines * 10} saving
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            padding: '12px',
-                                        }}
-                                    >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Is First Responder
-                                        </p>
-                                        <Switch
-                                            onChange={(e) =>
-                                                dispatch(
-                                                    setIsFirstResponder(
-                                                        !isFirstResponder
-                                                    )
+                                            )
+                                        }
+                                    />
+                                    <Switcher
+                                        value={isFirstResponder}
+                                        text="Is First Responder"
+                                        checked={isFirstResponder}
+                                        saving={isFirstResponder}
+                                        savingText={
+                                            numberOfLines === 1
+                                                ? 10
+                                                : numberOfLines === 2
+                                                ? 25
+                                                : numberOfLines === 3
+                                                ? 25
+                                                : 20
+                                        }
+                                        onChange={() =>
+                                            dispatch(
+                                                setIsFirstResponder(
+                                                    !isFirstResponder
                                                 )
-                                            }
-                                            value={isFirstResponder}
-                                            checked={isFirstResponder}
-                                        />
-                                        {isFirstResponder && (
-                                            <span
-                                                style={{
-                                                    textDecoration: 'underline',
-                                                    fontSize: '1.2rem',
-                                                }}
-                                            >
-                                                $
-                                                {numberOfLines === 1
-                                                    ? 10
-                                                    : numberOfLines === 2
-                                                    ? 25
-                                                    : numberOfLines === 3
-                                                    ? 25
-                                                    : 20}{' '}
-                                                saving
-                                            </span>
-                                        )}
-                                    </div>
+                                            )
+                                        }
+                                    />
                                 </div>
 
                                 <div
                                     style={{
                                         flex: '0.5',
                                         display: 'flex',
-                                        justifyContent: 'center',
+                                        justifyContent: 'space-evenly',
                                         alignItems: 'center',
                                     }}
                                 >
                                     <div
                                         style={{
                                             display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            padding: '12px',
+                                            flexDirection: 'column',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'self-start',
                                         }}
                                     >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Has Fios Internet?
-                                        </p>
-                                        <Switch
-                                            onChange={(e) => {
+                                        <Switcher
+                                            value={currentFios!}
+                                            text="Has Fios Internet"
+                                            checked={currentFios!}
+                                            onChange={() => {
                                                 const res = dispatch(
                                                     setCurrentFiosCustomer(
                                                         !currentFios
@@ -317,142 +454,60 @@ const Plans = () => {
                                                     dispatch(setDiscount(0));
                                                 }
                                             }}
-                                            value={currentFios}
-                                            checked={currentFios}
                                         />
+                                        {currentFios && (
+                                            <Switcher
+                                                value={within30Days}
+                                                saving={discount > 0}
+                                                savingText={discount}
+                                                checked={within30Days}
+                                                text={`Signed up after ${moment()
+                                                    .subtract(30, 'days')
+                                                    .format('ll')}`}
+                                                onChange={() =>
+                                                    dispatch(
+                                                        setWithin30Days(
+                                                            !within30Days
+                                                        )
+                                                    )
+                                                }
+                                            />
+                                        )}
                                     </div>
+
                                     {currentFios && (
                                         <div
                                             style={{
                                                 display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                padding: '2px',
                                                 flexDirection: 'column',
+                                                alignItems: 'flex-end',
+                                                justifyContent: 'flex-end',
                                             }}
                                         >
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    Signed up after{' '}
-                                                    {moment()
-                                                        .subtract(30, 'day')
-                                                        .format('ll')}
-                                                    ?
-                                                </p>
-
-                                                <Switch
-                                                    onChange={(e) =>
-                                                        dispatch(
-                                                            setWithin30Days(
-                                                                !within30Days
-                                                            )
-                                                        )
-                                                    }
-                                                    value={within30Days}
-                                                    checked={within30Days}
-                                                />
-                                            </div>
-                                            {discount > 0 && (
-                                                <p
-                                                    style={{
-                                                        textDecoration:
-                                                            'underline',
-                                                        fontSize: '1.2rem',
-                                                    }}
-                                                >
-                                                    Saving ${discount}
-                                                </p>
-                                            )}
-                                        </div>
-                                    )}
-                                    {currentFios && (
-                                        <div>
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    padding: '2px',
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    200 or 300 Mbps
-                                                </p>
-                                                <Switch
-                                                    onChange={(e) =>
-                                                        dispatch(
-                                                            setInternet('200')
-                                                        )
-                                                    }
-                                                    value={'200'}
-                                                    checked={internet === '200'}
-                                                />
-                                            </div>
-
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    padding: '4px',
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    400 or 500 Mbps
-                                                </p>
-                                                <Switch
-                                                    onChange={(e) =>
-                                                        dispatch(
-                                                            setInternet('400')
-                                                        )
-                                                    }
-                                                    value={'400'}
-                                                    checked={internet === '400'}
-                                                />
-                                            </div>
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    padding: '2px',
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    Gigabit Up to 940
-                                                </p>
-                                                <Switch
-                                                    onChange={(e) =>
-                                                        dispatch(
-                                                            setInternet('gig')
-                                                        )
-                                                    }
-                                                    value={'gig'}
-                                                    checked={internet === 'gig'}
-                                                />
-                                            </div>
+                                            <Switcher
+                                                value={'200'}
+                                                text="200 or 300 Mbps"
+                                                checked={internet === '200'}
+                                                onChange={() =>
+                                                    dispatch(setInternet('200'))
+                                                }
+                                            />
+                                            <Switcher
+                                                value={'400'}
+                                                text="400 or 500 Mbps"
+                                                checked={internet === '400'}
+                                                onChange={() =>
+                                                    dispatch(setInternet('400'))
+                                                }
+                                            />
+                                            <Switcher
+                                                value={'gig'}
+                                                text="Up to 940/880 Mbps"
+                                                checked={internet === 'gig'}
+                                                onChange={() =>
+                                                    dispatch(setInternet('gig'))
+                                                }
+                                            />
                                         </div>
                                     )}
                                 </div>
@@ -706,8 +761,10 @@ const Plans = () => {
                                 display: 'flex',
                                 flex: 1,
                                 borderRadius: '15px',
-                                backgroundColor: theme.SHADOW_COLOR,
+                                backgroundColor: theme.CARD_BACKGROUND,
                                 overflow: 'hidden',
+                                marginBottom: '12px',
+                                padding: '12px 2px',
                             }}
                         >
                             <div
@@ -723,163 +780,90 @@ const Plans = () => {
                                     style={{
                                         display: 'flex',
                                         justifyContent: 'center',
-
+                                        alignItems: 'flex-start',
                                         flexDirection: 'column',
+                                        paddingLeft: '12px',
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-
-                                            padding: '12px',
-                                        }}
-                                    >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Auto Pay
-                                        </p>
-                                        <Switch
-                                            onChange={(e) =>
-                                                dispatch(
-                                                    setFiosAutoPay(
-                                                        fiosAutoPay === 0
-                                                            ? 10
-                                                            : 0
-                                                    )
+                                    <Switcher
+                                        value={fiosAutoPay}
+                                        checked={fiosAutoPay === 10}
+                                        text={'Auto Pay'}
+                                        saving={fiosAutoPay === 10}
+                                        savingText={10}
+                                        onChange={() =>
+                                            dispatch(
+                                                setFiosAutoPay(
+                                                    fiosAutoPay === 0 ? 10 : 0
                                                 )
-                                            }
-                                            value={fiosAutoPay}
-                                            checked={fiosAutoPay === 10}
-                                        />
-                                        {fiosAutoPay === 10 && (
-                                            <span
-                                                style={{
-                                                    textDecoration: 'underline',
-                                                    fontSize: '1.2rem',
-                                                }}
-                                            >
-                                                $10 saving
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-
-                                            padding: '12px',
-                                        }}
-                                    >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Is First Responder
-                                        </p>
-                                        <Switch
-                                            onChange={(e) =>
-                                                dispatch(
-                                                    setFiosFirstResponder(
-                                                        !isFiosFirstResponder
-                                                    )
+                                            )
+                                        }
+                                    />
+                                    <Switcher
+                                        value={isFiosFirstResponder}
+                                        checked={isFiosFirstResponder}
+                                        text={'Is First Responder'}
+                                        onChange={() =>
+                                            dispatch(
+                                                setFiosFirstResponder(
+                                                    !isFiosFirstResponder
                                                 )
-                                            }
-                                            value={isFiosFirstResponder}
-                                            checked={isFiosFirstResponder}
-                                        />
-                                        {isFiosFirstResponder && (
-                                            <span
-                                                style={{
-                                                    textDecoration: 'underline',
-                                                    fontSize: '1rem',
-                                                }}
-                                            >
-                                                Up to $15 saving
-                                            </span>
-                                        )}
-                                    </div>
+                                            )
+                                        }
+                                        saving={isFiosFirstResponder}
+                                        savingText={'Up to $15'}
+                                    />
                                 </div>
                             </div>
                             <div
                                 style={{
                                     flex: '0.5',
                                     display: 'flex',
-                                    flexDirection: 'column',
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
                                 }}
                             >
                                 <div
                                     style={{
                                         display: 'flex',
                                         justifyContent: 'center',
-                                        alignItems: 'center',
+                                        alignItems: 'flex-start',
+                                        flexDirection: 'column',
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            padding: '12px',
-                                        }}
-                                    >
-                                        <p style={{ fontWeight: 'bold' }}>
-                                            Has Verizon Wireless?
-                                        </p>
-                                        <Switch
-                                            onChange={(e) => {
-                                                const res = dispatch(
-                                                    setHasWireless(!hasWireless)
-                                                );
-                                            }}
-                                            value={hasWireless}
-                                            checked={hasWireless}
-                                        />
-                                    </div>
+                                    <Switcher
+                                        value={hasWireless}
+                                        text="Has Verizon Wireless?"
+                                        checked={hasWireless}
+                                        onChange={() =>
+                                            dispatch(
+                                                setHasWireless(!hasWireless)
+                                            )
+                                        }
+                                    />
+
                                     {hasWireless && (
                                         <div
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                justifyContent: 'center',
+                                                justifyContent: 'space-evenly',
                                                 padding: '2px',
                                                 flexDirection: 'column',
                                             }}
                                         >
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    Unlimited Data?
-                                                </p>
-
-                                                <Switch
-                                                    onChange={(e) =>
-                                                        dispatch(
-                                                            setIsUnlimited(
-                                                                !isUnlimited
-                                                            )
+                                            <Switcher
+                                                value={isUnlimited}
+                                                text="Unlimited Data Plan?"
+                                                checked={isUnlimited}
+                                                onChange={() => {
+                                                    dispatch(
+                                                        setIsUnlimited(
+                                                            !isUnlimited
                                                         )
-                                                    }
-                                                    value={isUnlimited}
-                                                    checked={isUnlimited}
-                                                />
-                                            </div>
-                                            {wirelessDiscount > 0 && (
-                                                <p
-                                                    style={{
-                                                        textDecoration:
-                                                            'underline',
-                                                        fontSize: '1.2rem',
-                                                    }}
-                                                >
-                                                    Saving ${wirelessDiscount}
-                                                </p>
-                                            )}
+                                                    );
+                                                }}
+                                            />
                                         </div>
                                     )}
                                 </div>
@@ -1055,6 +1039,7 @@ const Plans = () => {
                             display: 'flex',
                             width: '100%',
                             height: '100%',
+                            flexDirection: 'column',
                         }}
                     >
                         <div
@@ -1062,15 +1047,517 @@ const Plans = () => {
                                 display: 'flex',
                                 justifyContent: 'space-evenly',
                                 padding: '1rem',
+                                boxShadow: '6px 6px 10px 3px rgba(0,0,0,0.121)',
+                                borderRadius: '15px',
+                                backgroundColor: theme.CARD_BACKGROUND,
                             }}
                         >
                             <Switcher
                                 text="Auto Pay"
-                                value={true}
-                                checked={true}
-                                onChange={() => {}}
+                                value={expressAutoPay}
+                                checked={expressAutoPay === 10}
+                                saving={auto_pay === 10}
+                                savingText={auto_pay * lines}
+                                onChange={() =>
+                                    dispatch(
+                                        setExpressAutoPay(
+                                            expressAutoPay === 0 ? 10 : 0
+                                        )
+                                    )
+                                }
                             />
+                            <Switcher
+                                text="Is First Responder"
+                                value={expressFirstResponder}
+                                checked={expressFirstResponder}
+                                saving={expressFirstResponder}
+                                savingText={firstResponderDiscount(
+                                    lines,
+                                    expressFirstResponder
+                                )}
+                                onChange={() => {
+                                    dispatch(
+                                        setExpressFirstResponder(
+                                            !expressFirstResponder
+                                        )
+                                    );
+                                }}
+                            />
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Switcher
+                                    text="Has Fios Internet"
+                                    value={expressHasFios}
+                                    checked={expressHasFios}
+                                    onChange={() => {
+                                        dispatch(
+                                            setExpressHasFios(!expressHasFios)
+                                        );
+                                        dispatch(setExpressInternet(undefined));
+                                    }}
+                                />
+                                {expressHasFios && (
+                                    <Switcher
+                                        value={expressWhithin30Days}
+                                        checked={expressWhithin30Days}
+                                        onChange={() =>
+                                            dispatch(
+                                                setExpressWithin30Days(
+                                                    !expressWhithin30Days
+                                                )
+                                            )
+                                        }
+                                        text={`Signed for Internet after ${moment()
+                                            .subtract(30, 'days')
+                                            .format('ll')}`}
+                                    />
+                                )}
+                                {expressHasFios &&
+                                    expressInternet !== undefined &&
+                                    lines > 0 && (
+                                        <p
+                                            style={{
+                                                fontStyle: 'italic',
+                                                textDecoration: 'underline',
+                                                fontSize: '1.2rem',
+                                            }}
+                                        >
+                                            $
+                                            {mobilePlusHomeRewards(
+                                                lines,
+                                                expressHasFios,
+                                                expressWhithin30Days,
+                                                expressBonus,
+                                                expressInternet!
+                                            )}{' '}
+                                            saving
+                                        </p>
+                                    )}
+                            </div>
+
+                            {expressHasFios && (
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'flex-end',
+                                        justifyContent: 'flex-end',
+                                    }}
+                                >
+                                    <Switcher
+                                        value={'200'}
+                                        text="200 or 300 Mbps"
+                                        checked={expressInternet === '200'}
+                                        onChange={() =>
+                                            dispatch(setExpressInternet('200'))
+                                        }
+                                    />
+                                    <Switcher
+                                        value={'400'}
+                                        text="400 or 500 Mbps"
+                                        checked={expressInternet === '400'}
+                                        onChange={() =>
+                                            dispatch(setExpressInternet('400'))
+                                        }
+                                    />
+                                    <Switcher
+                                        value={'gig'}
+                                        text="Up to 940/880 Mbps"
+                                        checked={expressInternet === 'gig'}
+                                        onChange={() =>
+                                            dispatch(setExpressInternet('gig'))
+                                        }
+                                    />
+                                </div>
+                            )}
                         </div>
+                        {/* WIRELESS LINES CONTAINER */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: '10px',
+                                boxShadow: '6px 6px 10px 3px rgba(0,0,0,0.121)',
+                                borderRadius: '35px',
+                                alignSelf: 'center',
+                                width: 'fit-content',
+                                margin: '10px',
+                            }}
+                        >
+                            <h4>Number of Lines {lines}</h4>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                padding: '1rem',
+                                backgroundColor: theme.CARD_BACKGROUND,
+                                borderRadius: '10px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                }}
+                            >
+                                {plans.map((p) => (
+                                    <PlanLine
+                                        key={p.id}
+                                        price={p.price}
+                                        lines={p.line}
+                                        onAdd={() => {
+                                            if (lines < 10) {
+                                                calculatePriceByLinePlus(
+                                                    p.id as PlanId
+                                                );
+                                            }
+                                        }}
+                                        onRemove={() => {
+                                            if (lines > 0) {
+                                                calculatePriceByLineMinus(
+                                                    p.id as PlanId
+                                                );
+                                            }
+                                        }}
+                                        planName={p.name}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                        {lines > 0 && (
+                            <div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        padding: '12px',
+                                        width: '100%',
+                                        alignItems: 'flex-end',
+                                        justifyContent: 'center',
+                                        flexDirection: 'column',
+                                        boxShadow:
+                                            '6px 6px 10px 3px rgba(0,0,0,0.121)',
+                                        borderRadius: '35px',
+                                        margin: '15px 0px',
+                                    }}
+                                >
+                                    <h4
+                                        style={{
+                                            textAlign: 'center',
+                                            padding: '5px 12px',
+                                            textDecoration: 'underline',
+                                        }}
+                                    >
+                                        Price Before Discount / No Auto Pay /
+                                        First Bill
+                                    </h4>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-end',
+                                            padding: '12px',
+                                        }}
+                                    >
+                                        <p style={{ padding: '5px 0px' }}>
+                                            Sub Total:{' '}
+                                            <b>
+                                                ${' '}
+                                                <AnimatedNumber
+                                                    duration={300}
+                                                    formatValue={(n: number) =>
+                                                        n.toFixed(0)
+                                                    }
+                                                    value={calculateTotalPriceBeforeTaxes()}
+                                                />
+                                            </b>
+                                        </p>
+                                        <p style={{ padding: '5px 0px' }}>
+                                            Activation Fee ({lines}{' '}
+                                            <i>
+                                                {lines > 1 ? 'lines' : 'line'}):{' '}
+                                            </i>
+                                            <b>
+                                                $
+                                                <AnimatedNumber
+                                                    duration={300}
+                                                    formatValue={(n: number) =>
+                                                        n.toFixed(0)
+                                                    }
+                                                    value={lines * 35}
+                                                />
+                                            </b>
+                                        </p>
+                                        <p
+                                            style={{
+                                                padding: '5px 0px',
+                                                fontSize: '1.3rem',
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            Total before taxes:{' '}
+                                            <b>
+                                                $
+                                                <AnimatedNumber
+                                                    duration={300}
+                                                    formatValue={(n: number) =>
+                                                        n.toFixed(0)
+                                                    }
+                                                    value={
+                                                        calculateTotalPriceBeforeTaxes() +
+                                                        activationFee(lines) +
+                                                        autoPayDiscount(
+                                                            lines,
+                                                            expressAutoPay ===
+                                                                10
+                                                                ? 10
+                                                                : 0
+                                                        )
+                                                    }
+                                                />
+                                            </b>
+                                        </p>
+                                        <i>
+                                            Note: this price above does not
+                                            reflect any device payment
+                                            agreement. Auto pay discount might
+                                            not be applied within the first
+                                            month
+                                        </i>
+                                    </div>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        padding: '12px',
+                                        width: '100%',
+                                        flex: 1,
+                                        alignItems: 'flex-end',
+                                        justifyContent: 'space-between',
+                                        boxShadow:
+                                            '6px 6px 10px 3px rgba(0,0,0,0.121)',
+                                        borderRadius: '35px',
+                                    }}
+                                >
+                                    <div
+                                        onClick={() => {
+                                            resetAll();
+                                            dispatch(setExpressReset());
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+
+                                            height: '100%',
+                                            flex: 0.3,
+                                            marginBottom: '20px',
+                                            color: '#3d5bad',
+                                            fontWeight: 'bold',
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        Start Over
+                                    </div>
+                                    <div
+                                        style={{
+                                            flex: 0.7,
+                                            justifyContent: 'flex-end',
+                                        }}
+                                    >
+                                        <h4
+                                            style={{
+                                                textAlign: 'end',
+                                                padding: '5px 12px',
+                                                textDecoration: 'underline',
+                                            }}
+                                        >
+                                            Price after Discount / Second or
+                                            Third Bill
+                                        </h4>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'flex-end',
+                                                padding: '12px',
+                                            }}
+                                        >
+                                            <p style={{ padding: '5px 0px' }}>
+                                                Sub Total:{' '}
+                                                <b>
+                                                    ${' '}
+                                                    <AnimatedNumber
+                                                        duration={300}
+                                                        formatValue={(
+                                                            n: number
+                                                        ) => n.toFixed(0)}
+                                                        value={calculateTotalPriceBeforeTaxes()}
+                                                    />
+                                                </b>
+                                            </p>
+                                            {expressAutoPay === 10 && (
+                                                <p
+                                                    style={{
+                                                        padding: '5px 0px',
+                                                    }}
+                                                >
+                                                    Auto Pay Discount ({lines}{' '}
+                                                    <i>
+                                                        {lines > 1
+                                                            ? 'lines'
+                                                            : 'line'}
+                                                        ):{' '}
+                                                    </i>
+                                                    <b style={{ color: 'red' }}>
+                                                        -$
+                                                        {autoPayDiscount(
+                                                            lines,
+                                                            expressAutoPay ===
+                                                                10
+                                                                ? 10
+                                                                : 0
+                                                        )}
+                                                    </b>
+                                                </p>
+                                            )}
+                                            {expressFirstResponder && (
+                                                <p
+                                                    style={{
+                                                        padding: '5px 0px',
+                                                    }}
+                                                >
+                                                    First Responder Discount (
+                                                    {lines}{' '}
+                                                    {lines > 1
+                                                        ? 'lines'
+                                                        : 'line'}
+                                                    ):
+                                                    <b style={{ color: 'red' }}>
+                                                        -$
+                                                        {firstResponderDiscount(
+                                                            lines,
+                                                            expressFirstResponder
+                                                        )}
+                                                    </b>
+                                                </p>
+                                            )}
+
+                                            {expressInternet &&
+                                                lines > 0 &&
+                                                expressInternet !==
+                                                    undefined && (
+                                                    <p
+                                                        style={{
+                                                            padding: '5px 0px',
+                                                        }}
+                                                    >
+                                                        Mobile + Home Rewards
+                                                        Discount:
+                                                        <b
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            -$
+                                                            {mobilePlusHomeRewards(
+                                                                lines,
+                                                                expressHasFios,
+                                                                expressWhithin30Days,
+                                                                expressBonus,
+                                                                expressInternet!
+                                                            )}
+                                                        </b>
+                                                    </p>
+                                                )}
+
+                                            <p
+                                                style={{
+                                                    padding: '5px 0px',
+                                                    fontSize: '1.3rem',
+                                                    fontWeight: 'bold',
+                                                    textDecoration: 'underline',
+                                                    textDecorationStyle:
+                                                        'double',
+                                                }}
+                                            >
+                                                Total before taxes: ${' '}
+                                                <b>
+                                                    <AnimatedNumber
+                                                        duration={300}
+                                                        formatValue={(
+                                                            n: number
+                                                        ) => n.toFixed(0)}
+                                                        value={
+                                                            calculateGrandTotal(
+                                                                lines,
+                                                                expressFirstResponder
+                                                            ) -
+                                                            mobilePlusHomeRewards(
+                                                                lines,
+                                                                expressHasFios,
+                                                                expressWhithin30Days,
+                                                                expressBonus,
+                                                                expressInternet!
+                                                            )
+                                                        }
+                                                    />
+                                                </b>
+                                            </p>
+                                            <p
+                                                style={{
+                                                    fontStyle: 'italic',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '2rem',
+                                                    padding: '8px',
+                                                }}
+                                            >
+                                                Total Saving: $
+                                                <AnimatedNumber
+                                                    duration={300}
+                                                    formatValue={(n: number) =>
+                                                        n.toFixed(0)
+                                                    }
+                                                    value={
+                                                        autoPayDiscount(
+                                                            lines,
+                                                            expressAutoPay ===
+                                                                10
+                                                                ? 10
+                                                                : 0
+                                                        ) +
+                                                        firstResponderDiscount(
+                                                            lines,
+                                                            expressFirstResponder
+                                                        ) +
+                                                        mobilePlusHomeRewards(
+                                                            lines,
+                                                            expressHasFios,
+                                                            expressWhithin30Days,
+                                                            expressBonus,
+                                                            expressInternet!
+                                                        )
+                                                    }
+                                                />
+                                            </p>
+                                            <i>
+                                                Note: this price above does not
+                                                reflect any device payment
+                                                agreement.
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </TabPanel>
             </div>
