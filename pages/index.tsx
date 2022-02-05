@@ -1056,8 +1056,8 @@ const Plans = () => {
                                 text="Auto Pay"
                                 value={expressAutoPay}
                                 checked={expressAutoPay === 10}
-                                saving={auto_pay === 10}
-                                savingText={auto_pay * lines}
+                                saving={expressAutoPay === 10}
+                                savingText={expressAutoPay * lines}
                                 onChange={() =>
                                     dispatch(
                                         setExpressAutoPay(

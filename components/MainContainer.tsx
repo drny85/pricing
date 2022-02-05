@@ -20,9 +20,10 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
             style={{
                 backgroundColor: theme.BACKGROUND_COLOR,
                 display: 'flex',
-
                 maxWidth: '1440px',
+                scrollBehavior: 'smooth',
                 margin: '0 auto',
+                overscrollBehavior: 'contain',
             }}
         >
             <Head>{title}</Head>
@@ -36,10 +37,10 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                     )
                 }
                 style={{
-                    position: 'absolute',
-
+                    position: 'fixed',
                     left: '30px',
                     bottom: '30px',
+                    zIndex: 9999,
                     backgroundColor: theme.TEXT_COLOR,
                 }}
             >
