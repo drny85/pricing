@@ -62,7 +62,11 @@ import {
 } from '../redux/wirelessSlide';
 import PlanLine from '../components/PlanLine';
 import { firstResponderDiscount } from '../utils/firstResponderDiscount';
-import { mobilePlusHomeRewards } from '../utils/mobilePlusHomeRewards';
+import {
+    bonusOfferDiscount,
+    mobilePlusHomeRewards,
+    welcomeOffer,
+} from '../utils/mobilePlusHomeRewards';
 
 interface Props {
     children: React.ReactChild;
@@ -1243,10 +1247,13 @@ const Plans = () => {
                                             {mobilePlusHomeRewards(
                                                 lines,
                                                 expressHasFios,
-                                                expressWhithin30Days,
-                                                expressBonus,
-                                                expressInternet!
-                                            )}{' '}
+                                                expressInternet
+                                            ) +
+                                                welcomeOffer(
+                                                    expressWhithin30Days,
+                                                    expressHasFios,
+                                                    numberOfLines
+                                                )}{' '}
                                             saving
                                         </p>
                                     )}
@@ -1515,6 +1522,15 @@ const Plans = () => {
                                         >
                                             <p style={{ padding: '5px 0px' }}>
                                                 Sub Total:{' '}
+                                                <span
+                                                    style={{
+                                                        fontStyle: 'italic',
+                                                    }}
+                                                >
+                                                    {' '}
+                                                    {expressAutoPay === 10 &&
+                                                        '(include auto pay)'}
+                                                </span>{' '}
                                                 <b>
                                                     ${' '}
                                                     <AnimatedNumber
@@ -1524,7 +1540,7 @@ const Plans = () => {
                                                         ) => n.toFixed(0)}
                                                         value={calculateTotalPriceBeforeTaxes()}
                                                     />
-                                                </b>
+                                                </b>{' '}
                                             </p>
                                             {expressAutoPay === 10 && (
                                                 <p
@@ -1593,9 +1609,52 @@ const Plans = () => {
                                                             {mobilePlusHomeRewards(
                                                                 lines,
                                                                 expressHasFios,
-                                                                expressWhithin30Days,
-                                                                expressBonus,
                                                                 expressInternet!
+                                                            )}
+                                                        </b>
+                                                    </p>
+                                                )}
+                                            {expressBonus > 0 &&
+                                                expressHasFios && (
+                                                    <p
+                                                        style={{
+                                                            padding: '5px 0px',
+                                                        }}
+                                                    >
+                                                        Limited Time Bonus:{' '}
+                                                        <b
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            -$
+                                                            {bonusOfferDiscount(
+                                                                expressHasFios,
+                                                                expressBonus,
+                                                                numberOfLines
+                                                            )}
+                                                        </b>
+                                                    </p>
+                                                )}
+
+                                            {expressWhithin30Days &&
+                                                expressHasFios && (
+                                                    <p
+                                                        style={{
+                                                            padding: '5px 0px',
+                                                        }}
+                                                    >
+                                                        Welcome Offer:{' '}
+                                                        <b
+                                                            style={{
+                                                                color: 'red',
+                                                            }}
+                                                        >
+                                                            -$
+                                                            {welcomeOffer(
+                                                                expressWhithin30Days,
+                                                                expressHasFios,
+                                                                numberOfLines
                                                             )}
                                                         </b>
                                                     </p>
@@ -1626,10 +1685,18 @@ const Plans = () => {
                                                             mobilePlusHomeRewards(
                                                                 lines,
                                                                 expressHasFios,
-                                                                expressWhithin30Days,
-                                                                expressBonus,
                                                                 expressInternet!
-                                                            )
+                                                            ) -
+                                                            welcomeOffer(
+                                                                expressWhithin30Days,
+                                                                expressHasFios,
+                                                                numberOfLines
+                                                            )! -
+                                                            bonusOfferDiscount(
+                                                                expressHasFios,
+                                                                expressBonus,
+                                                                numberOfLines
+                                                            )!
                                                         }
                                                     />
                                                 </b>
@@ -1665,10 +1732,18 @@ const Plans = () => {
                                                         mobilePlusHomeRewards(
                                                             lines,
                                                             expressHasFios,
-                                                            expressWhithin30Days,
-                                                            expressBonus,
                                                             expressInternet!
-                                                        )
+                                                        ) +
+                                                        welcomeOffer(
+                                                            expressWhithin30Days,
+                                                            expressHasFios,
+                                                            numberOfLines
+                                                        )! +
+                                                        bonusOfferDiscount(
+                                                            expressHasFios,
+                                                            expressBonus,
+                                                            numberOfLines
+                                                        )!
                                                     }
                                                 />
                                             </p>
