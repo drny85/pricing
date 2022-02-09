@@ -44,6 +44,7 @@ import {
     setFiosFirstResponder,
     setHasWireless,
     setIsUnlimited,
+    setJustSignedUpForWireless,
     setWirelessWithin30Days,
 } from '../redux/fiosData';
 import fiosPlans from '../fiosPlans';
@@ -116,6 +117,7 @@ const Plans = () => {
         fiosAutoPay,
         isUnlimited,
         wirelessWithin30Days,
+        justSigned,
     } = useAppSelector((state) => state.fiosData);
     const {
         expressAutoPay,
@@ -771,18 +773,19 @@ const Plans = () => {
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    alignItems: 'start',
-                                    paddingLeft: '1rem',
-                                    flex: '0.5',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'center',
+                                    flex: '0.3',
                                 }}
                             >
                                 <div
                                     style={{
                                         display: 'flex',
                                         justifyContent: 'center',
-                                        alignItems: 'flex-start',
+                                        alignItems: 'flex-end',
                                         flexDirection: 'column',
                                         paddingLeft: '12px',
+                                        paddingBottom: '8px',
                                     }}
                                 >
                                     <Switcher
@@ -817,9 +820,9 @@ const Plans = () => {
                             </div>
                             <div
                                 style={{
-                                    flex: '0.5',
+                                    flex: '0.7',
                                     display: 'flex',
-                                    justifyContent: 'space-evenly',
+                                    justifyContent: 'space-around',
                                     alignItems: 'center',
                                 }}
                             >
@@ -827,7 +830,7 @@ const Plans = () => {
                                     style={{
                                         display: 'flex',
                                         justifyContent: 'center',
-                                        alignItems: 'flex-start',
+                                        alignItems: 'flex-end',
                                         flexDirection: 'column',
                                     }}
                                 >
@@ -835,11 +838,23 @@ const Plans = () => {
                                         value={hasWireless}
                                         text="Has Verizon Wireless?"
                                         checked={hasWireless}
-                                        onChange={() =>
-                                            dispatch(
+                                        onChange={() => {
+                                            const d = dispatch(
                                                 setHasWireless(!hasWireless)
-                                            )
-                                        }
+                                            );
+                                            if (!d.payload) {
+                                                dispatch(
+                                                    setWirelessWithin30Days(
+                                                        false
+                                                    )
+                                                );
+                                                dispatch(
+                                                    setJustSignedUpForWireless(
+                                                        false
+                                                    )
+                                                );
+                                            }
+                                        }}
                                     />
 
                                     {hasWireless && (
@@ -847,7 +862,7 @@ const Plans = () => {
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                justifyContent: 'space-evenly',
+                                                justifyContent: 'space-between',
                                                 padding: '2px',
                                                 flexDirection: 'column',
                                             }}
@@ -872,7 +887,8 @@ const Plans = () => {
                                         style={{
                                             display: 'flex',
                                             justifyContent: 'center',
-                                            alignItems: 'center',
+                                            alignItems: 'flex-end',
+                                            flexDirection: 'column',
                                         }}
                                     >
                                         <div
@@ -886,24 +902,81 @@ const Plans = () => {
                                             <p
                                                 style={{
                                                     fontWeight: 'bold',
+                                                    paddingBottom: '8px',
+                                                    textDecoration: 'underline',
+                                                    fontSize: '1.1rem',
                                                 }}
                                             >
-                                                Signed Up For Wireless After{' '}
-                                                {moment()
-                                                    .subtract(30, 'day')
-                                                    .format('ll')}
+                                                When Signed Up For Wireless?
                                             </p>
-
-                                            <Switch
-                                                onChange={(e) =>
+                                        </div>
+                                        <div>
+                                            <Switcher
+                                                text="Just Signed Or Signing Up Today"
+                                                value={justSigned}
+                                                checked={justSigned}
+                                                onChange={() => {
+                                                    dispatch(
+                                                        setWirelessWithin30Days(
+                                                            false
+                                                        )
+                                                    );
+                                                    dispatch(
+                                                        setJustSignedUpForWireless(
+                                                            !justSigned
+                                                        )
+                                                    );
+                                                }}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Switcher
+                                                text={`After ${moment()
+                                                    .subtract(30, 'days')
+                                                    .format(
+                                                        'll'
+                                                    )} \n But Before ${moment()
+                                                    .subtract(1, 'day')
+                                                    .format('ll')}`}
+                                                value={wirelessWithin30Days}
+                                                checked={wirelessWithin30Days}
+                                                onChange={() => {
+                                                    dispatch(
+                                                        setJustSignedUpForWireless(
+                                                            false
+                                                        )
+                                                    );
                                                     dispatch(
                                                         setWirelessWithin30Days(
                                                             !wirelessWithin30Days
                                                         )
-                                                    )
+                                                    );
+                                                }}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Switcher
+                                                text={'More Than 30 Days Ago'}
+                                                value={
+                                                    !wirelessWithin30Days &&
+                                                    !justSigned
                                                 }
-                                                value={wirelessWithin30Days}
-                                                checked={wirelessWithin30Days}
+                                                checked={
+                                                    !wirelessWithin30Days &&
+                                                    !justSigned
+                                                }
+                                                onChange={() => {
+                                                    dispatch(
+                                                        setWirelessWithin30Days(
+                                                            false
+                                                        )
+                                                    );
+                                                    dispatch(
+                                                        setJustSignedUpForWireless(
+                                                            false
+                                                        )
+                                                    );
+                                                }}
                                             />
                                         </div>
                                     </div>

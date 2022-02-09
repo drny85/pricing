@@ -4,6 +4,7 @@ import { setDiscount } from '../redux/dataSlide';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
 import AnimatedNumber from 'animated-number-react';
 import { setFiosPrices } from '../redux/fiosData';
+import moment from 'moment';
 
 interface Props {
     id: string;
@@ -29,6 +30,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         hasWireless,
         wirelessDiscount,
         wirelessWithin30Days,
+        justSigned,
         wirelessBonus,
         isUnlimited,
     } = useAppSelector((state) => state.fiosData);
@@ -42,26 +44,63 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
             return 0;
         }
     };
-    const mobilePlusHomeDiscount = () => {
-        if (hasWireless && isUnlimited) {
-            if (id === 'fiosGig') return 10 + wirelessBonus;
-            if (id === 'fios400') return 5 + wirelessBonus;
-            if (id === 'fios200') return 5 + wirelessBonus;
-        } else if (hasWireless && !isUnlimited) {
-            if (id === 'fiosGig') return 10;
-            if (id === 'fios400') return 5;
-            if (id === 'fios200') return 5;
+
+    const calculateWirelessBonus = (bonus: number, hasWireless: boolean) => {
+        if (
+            !justSigned &&
+            !wirelessWithin30Days &&
+            isUnlimited &&
+            hasWireless
+        ) {
+            return bonus;
+        } else if (
+            !justSigned &&
+            !wirelessWithin30Days &&
+            !isUnlimited &&
+            hasWireless
+        ) {
+            if (id === 'fiosGig') return bonus;
+            if (id === 'fios400') return bonus;
+            if (id === 'fios200') return 0;
         } else {
             return 0;
         }
     };
 
-    const wirelessWithin30 = () => {
-        if (wirelessWithin30Days) {
+    const welcomeOffer = (
+        hasWireless: boolean,
+        within30: boolean,
+        justSigned: boolean
+    ) => {
+        if ((hasWireless && within30) || (hasWireless && justSigned)) {
             return 5;
         }
         return 0;
     };
+    const mobilePlusHomeDiscount = () => {
+        if (
+            hasWireless &&
+            isUnlimited &&
+            (!justSigned || !wirelessWithin30Days)
+        ) {
+            if (id === 'fiosGig') return 10;
+            return 5;
+        } else if (hasWireless && !isUnlimited) {
+            if (id === 'fiosGig') return 5;
+            return 0;
+        } else {
+            return 0;
+        }
+    };
+    console.log(
+        'Wireless Bonus',
+        calculateWirelessBonus(wirelessBonus, hasWireless)
+    );
+    console.log(
+        'Welcome Offer',
+        welcomeOffer(hasWireless, wirelessWithin30Days, justSigned)
+    );
+    console.log('Rewards', mobilePlusHomeDiscount());
 
     return (
         <Card
@@ -86,14 +125,6 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                         paddingBottom: '1rem',
                     }}
                 >
-                    {/* <h1>
-                        {Math.fround(
-                            price -
-                                auto_pay -
-                                firstResponderDiscount()! -
-                                mobilePlusHomeDiscount()!
-                        ).toFixed(2)}
-                    </h1> */}
                     <h1>
                         <AnimatedNumber
                             duration={300}
@@ -103,7 +134,15 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                     fiosAutoPay -
                                     mobilePlusHomeDiscount()! -
                                     firstResponderDiscount()! -
-                                    wirelessWithin30()
+                                    calculateWirelessBonus(
+                                        wirelessBonus!,
+                                        hasWireless!
+                                    )! -
+                                    welcomeOffer(
+                                        hasWireless,
+                                        wirelessWithin30Days,
+                                        justSigned
+                                    )
                             ).toFixed(2)}
                         />
                     </h1>

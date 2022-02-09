@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle<Props>`
 }
 body: {
     font-size: calc(14px + .5vm);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Raleway', Roboto, sans-serif;
     width: 100vw;
     height: 100vh;
    

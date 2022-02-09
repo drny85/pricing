@@ -22,30 +22,41 @@ const Switcher: FC<Props> = ({
         <div
             style={{
                 display: 'flex',
-
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexDirection: 'column',
             }}
         >
-            <p
+            <div
                 style={{
-                    fontWeight: 'bold',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}
             >
-                {text}
-            </p>
-
-            <Switch onChange={onChange} value={value} checked={checked} />
-            {checked && saving && (
-                <span
+                <p
                     style={{
-                        textDecoration: 'underline',
-                        fontSize: '1.2rem',
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
                     }}
                 >
-                    ${savingText} saving
-                </span>
-            )}
+                    {text}
+                </p>
+
+                <Switch onChange={onChange} value={value} checked={checked} />
+            </div>
+            <div>
+                {checked && saving && (
+                    <p
+                        style={{
+                            textDecoration: 'underline',
+                            fontSize: '1rem',
+                        }}
+                    >
+                        ${savingText} saving
+                    </p>
+                )}
+            </div>
         </div>
     );
 };
