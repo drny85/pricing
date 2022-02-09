@@ -368,6 +368,10 @@ const Plans = () => {
                     sx={{ borderBottom: 1, borderColor: 'divider' }}
                 >
                     <Tabs
+                        sx={{
+                            backgroundColor: theme.BACKGROUND_COLOR,
+                            color: theme.TEXT_COLOR,
+                        }}
                         value={value}
                         variant="fullWidth"
                         onChange={handleChange}
@@ -377,21 +381,27 @@ const Plans = () => {
                             icon={<NetworkCheckIcon />}
                             iconPosition="start"
                             label="Fios Internet"
+                            sx={{ color: theme.TEXT_COLOR }}
                         />
                         <Tab
                             icon={<SignalCellularAltIcon />}
                             iconPosition="start"
                             label="Wireless"
+                            sx={{ color: theme.TEXT_COLOR }}
                         />
                         <Tab
                             icon={<LiveTvIcon />}
                             iconPosition="start"
                             label="Fios TV"
+                            sx={{
+                                color: theme.TEXT_COLOR,
+                            }}
                         />
                         <Tab
                             icon={<AddShoppingCartIcon />}
                             iconPosition="start"
                             label="Express Store"
+                            sx={{ color: theme.TEXT_COLOR }}
                         />
                     </Tabs>
                 </Box>
