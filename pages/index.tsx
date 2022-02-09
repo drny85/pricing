@@ -935,9 +935,7 @@ const Plans = () => {
                                                     .subtract(30, 'days')
                                                     .format(
                                                         'll'
-                                                    )} \n But Before ${moment()
-                                                    .subtract(1, 'day')
-                                                    .format('ll')}`}
+                                                    )} \n But Before Today}`}
                                                 value={wirelessWithin30Days}
                                                 checked={wirelessWithin30Days}
                                                 onChange={() => {
