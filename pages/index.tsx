@@ -146,6 +146,13 @@ const Plans = () => {
             id: 'start',
             name: '5G Start',
             line: start,
+            details: [
+                '5G Access',
+                '5G Nationwide',
+                'Apple Arcade for 6 months on us',
+                'Google Play Pass for 6 months on us',
+                'Apple Music for 6 months on us',
+            ],
             price:
                 lines === 1
                     ? 80 - expressAutoPay
@@ -163,6 +170,16 @@ const Plans = () => {
             id: 'play_more',
             name: '5G Play More',
             line: playMore,
+            details: [
+                '5G Total Access',
+                '5G Ultra Wideband',
+                '5G Nationwide',
+                '50 GB Premium Network Access',
+                '25 GB premium mobile hotspot data, then unlimited lower-speed data',
+                'Hulu, Disney+ and ESPN+ included',
+                'Apple Arcade or Google Play Pass',
+                'Apple Music for 6 months on us',
+            ],
             price:
                 lines === 1
                     ? 90 - expressAutoPay
@@ -180,6 +197,16 @@ const Plans = () => {
             id: 'do_more',
             name: '5G Do More',
             line: doMore,
+            details: [
+                '5G Total Access',
+                '5G Ultra Wideband',
+                '5G Nationwide',
+                '50 GB Premium Network Access',
+                '25 GB premium mobile hotspot data, then unlimited lower-speed data',
+                '600 GB of Verizon Cloud Storage',
+                'Up to 50% off select connected device plans',
+                'Apple Music, Disney+, Apple Arcade, and Google Play Pass for 6 months on us',
+            ],
             price:
                 lines === 1
                     ? 90 - expressAutoPay
@@ -197,6 +224,19 @@ const Plans = () => {
             id: 'get_more',
             name: '5G Get More',
             line: getMore,
+            details: [
+                '5G Total Access',
+                '5G Ultra Wideband',
+
+                '5G Nationwide',
+                'Unlimited Premium Network Access',
+                '50 GB premium mobile hotspot data, then unlimited lower-speed data',
+                'Hulu, Disney+ and ESPN+ included',
+                'Apple Arcade or Google Play Pass for 12 months on us',
+                'Apple Music included',
+                '600 GB of Verizon Cloud Storage',
+                'Up to 50% off select connected device plans',
+            ],
             price:
                 lines === 1
                     ? 100 - expressAutoPay
@@ -1262,7 +1302,17 @@ const Plans = () => {
                                 margin: '10px',
                             }}
                         >
-                            <h4>Number of Lines {lines}</h4>
+                            <h4>
+                                Number of Lines{' '}
+                                <b
+                                    style={{
+                                        fontSize: '1.2rem',
+                                        paddingLeft: '6px',
+                                    }}
+                                >
+                                    {lines}
+                                </b>{' '}
+                            </h4>
                         </div>
                         <div
                             style={{
@@ -1284,6 +1334,7 @@ const Plans = () => {
                                         key={p.id}
                                         price={p.price}
                                         lines={p.line}
+                                        details={p.details}
                                         onAdd={() => {
                                             if (lines < 10) {
                                                 calculatePriceByLinePlus(
