@@ -9,3 +9,6 @@
 .env
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
+node_modules
+.env.local
+.env

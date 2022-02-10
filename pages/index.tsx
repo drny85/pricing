@@ -67,6 +67,7 @@ import {
     mobilePlusHomeRewards,
     welcomeOffer,
 } from '../utils/mobilePlusHomeRewards';
+import { useAuth } from '../hooks/useAuth';
 
 interface Props {
     children: React.ReactChild;
@@ -97,6 +98,8 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
+    const { loading: l } = useAuth();
+    console.log(l);
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
     const [start, setStart] = useState(0);
