@@ -98,8 +98,8 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
-    const { loading: l } = useAuth();
-    console.log(l);
+    // const { loading: l } = useAuth();
+
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
     const [start, setStart] = useState(0);

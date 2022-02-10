@@ -5,7 +5,7 @@ import { getFirestore, collection } from 'firebase/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-
+console.log(process.env.apiKey);
 const firebaseConfig = {
     apiKey: process.env.apiKey,
     authDomain: process.env.authDomain,
