@@ -1,12 +1,4 @@
-import {
-    Button,
-    ButtonGroup,
-    Switch,
-    Box,
-    Tabs,
-    Tab,
-    Typography,
-} from '@mui/material';
+import { Button, ButtonGroup, Box, Tabs, Tab } from '@mui/material';
 import Head from 'next/head';
 import MainContainer from '../components/MainContainer';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
@@ -36,7 +28,7 @@ import {
 import PlanCard from '../components/PlanCard';
 import plansDetails from '../plansDetails';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 
 import {
     fiosReset,
@@ -68,6 +60,7 @@ import {
     welcomeOffer,
 } from '../utils/mobilePlusHomeRewards';
 import { useAuth } from '../hooks/useAuth';
+import { db } from '../firebase';
 
 interface Props {
     children: React.ReactChild;
@@ -99,6 +92,7 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 const Plans = () => {
     const [loading, setLoading] = useState(true);
     // const { loading: l } = useAuth();
+    const { userInfo, loading: l } = useAuth();
 
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
@@ -147,6 +141,17 @@ const Plans = () => {
     const autoPayDiscount = (lines: number, amount: number) => {
         return lines * amount;
     };
+
+    const checkUser = useCallback(async () => {
+        try {
+            if (userInfo) {
+            } else {
+                console.log('No No No');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [userInfo, l]);
 
     const plans = [
         {
@@ -336,6 +341,7 @@ const Plans = () => {
     };
 
     useEffect(() => {
+        checkUser();
         dispatch(
             setPlansPrice({
                 get_more: 65,
@@ -346,7 +352,7 @@ const Plans = () => {
         );
         dispatch(setNumbersOfLines(4));
         setLoading(false);
-    }, [dispatch]);
+    }, [dispatch, userInfo]);
     if (loading) return null;
     return (
         <MainContainer>

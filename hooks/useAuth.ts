@@ -1,37 +1,61 @@
-import { onAuthStateChanged, signInAnonymously, User } from '@firebase/auth';
-import { addDoc, doc, setDoc } from '@firebase/firestore';
-
 import { useEffect, useState } from 'react';
-import { auth, usersRef } from '../firebase';
+import { auth, db } from '../firebase';
 
 export const useAuth = () => {
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
+    const [userInfo, setUser] = useState<string | null>(null);
 
     useEffect(() => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                setUser(user);
+        const auhtListener = async () => {
+            try {
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        setUser(user.uid);
 
-                localStorage.setItem('pricing_userId', user.uid);
-            } else {
-                const exists = localStorage.getItem('pricing_userId');
-
-                if (exists === null) {
-                    const u = await signInAnonymously(auth);
-
-                    await setDoc(doc(usersRef, u.user.uid), {
-                        userId: u.user.uid,
-                        createdAt: new Date().toISOString(),
-                    });
-                    localStorage.setItem('pricing_userId', u.user.uid);
-                    setUser(u.user);
-                }
+                        const ref = db.collection('pricingUsers').doc(user.uid);
+                        const data = (await ref.get()).data();
+                        if (data!.logins) {
+                            ref.set(
+                                {
+                                    logins: +data!.logins! + 1,
+                                    lastLogin: new Date().toISOString(),
+                                },
+                                { merge: true }
+                            );
+                        } else {
+                            ref.set(
+                                {
+                                    logins: 1,
+                                    lastLogin: new Date().toISOString(),
+                                },
+                                { merge: true }
+                            );
+                        }
+                    } else {
+                        const u = await auth.signInAnonymously();
+                        console.log(u);
+                        await db
+                            .collection('pricingUsers')
+                            .doc(u.user?.uid)
+                            .set({
+                                userId: u.user?.uid,
+                                createdOn: new Date().toISOString(),
+                            });
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
             }
-        });
+        };
 
-        setLoading(false);
-    }, []);
+        auhtListener();
 
-    return { loading, user };
+        return () => {
+            auhtListener();
+        };
+    }, [auth]);
+
+    return { loading, userInfo };
 };

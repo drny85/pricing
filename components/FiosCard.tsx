@@ -92,15 +92,6 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
             return 0;
         }
     };
-    console.log(
-        'Wireless Bonus',
-        calculateWirelessBonus(wirelessBonus, hasWireless)
-    );
-    console.log(
-        'Welcome Offer',
-        welcomeOffer(hasWireless, wirelessWithin30Days, justSigned)
-    );
-    console.log('Rewards', mobilePlusHomeDiscount());
 
     return (
         <Card

@@ -1,23 +1,28 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, collection } from 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-console.log(process.env.apiKey);
+
 const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
+    apiKey: 'AIzaSyAvcR7Xr40KQwwXTUwJwlDzhcqWwanFhWE',
+    authDomain: 'virtual-meetings-b7b3d.firebaseapp.com',
+    projectId: 'virtual-meetings-b7b3d',
+    storageBucket: 'virtual-meetings-b7b3d.appspot.com',
+    messagingSenderId: '697680908333',
+    appId: '1:697680908333:web:b809d0254d2accc039a8a4',
 };
 
-initializeApp(firebaseConfig);
-const auth = getAuth();
-const db = getFirestore();
-const usersRef = collection(db, 'users');
+let app;
+if (firebase.apps.length === 0) {
+    app = firebase.initializeApp(firebaseConfig);
+} else {
+    app = firebase.app();
+}
 
-export { db, auth, usersRef };
+const auth = app.auth();
+const db = app.firestore();
+
+export { db, auth };
