@@ -4,9 +4,7 @@ export default [
         name: 'Up to 940 / 880 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '$200 Verizon Gift Card',
-            'Disney+ for 12 months on us.',
-            'AMC+ for 12 months on us',
+            'The Disney Bundle (Disney+, Hulu, Espn+)  for 12 months on us',
             'Get $300 off Stream TV Soundbar',
             'Whole-Home Wi-Fi $20/mo. value' +
                 ' Router rental included + Wi-Fi extender provided',
@@ -20,9 +18,7 @@ export default [
         name: '400 or 500 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '$100 Verizon Gift Card',
-            'Disney+ for 12 months on us.',
-            'AMC+ for 12 months on us',
+            'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
         ],
     },
@@ -31,9 +27,7 @@ export default [
         name: '200 or 300 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '$50 Verizon Gift Card',
-            'Disney+ for 12 months on us.',
-            'AMC+ for 12 months on us',
+            'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
         ],
     },
