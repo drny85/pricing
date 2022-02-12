@@ -1165,6 +1165,26 @@ const Plans = () => {
                                 src="https://ss7.vzw.com/is/image/VerizonWireless/fios-mixnmatch-200-062221-d?scl=1&extend=300,135,300,135&&bgc=f6f6f6"
                             />
                         </div>
+                        <div>
+                            <p
+                                style={{
+                                    padding: '12px 0px',
+                                    fontSize: '1.1rem',
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                {' '}
+                                Things you should know.
+                            </p>
+                            <p>
+                                Fios TV Test Drive, You have access to all 425+
+                                channels for 60 days with Test Drive. After 30
+                                days we'll recommend a plan for you based on
+                                your preferences. After the 60 days, you can
+                                choose either the recommended plan or a
+                                different one.
+                            </p>
+                        </div>
                     </div>
                 </TabPanel>
                 <TabPanel index={3} value={value}>

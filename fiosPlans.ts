@@ -20,6 +20,7 @@ export default [
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
+            '$15 Wireless Router Rental Fee'
         ],
     },
     {
@@ -29,6 +30,7 @@ export default [
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
+            '$15 Wireless Router Rental Fee'
         ],
     },
 ];
