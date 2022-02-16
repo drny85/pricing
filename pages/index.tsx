@@ -91,6 +91,8 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
+   
+
     // const { loading: l } = useAuth();
     const { userInfo, loading: l } = useAuth();
 
@@ -341,6 +343,7 @@ const Plans = () => {
     };
 
     useEffect(() => {
+        
         checkUser();
         dispatch(
             setPlansPrice({

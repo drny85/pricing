@@ -116,7 +116,14 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                         paddingBottom: '1rem',
                     }}
                 >
+                    <div>
+                        {fiosAutoPay === 10 && (
+                            <h3 style={{textDecoration:'line-through', textDecorationThickness:1, color:'#964c43'}}>was ${price}</h3>
+                        )}
+                    
                     <h1>
+                        {fiosAutoPay === 10 && (  <i style={{fontSize:'18px', paddingRight:'6px'}}>now</i>)}
+                      
                         <AnimatedNumber
                             duration={300}
                             formatValue={(n: number) => n.toFixed(2)}
@@ -137,6 +144,9 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                             ).toFixed(2)}
                         />
                     </h1>
+
+                    </div>
+                   
 
                     <div
                         style={{

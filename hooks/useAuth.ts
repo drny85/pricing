@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 
+import { browserName, osName } from 'react-device-detect';
+
 export const useAuth = () => {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUser] = useState<string | null>(null);
+    
+   
 
     useEffect(() => {
         const auhtListener = async () => {
@@ -33,14 +37,16 @@ export const useAuth = () => {
                         }
                     } else {
                         const u = await auth.signInAnonymously();
-                        console.log(u);
+                     
                         await db
                             .collection('pricingUsers')
                             .doc(u.user?.uid)
                             .set({
                                 userId: u.user?.uid,
+                                deviceType: osName,
+                                browser: browserName,
                                 createdOn: new Date().toISOString(),
-                            });
+                            }, {merge: true});
                     }
                 });
             } catch (error) {
