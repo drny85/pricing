@@ -5,7 +5,7 @@ interface Props {
     onChange: () => void;
     value: string | boolean | number;
     checked: boolean;
-    text: string;
+    text: string | React.ReactChild;
     savingText?: string | number;
     saving?: boolean;
 }

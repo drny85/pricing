@@ -467,7 +467,10 @@ const Plans = () => {
                                     />
                                     <Switcher
                                         value={isFirstResponder}
-                                        text="Is First Responder"
+                                        text={<div>
+                                            <p style={{marginTop:"8px"}}>Is First Responder /</p>
+                                            <p>For Those Who Serve</p>
+                                        </div>}
                                         checked={isFirstResponder}
                                         saving={isFirstResponder}
                                         savingText={
@@ -871,7 +874,10 @@ const Plans = () => {
                                     <Switcher
                                         value={isFiosFirstResponder}
                                         checked={isFiosFirstResponder}
-                                        text={'Is First Responder'}
+                                        text={<div>
+                                            <p style={{marginTop:"8px"}}>Is First Responder /</p>
+                                            <p>For Those Who Serve</p>
+                                        </div>}
                                         onChange={() =>
                                             dispatch(
                                                 setFiosFirstResponder(
@@ -1224,7 +1230,10 @@ const Plans = () => {
                                 }
                             />
                             <Switcher
-                                text="Is First Responder"
+                                text={<div>
+                                    <p style={{marginTop:"8px"}}>Is First Responder /</p>
+                                    <p>For Those Who Serve</p>
+                                </div>}
                                 value={expressFirstResponder}
                                 checked={expressFirstResponder}
                                 saving={expressFirstResponder}
