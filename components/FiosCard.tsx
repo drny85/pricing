@@ -28,7 +28,6 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         fiosAutoPay,
         isFiosFirstResponder,
         hasWireless,
-        wirelessDiscount,
         wirelessWithin30Days,
         justSigned,
         wirelessBonus,
