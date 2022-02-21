@@ -116,7 +116,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                     }}
                 >
                     <div>
-                        {fiosAutoPay === 10 && (
+                        {(fiosAutoPay === 10 || hasWireless) && (
                             <h3 style={{textDecoration:'line-through', textDecorationThickness:1, color:'#964c43'}}>was ${price}</h3>
                         )}
                     

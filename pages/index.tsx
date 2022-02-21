@@ -265,6 +265,7 @@ const Plans = () => {
                     : 0,
         },
     ];
+   
     const calculateGrandTotal = (lines: number, isFirst: boolean) => {
         const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
         return total - firstResponderDiscount(lines, isFirst);
@@ -1086,8 +1087,29 @@ const Plans = () => {
                                 height: '120px',
                                 justifyContent: 'space-evenly',
                                 alignItems: 'center',
+                                flexDirection:'column'
                             }}
                         >
+                            <div style={{width:'80vw'}}>
+                                <h3 style={{textAlign:'center'}}> Savings</h3>
+                                <div style={{padding:'10px', display:'flex', justifyContent:'center', alignItems:'center', width:'100%'}}>
+                                    {fiosAutoPay === 10 && (
+                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>$10 for Auto Pay</p>
+                                    )}
+                                     {isFiosFirstResponder && (
+                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Up to $15</p>
+                                    )}
+                                    {hasWireless && !wirelessWithin30Days && !justSigned && (
+                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Limited Time Offer $15</p>
+                                    )}
+                                     { hasWireless && (wirelessWithin30Days || justSigned) && (
+                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Welcome offer $5</p>
+                                    )}
+                                      {hasWireless && (
+                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>M + H Rewards up to $10</p>
+                                    )}
+                                </div>
+                            </div>
                             {hasWireless && (
                                 <p
                                     style={{
