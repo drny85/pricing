@@ -1155,16 +1155,18 @@ const Plans = () => {
                                             M + H Rewards up to $10
                                         </p>
                                     )}
-                                    {!wirelessWithin30Days && !justSigned && (
-                                        <p
-                                            style={{
-                                                color: '#ad4a4a',
-                                                padding: '0px 10px',
-                                            }}
-                                        >
-                                            Limited Time Bonus up to $20
-                                        </p>
-                                    )}
+                                    {!wirelessWithin30Days &&
+                                        !justSigned &&
+                                        hasWireless && (
+                                            <p
+                                                style={{
+                                                    color: '#ad4a4a',
+                                                    padding: '0px 10px',
+                                                }}
+                                            >
+                                                Limited Time Bonus up to $20
+                                            </p>
+                                        )}
                                 </div>
                             </div>
                             {hasWireless && (
