@@ -1020,7 +1020,9 @@ const Plans = () => {
                                         </div>
                                         <div>
                                             <Switcher
-                                                text={'More Than 30 Days Ago'}
+                                                text={`Before ${moment()
+                                                    .subtract(30, 'days')
+                                                    .format('ll')}`}
                                                 value={
                                                     !wirelessWithin30Days &&
                                                     !justSigned
