@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { setDiscount } from '../redux/dataSlide';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
 import AnimatedNumber from 'animated-number-react';
-import { setFiosPrices } from '../redux/fiosData';
+import { setFiosDiscount, setFiosPrices } from '../redux/fiosData';
 import moment from 'moment';
 
 interface Props {
@@ -17,20 +17,14 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
     const dispatch = useAppDispatch();
 
     const theme = useAppSelector((state) => state.theme);
-    // const {
-    //     auto_pay,
-    //     numberOfLines,
-    //     internet,
-    //     within30Days,
-    //     mobilePlusHomeDiscountAmount,
-    // } = useAppSelector((state) => state.data);
+   
     const {
         fiosAutoPay,
         isFiosFirstResponder,
         hasWireless,
         wirelessWithin30Days,
         justSigned,
-        wirelessBonus,
+        fiosDiscount,
         isUnlimited,
     } = useAppSelector((state) => state.fiosData);
 
@@ -44,27 +38,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         }
     };
 
-    const calculateWirelessBonus = (bonus: number, hasWireless: boolean) => {
-        if (
-            !justSigned &&
-            !wirelessWithin30Days &&
-            isUnlimited &&
-            hasWireless
-        ) {
-            return bonus;
-        } else if (
-            !justSigned &&
-            !wirelessWithin30Days &&
-            !isUnlimited &&
-            hasWireless
-        ) {
-            if (id === 'fiosGig') return bonus;
-            if (id === 'fios400') return bonus;
-            if (id === 'fios200') return 0;
-        } else {
-            return 0;
-        }
-    };
+
 
     const welcomeOffer = (
         hasWireless: boolean,
@@ -91,6 +65,28 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
             return 0;
         }
     };
+
+    const currentBonusOffer = (hasWireless:boolean, moreThan30Days: boolean, justSigned:boolean) => {
+        if (hasWireless && !moreThan30Days && !justSigned) {
+            if (id === 'fiosGig') {
+                dispatch(setFiosDiscount(20))
+                //return 20
+            } else if (id === 'fios400'|| id === 'fios200') {
+                dispatch(setFiosDiscount(15))
+                //return 15
+            } else {
+                dispatch(setFiosDiscount(0))
+                //return 0
+            }
+           
+        } else {
+            dispatch(setFiosDiscount(0))
+            //return 0
+        }
+    }
+    useEffect(() => {
+        currentBonusOffer(hasWireless, wirelessWithin30Days, justSigned)
+    }, [hasWireless, wirelessWithin30Days, justSigned])
 
     return (
         <Card
@@ -131,10 +127,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                     fiosAutoPay -
                                     mobilePlusHomeDiscount()! -
                                     firstResponderDiscount()! -
-                                    calculateWirelessBonus(
-                                        wirelessBonus!,
-                                        hasWireless!
-                                    )! -
+                                   fiosDiscount -
                                     welcomeOffer(
                                         hasWireless,
                                         wirelessWithin30Days,

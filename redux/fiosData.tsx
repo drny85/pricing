@@ -9,6 +9,7 @@ interface DataState {
     isUnlimited: boolean;
     wirelessWithin30Days: boolean;
     justSigned: boolean;
+    fiosDiscount: number;
     wirelessBonus: 0 | 15;
     fiosPrice: {
         fios200: number;
@@ -24,6 +25,7 @@ const initialState: DataState = {
     wirelessDiscount: 0,
     justSigned:false,
     isUnlimited: true,
+    fiosDiscount: 0,
     wirelessWithin30Days: false,
     wirelessBonus: moment().isBefore(new Date('2021-03-31')) ? 0 : 15,
     fiosPrice: {
@@ -72,6 +74,9 @@ const fiosDataSlide = createSlice({
         },
         setJustSignedUpForWireless: (state, {payload}: PayloadAction<boolean>) => {
             state.justSigned = payload
+        },
+        setFiosDiscount: (state, {payload}:PayloadAction<number>) => {
+            state.fiosDiscount = payload;
         }
     },
 });
@@ -81,6 +86,7 @@ export const {
     setFiosFirstResponder,
     setHasWireless,
     setIsUnlimited,
+    setFiosDiscount,
     setFiosPrices,
     setWirelessDiscount,
     setWirelessWithin30Days,

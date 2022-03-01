@@ -23,7 +23,9 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                 maxWidth: '1440px',
                 scrollBehavior: 'smooth',
                 margin: '0 auto',
+                
                 overscrollBehavior: 'contain',
+                             
             }}
         >
             <Head>{title}</Head>

@@ -35,7 +35,7 @@ const initialState: DataState = {
     numberOfLines: 4,
     discount: 0,
     isFirstResponder: false,
-    mobilePlusHomeDiscountAmount: 20,
+    mobilePlusHomeDiscountAmount: 0,
     internet: undefined,
     within30Days: false,
     unlimitedData: true,

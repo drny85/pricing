@@ -19,7 +19,7 @@ const Counts = () => {
   
    
     useEffect(() => {
-        const sub = db.collection('pricingUsers').onSnapshot(u => setUsers(u.docs.map(doc => ({id: doc.id, ...doc.data()} as User)).sort((a, b) => a.logins > b.logins ? 0: 1)))
+        const sub = db.collection('pricingUsers').orderBy('lastLogin', 'desc').onSnapshot(u => setUsers(u.docs.map(doc => ({id: doc.id, ...doc.data()} as User)).sort((a, b) => a.logins > b.logins ? 0: 1)))
         return sub;
     }, [])
 

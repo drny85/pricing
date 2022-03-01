@@ -38,6 +38,7 @@ p, h1, h2, h3, h4, h5, h6, span , i, b{
 
     background-color: ${({ theme }) => theme.BACKGROUND_COLOR};
 }
+
 .card {
     box-shadow: 12px 8px 10px rgba(0, 0, 0, 0.12);
     padding: 12px;

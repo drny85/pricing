@@ -89,6 +89,7 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
     );
 };
 
+
 const Plans = () => {
     const [loading, setLoading] = useState(true);
    
@@ -112,6 +113,7 @@ const Plans = () => {
         within30Days,
         plansPrice,
         auto_pay,
+        
     } = useAppSelector((state) => state.data);
     const {
         hasWireless,
@@ -121,6 +123,7 @@ const Plans = () => {
         isUnlimited,
         wirelessWithin30Days,
         justSigned,
+        fiosDiscount
     } = useAppSelector((state) => state.fiosData);
     const {
         expressAutoPay,
@@ -143,6 +146,7 @@ const Plans = () => {
     const autoPayDiscount = (lines: number, amount: number) => {
         return lines * amount;
     };
+    console.log(fiosDiscount)
 
     const checkUser = useCallback(async () => {
         try {
@@ -1099,14 +1103,15 @@ const Plans = () => {
                                      {isFiosFirstResponder && (
                                         <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Up to $15</p>
                                     )}
-                                    {hasWireless && !wirelessWithin30Days && !justSigned && (
-                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Limited Time Offer $15</p>
-                                    )}
+                                   
                                      { hasWireless && (wirelessWithin30Days || justSigned) && (
                                         <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Welcome offer $5</p>
                                     )}
                                       {hasWireless && (
                                         <p style={{color:'#ad4a4a', padding:'0px 10px'}}>M + H Rewards up to $10</p>
+                                    )}
+                                    {fiosDiscount > 0 && (
+                                         <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Limited Time Bonus: ${fiosDiscount}</p>
                                     )}
                                 </div>
                             </div>
