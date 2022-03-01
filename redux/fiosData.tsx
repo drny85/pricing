@@ -10,7 +10,7 @@ interface DataState {
     wirelessWithin30Days: boolean;
     justSigned: boolean;
     fiosDiscount: number;
-    wirelessBonus: 0 | 15;
+
     fiosPrice: {
         fios200: number;
         fios400: number;
@@ -23,11 +23,11 @@ const initialState: DataState = {
     isFiosFirstResponder: false,
     hasWireless: false,
     wirelessDiscount: 0,
-    justSigned:false,
+    justSigned: false,
     isUnlimited: true,
     fiosDiscount: 0,
     wirelessWithin30Days: false,
-    wirelessBonus: moment().isBefore(new Date('2021-03-31')) ? 0 : 15,
+
     fiosPrice: {
         fios200: 49.99,
         fios400: 74.99,
@@ -72,12 +72,15 @@ const fiosDataSlide = createSlice({
         fiosReset: (state) => {
             return (state = initialState);
         },
-        setJustSignedUpForWireless: (state, {payload}: PayloadAction<boolean>) => {
-            state.justSigned = payload
+        setJustSignedUpForWireless: (
+            state,
+            { payload }: PayloadAction<boolean>
+        ) => {
+            state.justSigned = payload;
         },
-        setFiosDiscount: (state, {payload}:PayloadAction<number>) => {
+        setFiosDiscount: (state, { payload }: PayloadAction<number>) => {
             state.fiosDiscount = payload;
-        }
+        },
     },
 });
 
@@ -91,6 +94,6 @@ export const {
     setWirelessDiscount,
     setWirelessWithin30Days,
     fiosReset,
-    setJustSignedUpForWireless
+    setJustSignedUpForWireless,
 } = fiosDataSlide.actions;
 export default fiosDataSlide.reducer;

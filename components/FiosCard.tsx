@@ -1,10 +1,8 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { setDiscount } from '../redux/dataSlide';
+import React, { FC } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
 import AnimatedNumber from 'animated-number-react';
-import { setFiosDiscount, setFiosPrices } from '../redux/fiosData';
-import moment from 'moment';
 
 interface Props {
     id: string;
@@ -17,14 +15,13 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
     const dispatch = useAppDispatch();
 
     const theme = useAppSelector((state) => state.theme);
-   
+
     const {
         fiosAutoPay,
         isFiosFirstResponder,
         hasWireless,
         wirelessWithin30Days,
         justSigned,
-        fiosDiscount,
         isUnlimited,
     } = useAppSelector((state) => state.fiosData);
 
@@ -37,8 +34,6 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
             return 0;
         }
     };
-
-
 
     const welcomeOffer = (
         hasWireless: boolean,
@@ -66,27 +61,23 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         }
     };
 
-    const currentBonusOffer = (hasWireless:boolean, moreThan30Days: boolean, justSigned:boolean) => {
-        if (hasWireless && !moreThan30Days && !justSigned) {
+    const currentBonusOffer = (
+        hasWireless: boolean,
+        within30Days: boolean,
+        justSigned: boolean
+    ) => {
+        if (hasWireless && !within30Days && !justSigned) {
             if (id === 'fiosGig') {
-                dispatch(setFiosDiscount(20))
-                //return 20
-            } else if (id === 'fios400'|| id === 'fios200') {
-                dispatch(setFiosDiscount(15))
-                //return 15
-            } else {
-                dispatch(setFiosDiscount(0))
-                //return 0
+                return 20;
+            } else if (id === 'fios200' || id === 'fios400') {
+                return 15;
             }
-           
+        } else if (hasWireless && within30Days && !justSigned) {
+            return 0;
         } else {
-            dispatch(setFiosDiscount(0))
-            //return 0
+            return 0;
         }
-    }
-    useEffect(() => {
-        currentBonusOffer(hasWireless, wirelessWithin30Days, justSigned)
-    }, [hasWireless, wirelessWithin30Days, justSigned])
+    };
 
     return (
         <Card
@@ -113,32 +104,51 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                 >
                     <div>
                         {(fiosAutoPay === 10 || hasWireless) && (
-                            <h3 style={{textDecoration:'line-through', textDecorationThickness:1, color:'#964c43'}}>was ${price}</h3>
+                            <h3
+                                style={{
+                                    textDecoration: 'line-through',
+                                    textDecorationThickness: 1,
+                                    color: '#964c43',
+                                }}
+                            >
+                                was ${price}
+                            </h3>
                         )}
-                    
-                    <h1>
-                        {fiosAutoPay === 10 && (  <i style={{fontSize:'18px', paddingRight:'6px'}}>now</i>)}
-                      
-                        <AnimatedNumber
-                            duration={300}
-                            formatValue={(n: number) => n.toFixed(2)}
-                            value={Math.fround(
-                                price -
-                                    fiosAutoPay -
-                                    mobilePlusHomeDiscount()! -
-                                    firstResponderDiscount()! -
-                                   fiosDiscount -
-                                    welcomeOffer(
-                                        hasWireless,
-                                        wirelessWithin30Days,
-                                        justSigned
-                                    )
-                            ).toFixed(2)}
-                        />
-                    </h1>
 
+                        <h1>
+                            {fiosAutoPay === 10 && (
+                                <i
+                                    style={{
+                                        fontSize: '18px',
+                                        paddingRight: '6px',
+                                    }}
+                                >
+                                    now
+                                </i>
+                            )}
+
+                            <AnimatedNumber
+                                duration={300}
+                                formatValue={(n: number) => n.toFixed(2)}
+                                value={Math.fround(
+                                    price -
+                                        fiosAutoPay -
+                                        mobilePlusHomeDiscount()! -
+                                        firstResponderDiscount()! -
+                                        currentBonusOffer(
+                                            hasWireless,
+                                            wirelessWithin30Days,
+                                            justSigned
+                                        )! -
+                                        welcomeOffer(
+                                            hasWireless,
+                                            wirelessWithin30Days,
+                                            justSigned
+                                        )
+                                ).toFixed(2)}
+                            />
+                        </h1>
                     </div>
-                   
 
                     <div
                         style={{

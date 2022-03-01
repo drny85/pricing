@@ -89,10 +89,8 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
     );
 };
 
-
 const Plans = () => {
     const [loading, setLoading] = useState(true);
-   
 
     // const { loading: l } = useAuth();
     const { userInfo, loading: l } = useAuth();
@@ -113,7 +111,6 @@ const Plans = () => {
         within30Days,
         plansPrice,
         auto_pay,
-        
     } = useAppSelector((state) => state.data);
     const {
         hasWireless,
@@ -123,7 +120,7 @@ const Plans = () => {
         isUnlimited,
         wirelessWithin30Days,
         justSigned,
-        fiosDiscount
+        fiosDiscount,
     } = useAppSelector((state) => state.fiosData);
     const {
         expressAutoPay,
@@ -146,7 +143,7 @@ const Plans = () => {
     const autoPayDiscount = (lines: number, amount: number) => {
         return lines * amount;
     };
-    console.log(fiosDiscount)
+    console.log(fiosDiscount);
 
     const checkUser = useCallback(async () => {
         try {
@@ -269,7 +266,7 @@ const Plans = () => {
                     : 0,
         },
     ];
-   
+
     const calculateGrandTotal = (lines: number, isFirst: boolean) => {
         const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
         return total - firstResponderDiscount(lines, isFirst);
@@ -348,7 +345,6 @@ const Plans = () => {
     };
 
     useEffect(() => {
-        
         checkUser();
         dispatch(
             setPlansPrice({
@@ -472,10 +468,14 @@ const Plans = () => {
                                     />
                                     <Switcher
                                         value={isFirstResponder}
-                                        text={<div>
-                                            <p style={{marginTop:"8px"}}>Is First Responder /</p>
-                                            <p>For Those Who Serve</p>
-                                        </div>}
+                                        text={
+                                            <div>
+                                                <p style={{ marginTop: '8px' }}>
+                                                    Is First Responder /
+                                                </p>
+                                                <p>For Those Who Serve</p>
+                                            </div>
+                                        }
                                         checked={isFirstResponder}
                                         saving={isFirstResponder}
                                         savingText={
@@ -879,10 +879,14 @@ const Plans = () => {
                                     <Switcher
                                         value={isFiosFirstResponder}
                                         checked={isFiosFirstResponder}
-                                        text={<div>
-                                            <p style={{marginTop:"8px"}}>Is First Responder /</p>
-                                            <p>For Those Who Serve</p>
-                                        </div>}
+                                        text={
+                                            <div>
+                                                <p style={{ marginTop: '8px' }}>
+                                                    Is First Responder /
+                                                </p>
+                                                <p>For Those Who Serve</p>
+                                            </div>
+                                        }
                                         onChange={() =>
                                             dispatch(
                                                 setFiosFirstResponder(
@@ -1091,27 +1095,75 @@ const Plans = () => {
                                 height: '120px',
                                 justifyContent: 'space-evenly',
                                 alignItems: 'center',
-                                flexDirection:'column'
+                                flexDirection: 'column',
                             }}
                         >
-                            <div style={{width:'80vw'}}>
-                                <h3 style={{textAlign:'center'}}> Savings</h3>
-                                <div style={{padding:'10px', display:'flex', justifyContent:'center', alignItems:'center', width:'100%'}}>
+                            <div style={{ width: '80vw' }}>
+                                <h3 style={{ textAlign: 'center' }}>
+                                    {' '}
+                                    Savings
+                                </h3>
+                                <div
+                                    style={{
+                                        padding: '10px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        width: '100%',
+                                    }}
+                                >
                                     {fiosAutoPay === 10 && (
-                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>$10 for Auto Pay</p>
+                                        <p
+                                            style={{
+                                                color: '#ad4a4a',
+                                                padding: '0px 10px',
+                                            }}
+                                        >
+                                            $10 for Auto Pay
+                                        </p>
                                     )}
-                                     {isFiosFirstResponder && (
-                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Up to $15</p>
+                                    {isFiosFirstResponder && (
+                                        <p
+                                            style={{
+                                                color: '#ad4a4a',
+                                                padding: '0px 10px',
+                                            }}
+                                        >
+                                            Up to $15
+                                        </p>
                                     )}
-                                   
-                                     { hasWireless && (wirelessWithin30Days || justSigned) && (
-                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Welcome offer $5</p>
+
+                                    {hasWireless &&
+                                        (wirelessWithin30Days ||
+                                            justSigned) && (
+                                            <p
+                                                style={{
+                                                    color: '#ad4a4a',
+                                                    padding: '0px 10px',
+                                                }}
+                                            >
+                                                Welcome offer $5
+                                            </p>
+                                        )}
+                                    {hasWireless && (
+                                        <p
+                                            style={{
+                                                color: '#ad4a4a',
+                                                padding: '0px 10px',
+                                            }}
+                                        >
+                                            M + H Rewards up to $10
+                                        </p>
                                     )}
-                                      {hasWireless && (
-                                        <p style={{color:'#ad4a4a', padding:'0px 10px'}}>M + H Rewards up to $10</p>
-                                    )}
-                                    {fiosDiscount > 0 && (
-                                         <p style={{color:'#ad4a4a', padding:'0px 10px'}}>Limited Time Bonus: ${fiosDiscount}</p>
+                                    {!wirelessWithin30Days && !justSigned && (
+                                        <p
+                                            style={{
+                                                color: '#ad4a4a',
+                                                padding: '0px 10px',
+                                            }}
+                                        >
+                                            Limited Time Bonus up to $20
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -1257,10 +1309,14 @@ const Plans = () => {
                                 }
                             />
                             <Switcher
-                                text={<div>
-                                    <p style={{marginTop:"8px"}}>Is First Responder /</p>
-                                    <p>For Those Who Serve</p>
-                                </div>}
+                                text={
+                                    <div>
+                                        <p style={{ marginTop: '8px' }}>
+                                            Is First Responder /
+                                        </p>
+                                        <p>For Those Who Serve</p>
+                                    </div>
+                                }
                                 value={expressFirstResponder}
                                 checked={expressFirstResponder}
                                 saving={expressFirstResponder}
