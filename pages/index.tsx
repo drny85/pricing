@@ -336,6 +336,14 @@ const Plans = () => {
         return plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
     };
 
+    const calculateDate = () => {
+        const s = moment(moment().startOf('day'))
+            .subtract(30, 'days')
+            .format('lll');
+        console.log(s);
+    };
+    calculateDate();
+
     const resetAll = () => {
         setPlayMore(0);
         setDoMore(0);
@@ -994,11 +1002,11 @@ const Plans = () => {
 
                                         <div>
                                             <Switcher
-                                                text={`After ${moment()
-                                                    .subtract(30, 'days')
-                                                    .format(
-                                                        'll'
-                                                    )} / Within 30 Days`}
+                                                text={`After 03/02 & Before ${moment(
+                                                    moment().endOf('day')
+                                                )
+                                                    .add(30, 'days')
+                                                    .format('l')}`}
                                                 value={wirelessWithin30Days}
                                                 checked={wirelessWithin30Days}
                                                 onChange={() => {

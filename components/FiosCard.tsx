@@ -21,7 +21,6 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         isFiosFirstResponder,
         hasWireless,
         wirelessWithin30Days,
-        justSigned,
         isUnlimited,
     } = useAppSelector((state) => state.fiosData);
 
