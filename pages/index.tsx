@@ -991,40 +991,17 @@ const Plans = () => {
                                                 When Signed Up For Wireless?
                                             </p>
                                         </div>
-                                        <div>
-                                            <Switcher
-                                                text="Just Signed Or Signing Up Today"
-                                                value={justSigned}
-                                                checked={justSigned}
-                                                onChange={() => {
-                                                    dispatch(
-                                                        setWirelessWithin30Days(
-                                                            false
-                                                        )
-                                                    );
-                                                    dispatch(
-                                                        setJustSignedUpForWireless(
-                                                            !justSigned
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
+
                                         <div>
                                             <Switcher
                                                 text={`After ${moment()
                                                     .subtract(30, 'days')
                                                     .format(
                                                         'll'
-                                                    )} But Before Today`}
+                                                    )} / Within 30 Days`}
                                                 value={wirelessWithin30Days}
                                                 checked={wirelessWithin30Days}
                                                 onChange={() => {
-                                                    dispatch(
-                                                        setJustSignedUpForWireless(
-                                                            false
-                                                        )
-                                                    );
                                                     dispatch(
                                                         setWirelessWithin30Days(
                                                             !wirelessWithin30Days
@@ -1065,6 +1042,7 @@ const Plans = () => {
                         <div
                             style={{
                                 display: 'flex',
+
                                 width: '100%',
                                 margin: '0 auto',
                                 justifyContent: 'center',
@@ -1092,13 +1070,14 @@ const Plans = () => {
                         <div
                             style={{
                                 display: 'flex',
-                                height: '120px',
-                                justifyContent: 'space-evenly',
+                                padding: '10px',
+
+                                gap: '1rem',
                                 alignItems: 'center',
                                 flexDirection: 'column',
                             }}
                         >
-                            <div style={{ width: '80vw' }}>
+                            <div style={{ width: '80vw', padding: '10px' }}>
                                 <h3 style={{ textAlign: 'center' }}>
                                     {' '}
                                     Savings
@@ -1109,6 +1088,7 @@ const Plans = () => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
+
                                         width: '100%',
                                     }}
                                 >
@@ -1119,6 +1099,7 @@ const Plans = () => {
                                                 padding: '0px 10px',
                                             }}
                                         >
+                                            <b>Auto Pay:</b>
                                             $10 for Auto Pay
                                         </p>
                                     )}
@@ -1146,27 +1127,48 @@ const Plans = () => {
                                             </p>
                                         )}
                                     {hasWireless && (
-                                        <p
+                                        <div
                                             style={{
-                                                color: '#ad4a4a',
-                                                padding: '0px 10px',
+                                                display: 'flex',
+
+                                                alignItems: 'center',
                                             }}
                                         >
-                                            M + H Rewards up to $10
-                                        </p>
-                                    )}
-                                    {!wirelessWithin30Days &&
-                                        !justSigned &&
-                                        hasWireless && (
+                                            <p
+                                                style={{
+                                                    color: '#ad4a4a',
+                                                }}
+                                            >
+                                                <b>M + H Rewards:</b>
+                                            </p>
                                             <p
                                                 style={{
                                                     color: '#ad4a4a',
                                                     padding: '0px 10px',
                                                 }}
                                             >
-                                                Limited Time Bonus up to $20
+                                                Level 3 : $10
                                             </p>
-                                        )}
+                                            <p
+                                                style={{
+                                                    color: '#ad4a4a',
+                                                }}
+                                            >
+                                                Level 2: $5
+                                            </p>
+                                        </div>
+                                    )}
+                                    {!wirelessWithin30Days && hasWireless && (
+                                        <p
+                                            style={{
+                                                color: '#ad4a4a',
+                                                padding: '0px 10px',
+                                            }}
+                                        >
+                                            <b>Limited Time Bonus:</b> Level 3 :
+                                            $20 / Level 2 : $15
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                             {hasWireless && (

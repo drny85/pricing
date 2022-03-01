@@ -35,49 +35,38 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         }
     };
 
-    const welcomeOffer = (
-        hasWireless: boolean,
-        within30: boolean,
-        justSigned: boolean
-    ) => {
-        if ((hasWireless && within30) || (hasWireless && justSigned)) {
+    const welcomeOffer = (hasWireless: boolean, within30: boolean) => {
+        if (hasWireless && within30) {
             return 5;
         }
         return 0;
     };
     const mobilePlusHomeDiscount = () => {
-        if (
-            hasWireless &&
-            isUnlimited &&
-            (!justSigned || !wirelessWithin30Days)
-        ) {
+        if (hasWireless && isUnlimited) {
             if (id === 'fiosGig') return 10;
             return 5;
         } else if (hasWireless && !isUnlimited) {
-            if (id === 'fiosGig') return 5;
+            if (id === 'fiosGig') 5;
             return 0;
         } else {
             return 0;
         }
     };
 
-    const currentBonusOffer = (
-        hasWireless: boolean,
-        within30Days: boolean,
-        justSigned: boolean
-    ) => {
-        if (hasWireless && !within30Days && !justSigned) {
+    const currentBonusOffer = (hasWireless: boolean, within30Days: boolean) => {
+        if (hasWireless && isUnlimited && within30Days) {
+            return 0;
+        } else if (hasWireless && isUnlimited && !within30Days) {
             if (id === 'fiosGig') {
                 return 20;
             } else if (id === 'fios200' || id === 'fios400') {
                 return 15;
             }
-        } else if (hasWireless && within30Days && !justSigned) {
-            return 0;
         } else {
             return 0;
         }
     };
+    console.log(mobilePlusHomeDiscount());
 
     return (
         <Card
@@ -137,13 +126,11 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                         firstResponderDiscount()! -
                                         currentBonusOffer(
                                             hasWireless,
-                                            wirelessWithin30Days,
-                                            justSigned
+                                            wirelessWithin30Days
                                         )! -
                                         welcomeOffer(
                                             hasWireless,
-                                            wirelessWithin30Days,
-                                            justSigned
+                                            wirelessWithin30Days
                                         )
                                 ).toFixed(2)}
                             />
