@@ -91,8 +91,6 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 
 const Plans = () => {
     const [loading, setLoading] = useState(true);
-
-    // const { loading: l } = useAuth();
     const { userInfo, loading: l } = useAuth();
 
     const [lines, setLines] = useState(0);
@@ -143,8 +141,7 @@ const Plans = () => {
     const autoPayDiscount = (lines: number, amount: number) => {
         return lines * amount;
     };
-    console.log(fiosDiscount);
-
+ 
     const checkUser = useCallback(async () => {
         try {
             if (userInfo) {
@@ -219,7 +216,7 @@ const Plans = () => {
                 '50 GB Premium Network Access',
                 '25 GB premium mobile hotspot data, then unlimited lower-speed data',
                 '600 GB of Verizon Cloud Storage',
-                'Up to 50% off select connected device plans',
+                'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
                 'Apple Music, Disney+, Apple Arcade, and Google Play Pass for 6 months on us',
             ],
             price:
@@ -250,7 +247,7 @@ const Plans = () => {
                 'Apple Arcade or Google Play Pass for 12 months on us',
                 'Apple Music included',
                 '600 GB of Verizon Cloud Storage',
-                'Up to 50% off select connected device plans',
+                'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
             ],
             price:
                 lines === 1

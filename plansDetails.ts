@@ -34,7 +34,7 @@ export default [
             '50 GB Premium Network Access',
             '25 GB premium mobile hotspot data, then unlimited lower-speed data',
             '600 GB of Verizon Cloud Storage',
-            'Up to 50% off select connected device plans',
+            'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
             'Apple Music, Disney+, Apple Arcade, and Google Play Pass for 6 months on us',
         ],
     },
@@ -44,7 +44,6 @@ export default [
         details: [
             '5G Total Access',
             '5G Ultra Wideband',
-
             '5G Nationwide',
             'Unlimited Premium Network Access',
             '50 GB premium mobile hotspot data, then unlimited lower-speed data',
@@ -52,7 +51,7 @@ export default [
             'Apple Arcade or Google Play Pass for 12 months on us',
             'Apple Music included',
             '600 GB of Verizon Cloud Storage',
-            'Up to 50% off select connected device plans',
+            'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
         ],
     },
 ];
