@@ -141,7 +141,7 @@ const Plans = () => {
     const autoPayDiscount = (lines: number, amount: number) => {
         return lines * amount;
     };
- 
+
     const checkUser = useCallback(async () => {
         try {
             if (userInfo) {
@@ -1441,6 +1441,66 @@ const Plans = () => {
                             )}
                         </div>
                         {/* WIRELESS LINES CONTAINER */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: theme.SHADOW_COLOR,
+                                borderRadius: '15px',
+                                padding: '8px 0px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <div>
+                                    <p
+                                        style={{
+                                            fontSize: '14px',
+                                            padding: '8px 0px',
+                                        }}
+                                    >
+                                        Have a phone you love? Get up to{' '}
+                                        <b>$500</b> Verizon e-Gift Card when you
+                                        bring your phone.{' '}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p style={{ fontSize: '14px' }}>
+                                        Bring your Tablet or Smart Watch and get
+                                        Verizon <b>$100</b> e-Gift Card
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                onClick={() => {
+                                    window.open(
+                                        'https://www.verizon.com/bring-your-own-device/'
+                                    );
+                                }}
+                                style={{
+                                    cursor: 'pointer',
+                                    color: 'blue',
+                                    opacity: 0.7,
+                                    padding: '1px 2rem',
+                                    textDecoration: 'underline',
+                                    textDecorationThickness: 2,
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        color: 'blue',
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Learn More
+                                </p>
+                            </div>
+                        </div>
                         <div
                             style={{
                                 display: 'flex',
