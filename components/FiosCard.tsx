@@ -194,7 +194,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                     ? 'line-through'
                                     : 'none',
                             padding: '8px 4px',
-                            textDecorationColor: '#882c2c',
+                            textDecorationColor: '#b63535',
                             textDecorationThickness: 2,
                             textDecorationStyle: 'solid',
                             fontWeight:

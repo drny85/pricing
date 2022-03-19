@@ -93,6 +93,7 @@ const TabPanel: FC<Props> = ({ children, others, value, index }) => {
 const Plans = () => {
     const [loading, setLoading] = useState(true);
     const { userInfo, loading: l } = useAuth();
+    const [opacity, setOpacity] = useState(0);
 
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
@@ -302,6 +303,7 @@ const Plans = () => {
                 break;
         }
     };
+    console.log(opacity);
     const calculatePriceByLinePlus = (plan_id: PlanId) => {
         switch (plan_id) {
             case 'start':
@@ -853,7 +855,13 @@ const Plans = () => {
                                 checked={acpCustomer}
                                 text={'ACP Qualified'}
                                 onChange={() => {
+                                    if (opacity === 1) {
+                                        setOpacity(0);
+                                    } else {
+                                        setOpacity(1);
+                                    }
                                     dispatch(setAcpCustomer(!acpCustomer));
+
                                     dispatch(setFiosAutoPay(0));
                                 }}
                             />
@@ -1097,113 +1105,118 @@ const Plans = () => {
                                 />
                             ))}
                         </div>
-                        {acpCustomer && (
-                            <div>
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        width: '100%',
-                                        gridTemplateColumns: '1fr 1fr 1fr',
-                                        gap: '1rem',
-                                        padding: '1rem',
-                                        boxShadow:
-                                            '3px 5px 6px rgba(0,0,0,0.236)',
-                                        borderRadius: '0px 0px 25px 25px',
-                                    }}
-                                >
-                                    <div>
-                                        <h3>Step 1</h3>
-                                        <p style={{ paddingTop: '10px' }}>
-                                            Verify your eligibility and apply
-                                            for the Affordable Connectivity
-                                            Program (ACP)
-                                            acpbenefit.org/do-i-qualify/ (If
-                                            you're already approved, proceed to
-                                            Step 2)
-                                        </p>
-                                        <div
-                                            onClick={() =>
-                                                window.open(
-                                                    'https://www.verizon.com/fiosforward/'
-                                                )
-                                            }
-                                            style={{
-                                                backgroundColor: '#373232',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                padding: '0.7rem 1rem',
-                                                marginTop: '1.5rem',
-                                                alignSelf: 'center',
-                                                borderRadius: '35px',
-                                                width: '40%',
-                                                cursor: 'pointer',
-                                                boxShadow:
-                                                    '-3px 6px 6px #4b3a3a27',
-                                            }}
-                                        >
-                                            <p
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    color: '#fff',
-                                                }}
-                                            >
-                                                Learn More
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3>Step 2</h3>
-                                        <p style={{ paddingTop: '10px' }}>
-                                            Order Fios Home Internet (300 Mbps
-                                            plan is free with ACP + Fios Forward
-                                            discount)
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <h3>Step 3</h3>
-                                        <p style={{ paddingTop: '10px' }}>
-                                            Call 1-800-VERIZON after
-                                            installation and say “Affordable
-                                            Connectivity Program” to receive
-                                            your discount
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        width: '100%',
-                                        flex: 1,
-                                        flexDirection: 'column',
-                                        margin: '10px auto',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <h3>
-                                        Fios Forward with ACP provides a truly
-                                        FREE home internet service:
-                                    </h3>
-                                    <div
-                                        style={{
-                                            width: '100%',
 
+                        <div
+                            style={{
+                                transition: 'all 500ms ease-in-out',
+                                opacity: opacity,
+                                flexDirection: 'column',
+                                height: opacity === 1 ? 'auto' : '50px',
+                                transform: 'scale(' + opacity + ')',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    opacity: opacity,
+                                    width: '100%',
+                                    gridTemplateColumns: '1fr 1fr 1fr',
+                                    gap: '1rem',
+                                    transition: 'all 1s ease-in',
+                                    padding: '1rem',
+                                    boxShadow: '3px 5px 6px rgba(0,0,0,0.236)',
+                                    borderRadius: '0px 0px 25px 25px',
+                                }}
+                            >
+                                <div>
+                                    <h3>Step 1</h3>
+                                    <p style={{ paddingTop: '10px' }}>
+                                        Verify your eligibility and apply for
+                                        the Affordable Connectivity Program
+                                        (ACP) acpbenefit.org/do-i-qualify/ (If
+                                        you're already approved, proceed to Step
+                                        2)
+                                    </p>
+                                    <div
+                                        onClick={() =>
+                                            window.open(
+                                                'https://www.verizon.com/fiosforward/'
+                                            )
+                                        }
+                                        style={{
+                                            backgroundColor: '#373232',
                                             display: 'flex',
                                             justifyContent: 'center',
-                                            gap: '1rem',
-                                            paddingTop: '12px',
+                                            alignItems: 'center',
+                                            padding: '0.7rem 1rem',
+                                            marginTop: '1.5rem',
+                                            alignSelf: 'center',
+                                            borderRadius: '35px',
+                                            width: '40%',
+                                            cursor: 'pointer',
+                                            boxShadow: '-3px 6px 6px #4b3a3a27',
                                         }}
                                     >
-                                        <p>No taxes or fees</p>
-                                        <p>Deposit Waived</p>
-                                        <p>No service charges</p>
-                                        <p>No equipment charges</p>
-                                        <p>Autopay not required</p>
+                                        <p
+                                            style={{
+                                                fontWeight: 'bold',
+                                                color: '#fff',
+                                            }}
+                                        >
+                                            Learn More
+                                        </p>
                                     </div>
                                 </div>
+                                <div>
+                                    <h3>Step 2</h3>
+                                    <p style={{ paddingTop: '10px' }}>
+                                        Order Fios Home Internet (300 Mbps plan
+                                        is free with ACP + Fios Forward
+                                        discount)
+                                    </p>
+                                </div>
+                                <div>
+                                    <h3>Step 3</h3>
+                                    <p style={{ paddingTop: '10px' }}>
+                                        Call 1-800-VERIZON after installation
+                                        and say “Affordable Connectivity
+                                        Program” to receive your discount
+                                    </p>
+                                </div>
                             </div>
-                        )}
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    width: '100%',
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                    margin: '10px auto',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <h3>
+                                    Fios Forward with ACP provides a truly FREE
+                                    home internet service:
+                                </h3>
+                                <div
+                                    style={{
+                                        width: '100%',
+
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        gap: '1rem',
+                                        paddingTop: '12px',
+                                    }}
+                                >
+                                    <p>No taxes or fees</p>
+                                    <p>Deposit Waived</p>
+                                    <p>No service charges</p>
+                                    <p>No equipment charges</p>
+                                    <p>Autopay not required</p>
+                                </div>
+                            </div>
+                        </div>
 
                         <div
                             style={{
