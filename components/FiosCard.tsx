@@ -187,7 +187,16 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                 {details.map((d, index) => (
                     <p
                         style={{
+                            textDecoration:
+                                id !== 'fiosGig' &&
+                                acpCustomer &&
+                                index === details.length - 1
+                                    ? 'line-through'
+                                    : 'none',
                             padding: '8px 4px',
+                            textDecorationColor: '#882c2c',
+                            textDecorationThickness: 2,
+                            textDecorationStyle: 'solid',
                             fontWeight:
                                 index === 0 ||
                                 (index === details.length - 1 &&
