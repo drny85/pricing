@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
 
 interface DataState {
     fiosAutoPay: 0 | 10;
@@ -9,6 +8,7 @@ interface DataState {
     isUnlimited: boolean;
     wirelessWithin30Days: boolean;
     justSigned: boolean;
+    acpCustomer: boolean;
     fiosDiscount: number;
 
     fiosPrice: {
@@ -20,6 +20,7 @@ interface DataState {
 
 const initialState: DataState = {
     fiosAutoPay: 10,
+    acpCustomer: false,
     isFiosFirstResponder: false,
     hasWireless: false,
     wirelessDiscount: 0,
@@ -81,6 +82,9 @@ const fiosDataSlide = createSlice({
         setFiosDiscount: (state, { payload }: PayloadAction<number>) => {
             state.fiosDiscount = payload;
         },
+        setAcpCustomer: (state, { payload }: PayloadAction<boolean>) => {
+            state.acpCustomer = payload;
+        },
     },
 });
 
@@ -95,5 +99,6 @@ export const {
     setWirelessWithin30Days,
     fiosReset,
     setJustSignedUpForWireless,
+    setAcpCustomer,
 } = fiosDataSlide.actions;
 export default fiosDataSlide.reducer;

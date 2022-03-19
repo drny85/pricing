@@ -8,6 +8,7 @@ interface Props {
     text: string | React.ReactChild;
     savingText?: string | number;
     saving?: boolean;
+    acp?: boolean;
 }
 
 const Switcher: FC<Props> = ({
@@ -17,6 +18,7 @@ const Switcher: FC<Props> = ({
     text,
     saving,
     savingText,
+    acp,
 }) => {
     return (
         <div
@@ -25,6 +27,7 @@ const Switcher: FC<Props> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexDirection: 'column',
+                position: 'relative',
             }}
         >
             <div
@@ -57,6 +60,20 @@ const Switcher: FC<Props> = ({
                     </p>
                 )}
             </div>
+            {acp && (
+                <div
+                    style={{
+                        width: '90%',
+                        height: '2px',
+                        backgroundColor: '#b66b6b',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '10px',
+                        right: '10px',
+                        transform: 'translateY(-50%)',
+                    }}
+                ></div>
+            )}
         </div>
     );
 };

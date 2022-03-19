@@ -22,6 +22,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         hasWireless,
         wirelessWithin30Days,
         isUnlimited,
+        acpCustomer,
     } = useAppSelector((state) => state.fiosData);
 
     const firstResponderDiscount = () => {
@@ -32,6 +33,15 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         } else {
             return 0;
         }
+    };
+
+    const acpDiscountTotal = (): number => {
+        if (acpCustomer) {
+            if (id === 'fiosGig') return 50;
+            if (id === 'fios400') return 50;
+            if (id === 'fios200') return 49.99;
+        }
+        return 0;
     };
 
     const welcomeOffer = (hasWireless: boolean, within30: boolean) => {
@@ -91,7 +101,7 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                     }}
                 >
                     <div>
-                        {(fiosAutoPay === 10 || hasWireless) && (
+                        {(fiosAutoPay === 10 || hasWireless || acpCustomer) && (
                             <h3
                                 style={{
                                     textDecoration: 'line-through',
@@ -114,24 +124,29 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                     now
                                 </i>
                             )}
-
+                            ${' '}
                             <AnimatedNumber
                                 duration={300}
                                 formatValue={(n: number) => n.toFixed(2)}
-                                value={Math.fround(
-                                    price -
-                                        fiosAutoPay -
-                                        mobilePlusHomeDiscount()! -
-                                        firstResponderDiscount()! -
-                                        currentBonusOffer(
-                                            hasWireless,
-                                            wirelessWithin30Days
-                                        )! -
-                                        welcomeOffer(
-                                            hasWireless,
-                                            wirelessWithin30Days
-                                        )
-                                ).toFixed(2)}
+                                value={
+                                    id === 'fios200' && acpCustomer
+                                        ? 0
+                                        : Math.fround(
+                                              price -
+                                                  fiosAutoPay -
+                                                  mobilePlusHomeDiscount()! -
+                                                  firstResponderDiscount()! -
+                                                  currentBonusOffer(
+                                                      hasWireless,
+                                                      wirelessWithin30Days
+                                                  )! -
+                                                  welcomeOffer(
+                                                      hasWireless,
+                                                      wirelessWithin30Days
+                                                  ) -
+                                                  acpDiscountTotal()
+                                          ).toFixed(2)
+                                }
                             />
                         </h1>
                     </div>
