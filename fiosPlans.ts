@@ -6,8 +6,8 @@ export default [
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 12 months on us',
             'Get $300 off Stream TV Soundbar',
-            'Whole-Home Wi-Fi $20/mo. value' +
-                ' Router rental included + Wi-Fi extender provided',
+            'Whole-Home -' +
+                'Verizon Router rental included + Wi-Fi extender provided',
             '2TB Verizon Cloud storage included $14.99/mo value',
             'Save $20/mo with Unlimited Wireless.',
             'Save $99 Setup / Installation Fee',
@@ -20,7 +20,7 @@ export default [
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
-            '$15 Wireless Router Rental Fee'
+            '$18 Verizon Router Rental Fee'
         ],
     },
     {
@@ -30,7 +30,7 @@ export default [
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
             'Save $10/mo with Unlimited Wireless.',
-            '$15 Wireless Router Rental Fee'
+            '$18 Verizon Router Rental Fee'
         ],
     },
 ];

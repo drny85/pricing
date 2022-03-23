@@ -1623,7 +1623,7 @@ const Plans = () => {
                             <div
                                 onClick={() => {
                                     window.open(
-                                        'https://www.verizon.com/bring-your-own-device/'
+                                        'https://acpbenefit.org/do-i-qualify/'
                                     );
                                 }}
                                 style={{
