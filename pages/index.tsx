@@ -1140,7 +1140,7 @@ const Plans = () => {
                                     <div
                                         onClick={() =>
                                             window.open(
-                                                'https://www.verizon.com/fiosforward/'
+                                                'https://acpbenefit.org/do-i-qualify/'
                                             )
                                         }
                                         style={{
