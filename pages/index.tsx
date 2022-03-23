@@ -1163,7 +1163,7 @@ const Plans = () => {
                                                 color: '#fff',
                                             }}
                                         >
-                                            Learn More
+                                            Apply Now
                                         </p>
                                     </div>
                                 </div>
@@ -1623,7 +1623,7 @@ const Plans = () => {
                             <div
                                 onClick={() => {
                                     window.open(
-                                        'https://acpbenefit.org/do-i-qualify/'
+                                        'https://www.verizon.com/bring-your-own-device/'
                                     );
                                 }}
                                 style={{
@@ -1641,7 +1641,7 @@ const Plans = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    Apply Now
+                                    Learn More
                                 </p>
                             </div>
                         </div>
