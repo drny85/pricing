@@ -1169,10 +1169,10 @@ const Plans = () => {
                                 </div>
                                 <div>
                                     <h3>Step 2</h3>
-                                    <p style={{ paddingTop: '10px' }}>
-                                        Order Fios Home Internet (300 Mbps plan
+                                    <p style={{ paddingTop: '10px', textTransform:'capitalize' }}>
+                                        Contact your Dedicated Verizon Specialist to Order Fios Home Internet (<i>300 Mbps plan
                                         is free with ACP + Fios Forward
-                                        discount)
+                                        discount</i>)
                                     </p>
                                 </div>
                                 <div>
