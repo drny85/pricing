@@ -1641,7 +1641,7 @@ const Plans = () => {
                                         fontWeight: 'bold',
                                     }}
                                 >
-                                    Learn More
+                                    Apply Now
                                 </p>
                             </div>
                         </div>
