@@ -74,7 +74,6 @@ const dataSlide = createSlice({
             state.within30Days = payload;
         },
         increaseLine: (state, { payload }: PayloadAction<number>) => {
-            console.log('PAYLOAD', payload);
             switch (true) {
                 case payload === 1:
                     state.numberOfLines++;
@@ -120,7 +119,6 @@ const dataSlide = createSlice({
             }
         },
         decreaseLine: (state, { payload }: PayloadAction<number>) => {
-            console.log('PAY', payload);
             switch (true) {
                 case payload === 2:
                     state.numberOfLines--;

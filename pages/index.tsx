@@ -169,9 +169,9 @@ const Plans = () => {
                 'Apple Music for 6 months on us',
             ],
             price:
-                numberOfLines === 1
+                lines === 1
                     ? 80 - expressAutoPay
-                    : numberOfLines === 2
+                    : lines === 2
                     ? 70 - expressAutoPay
                     : lines === 3
                     ? 55 - expressAutoPay
