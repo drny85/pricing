@@ -74,25 +74,27 @@ const dataSlide = createSlice({
             state.within30Days = payload;
         },
         increaseLine: (state, { payload }: PayloadAction<number>) => {
+            console.log('PAYLOAD', payload);
             switch (true) {
                 case payload === 1:
                     state.numberOfLines++;
                     state.plansPrice = {
-                        do_more: 70,
-                        get_more: 80,
+                        do_more: 80,
+                        get_more: 90,
                         play_more: 80,
-                        start: 90,
+                        start: 70,
                     };
                     break;
                 case payload === 2:
                     state.numberOfLines++;
                     state.plansPrice = {
-                        do_more: 75,
+                        do_more: 65,
                         get_more: 75,
                         play_more: 65,
                         start: 55,
                     };
                     break;
+
                 case payload === 3:
                     state.numberOfLines++;
                     state.plansPrice = {
@@ -102,6 +104,7 @@ const dataSlide = createSlice({
                         start: 45,
                     };
                     break;
+
                 case payload >= 4 && payload <= 10:
                     state.numberOfLines++;
                     state.plansPrice = {
@@ -117,6 +120,7 @@ const dataSlide = createSlice({
             }
         },
         decreaseLine: (state, { payload }: PayloadAction<number>) => {
+            console.log('PAY', payload);
             switch (true) {
                 case payload === 2:
                     state.numberOfLines--;

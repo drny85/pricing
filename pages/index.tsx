@@ -61,7 +61,6 @@ import {
     welcomeOffer,
 } from '../utils/mobilePlusHomeRewards';
 import { useAuth } from '../hooks/useAuth';
-import { db } from '../firebase';
 
 interface Props {
     children: React.ReactChild;
@@ -170,9 +169,9 @@ const Plans = () => {
                 'Apple Music for 6 months on us',
             ],
             price:
-                lines === 1
+                numberOfLines === 1
                     ? 80 - expressAutoPay
-                    : lines === 2
+                    : numberOfLines === 2
                     ? 70 - expressAutoPay
                     : lines === 3
                     ? 55 - expressAutoPay
@@ -304,7 +303,8 @@ const Plans = () => {
                 break;
         }
     };
-    console.log(opacity);
+    console.log(numberOfLines);
+
     const calculatePriceByLinePlus = (plan_id: PlanId) => {
         switch (plan_id) {
             case 'start':
@@ -1170,10 +1170,19 @@ const Plans = () => {
                                 </div>
                                 <div>
                                     <h3>Step 2</h3>
-                                    <p style={{ paddingTop: '10px', textTransform:'capitalize' }}>
-                                        Contact your Dedicated Verizon Specialist to Order Fios Home Internet (<i>300 Mbps plan
-                                        is free with ACP + Fios Forward
-                                        discount</i>)
+                                    <p
+                                        style={{
+                                            paddingTop: '10px',
+                                            textTransform: 'capitalize',
+                                        }}
+                                    >
+                                        Contact your Dedicated Verizon
+                                        Specialist to Order Fios Home Internet (
+                                        <i>
+                                            300 Mbps plan is free with ACP +
+                                            Fios Forward discount
+                                        </i>
+                                        )
                                     </p>
                                 </div>
                                 <div>
