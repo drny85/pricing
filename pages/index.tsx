@@ -58,7 +58,6 @@ import { firstResponderDiscount } from '../utils/firstResponderDiscount';
 import {
     bonusOfferDiscount,
     mobilePlusHomeRewards,
-    welcomeOffer,
 } from '../utils/mobilePlusHomeRewards';
 import { useAuth } from '../hooks/useAuth';
 
