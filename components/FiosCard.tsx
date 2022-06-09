@@ -104,7 +104,10 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                 formatValue={(n: number) => n.toFixed(2)}
                                 value={
                                     (id === 'fios200' && acpCustomer) ||
-                                    (id === 'fios400' && acpCustomer)
+                                    (id === 'fios400' &&
+                                        acpCustomer &&
+                                        hasWireless &&
+                                        isUnlimited)
                                         ? 0
                                         : Math.fround(
                                               price -
