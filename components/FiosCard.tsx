@@ -52,8 +52,6 @@ const FiosCard: FC<Props> = ({
 
     const acpDiscountTotal = (): number => {
         if (acpCustomer) {
-            // if (id === 'fiosGig') return 50;
-            // if (id === 'fios400') return 50;
             if (id === 'fios200') return 49.99;
             return 50.0;
         }

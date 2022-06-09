@@ -4,7 +4,7 @@ export default [
         name: 'Up to 940 / 880 Mbps',
         subtitle: '1 GIG 3.0',
         details: [
-            'Hover / Click to See All New Gigabit Plans',
+            'Click to Show / Hide All New Gigabit Plans',
             'Starting at $89.99 with auto pay',
             'Save $25 with Premium Wireless Plan',
         ],

@@ -1049,11 +1049,6 @@ const Plans = () => {
                                             setOpacityX(1);
                                         }
                                     }}
-                                    onMouseLeave={() => {
-                                        if (plan.id === 'fiosGig') {
-                                            setOpacityX(0);
-                                        }
-                                    }}
                                     price={
                                         fiosPrice[
                                             plan.id as
