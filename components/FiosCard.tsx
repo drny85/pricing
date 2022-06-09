@@ -12,6 +12,7 @@ interface Props {
     subtitle?: string;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
+    onClick?: () => void;
 }
 const FiosCard: FC<Props> = ({
     title,
@@ -21,6 +22,7 @@ const FiosCard: FC<Props> = ({
     subtitle,
     onMouseEnter,
     onMouseLeave,
+    onClick,
 }) => {
     const theme = useAppSelector((state) => state.theme);
 
@@ -64,6 +66,7 @@ const FiosCard: FC<Props> = ({
 
     return (
         <Card
+            onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             style={{

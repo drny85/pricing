@@ -1037,6 +1037,13 @@ const Plans = () => {
                                     id={plan.id}
                                     subtitle={plan.subtitle}
                                     key={plan.id}
+                                    onClick={() => {
+                                        if (plan.id === 'fiosGig') {
+                                            setOpacityX((prev) =>
+                                                prev === 1 ? 0 : 1
+                                            );
+                                        }
+                                    }}
                                     onMouseEnter={() => {
                                         if (plan.id === 'fiosGig') {
                                             setOpacityX(1);
