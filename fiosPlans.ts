@@ -11,7 +11,7 @@ export default [
     },
     {
         id: 'fios400',
-        name: '400 or 500 Mbps',
+        name: '500 / 500 Mbps',
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
@@ -21,7 +21,7 @@ export default [
     },
     {
         id: 'fios200',
-        name: '200 or 300 Mbps',
+        name: '300 / 300 Mbps',
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
