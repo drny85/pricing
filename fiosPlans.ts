@@ -15,7 +15,7 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
-            '3 Years Price Guarantee',
+            '3 Yr Price Guarantee',
             'Verizon Router Rental Included',
         ],
     },
@@ -25,7 +25,7 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
-            '2 Years Price Guarantee',
+            '2 Yr Price Guarantee',
             'Verizon Router Rental Included',
         ],
     },
