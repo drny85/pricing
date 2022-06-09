@@ -41,7 +41,7 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
     };
     const mobilePlusHomeDiscount = () => {
         if (currentFios) {
-            if (internet && internet !== 'gig') {
+            if (internet && internet === 'gig') {
                 dispatch(
                     setDiscount(
                         mobilePlusHomeDiscountAmount +
@@ -49,13 +49,8 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
                             (within30Days ? 5 : 0)
                     )
                 );
-                return (
-                    (mobilePlusHomeDiscountAmount +
-                        5 +
-                        (within30Days ? 5 : 0)) /
-                    numberOfLines
-                );
-            } else if (internet === 'gig') {
+                return within30Days ? 10 : 0;
+            } else if (internet === '200' || internet === '400') {
                 dispatch(
                     setDiscount(
                         mobilePlusHomeDiscountAmount +
@@ -63,12 +58,7 @@ const PlanCard: FC<Props> = ({ title, details, price }) => {
                             (within30Days ? 5 : 0)
                     )
                 );
-                return (
-                    (mobilePlusHomeDiscountAmount +
-                        10 +
-                        (within30Days ? 5 : 0)) /
-                    numberOfLines
-                );
+                return within30Days ? 5 : 0;
             } else {
                 return 0;
             }

@@ -118,8 +118,6 @@ const Plans = () => {
         fiosPrice,
         fiosAutoPay,
         isUnlimited,
-        wirelessWithin30Days,
-        justSigned,
         acpCustomer,
         fiosDiscount,
     } = useAppSelector((state) => state.fiosData);
@@ -156,6 +154,25 @@ const Plans = () => {
         }
     }, [userInfo, l]);
 
+    const newDiscountPerLine = (
+        internet_plan: '200' | '400' | 'gig' | undefined,
+        hasInternet: boolean
+    ): number => {
+        if (
+            lines === 0 ||
+            expressInternet === undefined ||
+            !expressWhithin30Days
+        )
+            return 0;
+        return internet_plan === 'gig' && hasInternet
+            ? 10
+            : internet_plan !== 'gig' &&
+              hasInternet &&
+              internet_plan !== undefined
+            ? 5
+            : 0;
+    };
+
     const plans = [
         {
             id: 'start',
@@ -169,7 +186,7 @@ const Plans = () => {
                 'Apple Music for 6 months on us',
             ],
             price:
-                lines === 1
+                (lines === 1
                     ? 80 - expressAutoPay
                     : lines === 2
                     ? 70 - expressAutoPay
@@ -179,7 +196,7 @@ const Plans = () => {
                     ? 45 - expressAutoPay
                     : lines >= 5
                     ? 40 - expressAutoPay
-                    : 0,
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
             id: 'play_more',
@@ -196,7 +213,7 @@ const Plans = () => {
                 'Apple Music for 6 months on us',
             ],
             price:
-                lines === 1
+                (lines === 1
                     ? 90 - expressAutoPay
                     : lines === 2
                     ? 80 - expressAutoPay
@@ -206,7 +223,7 @@ const Plans = () => {
                     ? 55 - expressAutoPay
                     : lines >= 5
                     ? 50 - expressAutoPay
-                    : 0,
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
             id: 'do_more',
@@ -224,7 +241,7 @@ const Plans = () => {
                 'Apple Music, Disney+, Apple Arcade, and Google Play Pass for 6 months on us',
             ],
             price:
-                lines === 1
+                (lines === 1
                     ? 90 - expressAutoPay
                     : lines === 2
                     ? 80 - expressAutoPay
@@ -234,7 +251,7 @@ const Plans = () => {
                     ? 55 - expressAutoPay
                     : lines >= 5
                     ? 50 - expressAutoPay
-                    : 0,
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
             id: 'get_more',
@@ -254,7 +271,7 @@ const Plans = () => {
                 'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
             ],
             price:
-                lines === 1
+                (lines === 1
                     ? 100 - expressAutoPay
                     : lines === 2
                     ? 90 - expressAutoPay
@@ -264,7 +281,7 @@ const Plans = () => {
                     ? 65 - expressAutoPay
                     : lines >= 5
                     ? 60 - expressAutoPay
-                    : 0,
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
     ];
 
@@ -303,7 +320,6 @@ const Plans = () => {
                 break;
         }
     };
-    console.log(numberOfLines);
 
     const calculatePriceByLinePlus = (plan_id: PlanId) => {
         switch (plan_id) {
@@ -338,14 +354,6 @@ const Plans = () => {
     const calculateTotalPriceBeforeTaxes = () => {
         return plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
     };
-
-    const calculateDate = () => {
-        const s = moment(moment().startOf('day'))
-            .subtract(30, 'days')
-            .format('lll');
-        console.log(s);
-    };
-    calculateDate();
 
     const resetAll = () => {
         setPlayMore(0);
@@ -441,6 +449,21 @@ const Plans = () => {
                             >
                                 Thank you for your interest in Verizon Wireless
                             </h2>
+                            {moment().isBefore('06/16/2022') && (
+                                <p
+                                    style={{
+                                        textTransform: 'uppercase',
+                                        fontSize: '1.2rem',
+                                        color: '#991e1e',
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        paddingBottom: '12px',
+                                    }}
+                                >
+                                    important: these pricing are taking effect
+                                    on 06/16/2022
+                                </p>
+                            )}
 
                             {/* DISCOUNTS */}
                             <div
@@ -546,11 +569,21 @@ const Plans = () => {
                                             <Switcher
                                                 value={within30Days}
                                                 saving={discount > 0}
-                                                savingText={discount}
+                                                savingText={
+                                                    within30Days &&
+                                                    internet === 'gig'
+                                                        ? 10 * numberOfLines
+                                                        : within30Days &&
+                                                          internet !==
+                                                              undefined &&
+                                                          internet !== 'gig'
+                                                        ? 5 * numberOfLines
+                                                        : 0
+                                                }
                                                 checked={within30Days}
-                                                text={`Signed up after ${moment()
-                                                    .subtract(30, 'days')
-                                                    .format('ll')}`}
+                                                text={`Signed before ${moment().format(
+                                                    'lll'
+                                                )}`}
                                                 onChange={() =>
                                                     dispatch(
                                                         setWithin30Days(
@@ -794,20 +827,6 @@ const Plans = () => {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    {currentFios && (
-                                        <p
-                                            style={{
-                                                fontSize: '1rem',
-                                                fontStyle: 'italic',
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
-                                            Must Enroll in Mobile + Home Rewards
-                                            through Verizon Up by downloading My
-                                            Verizon App
-                                        </p>
-                                    )}
-
                                     <div
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => {
@@ -885,7 +904,7 @@ const Plans = () => {
                                     flexDirection: 'column',
                                     alignItems: 'flex-start',
                                     justifyContent: 'center',
-                                    flex: '0.3',
+                                    flex: '1',
                                 }}
                             >
                                 <div
@@ -940,7 +959,7 @@ const Plans = () => {
                             </div>
                             <div
                                 style={{
-                                    flex: '0.7',
+                                    flex: '1',
                                     display: 'flex',
                                     justifyContent: 'space-around',
                                     alignItems: 'center',
@@ -1002,82 +1021,6 @@ const Plans = () => {
                                         </div>
                                     )}
                                 </div>
-                                {hasWireless && (
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'flex-end',
-                                            flexDirection: 'column',
-                                        }}
-                                    >
-                                        <div
-                                            style={{
-                                                display: 'flex',
-
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
-                                            <p
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    paddingBottom: '8px',
-                                                    textDecoration: 'underline',
-                                                    fontSize: '1.1rem',
-                                                }}
-                                            >
-                                                When Signed Up For Wireless?
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <Switcher
-                                                text={`After 03/02 & Before ${moment(
-                                                    moment().endOf('day')
-                                                )
-                                                    .add(30, 'days')
-                                                    .format('l')}`}
-                                                value={wirelessWithin30Days}
-                                                checked={wirelessWithin30Days}
-                                                onChange={() => {
-                                                    dispatch(
-                                                        setWirelessWithin30Days(
-                                                            !wirelessWithin30Days
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
-                                        <div>
-                                            <Switcher
-                                                text={`Before ${moment()
-                                                    .subtract(30, 'days')
-                                                    .format('ll')}`}
-                                                value={
-                                                    !wirelessWithin30Days &&
-                                                    !justSigned
-                                                }
-                                                checked={
-                                                    !wirelessWithin30Days &&
-                                                    !justSigned
-                                                }
-                                                onChange={() => {
-                                                    dispatch(
-                                                        setWirelessWithin30Days(
-                                                            false
-                                                        )
-                                                    );
-                                                    dispatch(
-                                                        setJustSignedUpForWireless(
-                                                            false
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         </div>
                         <div
@@ -1275,18 +1218,6 @@ const Plans = () => {
                                         </p>
                                     )}
 
-                                    {hasWireless &&
-                                        (wirelessWithin30Days ||
-                                            justSigned) && (
-                                            <p
-                                                style={{
-                                                    color: '#ad4a4a',
-                                                    padding: '0px 10px',
-                                                }}
-                                            >
-                                                Welcome offer $5
-                                            </p>
-                                        )}
                                     {hasWireless && (
                                         <div
                                             style={{
@@ -1300,7 +1231,9 @@ const Plans = () => {
                                                     color: '#ad4a4a',
                                                 }}
                                             >
-                                                <b>M + H Rewards:</b>
+                                                <b>
+                                                    Mobile + Home Discount 2.0
+                                                </b>
                                             </p>
                                             <p
                                                 style={{
@@ -1308,42 +1241,12 @@ const Plans = () => {
                                                     padding: '0px 10px',
                                                 }}
                                             >
-                                                Level 3 : $10
-                                            </p>
-                                            <p
-                                                style={{
-                                                    color: '#ad4a4a',
-                                                }}
-                                            >
-                                                Level 2: $5
+                                                {isUnlimited ? '$25' : '$10'}
                                             </p>
                                         </div>
                                     )}
-                                    {!wirelessWithin30Days && hasWireless && (
-                                        <p
-                                            style={{
-                                                color: '#ad4a4a',
-                                                padding: '0px 10px',
-                                            }}
-                                        >
-                                            <b>Limited Time Bonus:</b> Level 3 :
-                                            $20 / Level 2 : $15
-                                        </p>
-                                    )}
                                 </div>
                             </div>
-                            {hasWireless && (
-                                <p
-                                    style={{
-                                        fontSize: '1rem',
-                                        fontStyle: 'italic',
-                                        fontWeight: 'bold',
-                                    }}
-                                >
-                                    Must Enroll in Mobile + Home Rewards through
-                                    Verizon Up by downloading My Verizon App
-                                </p>
-                            )}
 
                             <div
                                 style={{ cursor: 'pointer' }}
@@ -1527,35 +1430,19 @@ const Plans = () => {
                                                 )
                                             )
                                         }
-                                        text={`Signed for Internet after ${moment()
-                                            .subtract(30, 'days')
-                                            .format('ll')}`}
+                                        saving={
+                                            expressHasFios &&
+                                            expressInternet !== undefined
+                                        }
+                                        savingText={
+                                            lines *
+                                            (expressInternet === 'gig' ? 10 : 5)
+                                        }
+                                        text={`Signed up before ${moment().format(
+                                            'lll'
+                                        )}`}
                                     />
                                 )}
-                                {expressHasFios &&
-                                    expressInternet !== undefined &&
-                                    lines > 0 && (
-                                        <p
-                                            style={{
-                                                fontStyle: 'italic',
-                                                textDecoration: 'underline',
-                                                fontSize: '1.2rem',
-                                            }}
-                                        >
-                                            $
-                                            {mobilePlusHomeRewards(
-                                                lines,
-                                                expressHasFios,
-                                                expressInternet
-                                            ) +
-                                                welcomeOffer(
-                                                    expressWhithin30Days,
-                                                    expressHasFios,
-                                                    numberOfLines
-                                                )}{' '}
-                                            saving
-                                        </p>
-                                    )}
                             </div>
 
                             {expressHasFios && (
@@ -1680,6 +1567,21 @@ const Plans = () => {
                                 </b>{' '}
                             </h4>
                         </div>
+                        {moment().isBefore('06/16/2022') && (
+                            <p
+                                style={{
+                                    textTransform: 'uppercase',
+                                    fontSize: '1.2rem',
+                                    color: '#991e1e',
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    paddingBottom: '12px',
+                                }}
+                            >
+                                important: these pricing are taking effect on
+                                06/16/2022
+                            </p>
+                        )}
                         <div
                             style={{
                                 display: 'flex',
@@ -1763,7 +1665,24 @@ const Plans = () => {
                                                     formatValue={(n: number) =>
                                                         n.toFixed(0)
                                                     }
-                                                    value={calculateTotalPriceBeforeTaxes()}
+                                                    value={
+                                                        calculateTotalPriceBeforeTaxes() +
+                                                        lines *
+                                                            (expressWhithin30Days &&
+                                                            expressInternet ===
+                                                                'gig'
+                                                                ? 10
+                                                                : expressWhithin30Days &&
+                                                                  expressInternet !==
+                                                                      'gig' &&
+                                                                  expressInternet !==
+                                                                      undefined
+                                                                ? 5
+                                                                : 0) +
+                                                        (expressAutoPay === 10
+                                                            ? lines * 10
+                                                            : 0)
+                                                    }
                                                 />
                                             </b>
                                         </p>
@@ -1887,8 +1806,6 @@ const Plans = () => {
                                                     }}
                                                 >
                                                     {' '}
-                                                    {expressAutoPay === 10 &&
-                                                        '(include auto pay)'}
                                                 </span>{' '}
                                                 <b>
                                                     ${' '}
@@ -1897,7 +1814,13 @@ const Plans = () => {
                                                         formatValue={(
                                                             n: number
                                                         ) => n.toFixed(0)}
-                                                        value={calculateTotalPriceBeforeTaxes()}
+                                                        value={
+                                                            calculateTotalPriceBeforeTaxes() +
+                                                            (expressAutoPay ===
+                                                            10
+                                                                ? 10 * lines
+                                                                : 0)
+                                                        }
                                                     />
                                                 </b>{' '}
                                             </p>
@@ -1957,8 +1880,8 @@ const Plans = () => {
                                                             padding: '5px 0px',
                                                         }}
                                                     >
-                                                        Mobile + Home Rewards
-                                                        Discount:
+                                                        Mobile + Home Discount
+                                                        2.0:
                                                         <b
                                                             style={{
                                                                 color: 'red',
@@ -1969,52 +1892,7 @@ const Plans = () => {
                                                                 lines,
                                                                 expressHasFios,
                                                                 expressInternet!
-                                                            )}
-                                                        </b>
-                                                    </p>
-                                                )}
-                                            {expressBonus > 0 &&
-                                                expressHasFios && (
-                                                    <p
-                                                        style={{
-                                                            padding: '5px 0px',
-                                                        }}
-                                                    >
-                                                        Limited Time Bonus:{' '}
-                                                        <b
-                                                            style={{
-                                                                color: 'red',
-                                                            }}
-                                                        >
-                                                            -$
-                                                            {bonusOfferDiscount(
-                                                                expressHasFios,
-                                                                expressBonus,
-                                                                numberOfLines
-                                                            )}
-                                                        </b>
-                                                    </p>
-                                                )}
-
-                                            {expressWhithin30Days &&
-                                                expressHasFios && (
-                                                    <p
-                                                        style={{
-                                                            padding: '5px 0px',
-                                                        }}
-                                                    >
-                                                        Welcome Offer:{' '}
-                                                        <b
-                                                            style={{
-                                                                color: 'red',
-                                                            }}
-                                                        >
-                                                            -$
-                                                            {welcomeOffer(
-                                                                expressWhithin30Days,
-                                                                expressHasFios,
-                                                                numberOfLines
-                                                            )}
+                                                            ) * lines}
                                                         </b>
                                                     </p>
                                                 )}
@@ -2036,27 +1914,10 @@ const Plans = () => {
                                                         formatValue={(
                                                             n: number
                                                         ) => n.toFixed(0)}
-                                                        value={
-                                                            calculateGrandTotal(
-                                                                lines,
-                                                                expressFirstResponder
-                                                            ) -
-                                                            mobilePlusHomeRewards(
-                                                                lines,
-                                                                expressHasFios,
-                                                                expressInternet!
-                                                            ) -
-                                                            welcomeOffer(
-                                                                expressWhithin30Days,
-                                                                expressHasFios,
-                                                                numberOfLines
-                                                            )! -
-                                                            bonusOfferDiscount(
-                                                                expressHasFios,
-                                                                expressBonus,
-                                                                numberOfLines
-                                                            )!
-                                                        }
+                                                        value={calculateGrandTotal(
+                                                            lines,
+                                                            expressFirstResponder
+                                                        )}
                                                     />
                                                 </b>
                                             </p>
@@ -2092,12 +1953,8 @@ const Plans = () => {
                                                             lines,
                                                             expressHasFios,
                                                             expressInternet!
-                                                        ) +
-                                                        welcomeOffer(
-                                                            expressWhithin30Days,
-                                                            expressHasFios,
-                                                            numberOfLines
-                                                        )! +
+                                                        ) *
+                                                            lines +
                                                         bonusOfferDiscount(
                                                             expressHasFios,
                                                             expressBonus,

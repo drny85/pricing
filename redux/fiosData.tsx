@@ -30,8 +30,8 @@ const initialState: DataState = {
     wirelessWithin30Days: false,
 
     fiosPrice: {
-        fios200: 49.99,
-        fios400: 74.99,
+        fios200: 59.99,
+        fios400: 79.99,
         fiosGig: 99.99,
     },
 };

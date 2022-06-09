@@ -9,7 +9,7 @@ export default [
             'Whole-Home -' +
                 'Verizon Router rental included + Wi-Fi extender provided',
             '2TB Verizon Cloud storage included $14.99/mo value',
-            'Save $20/mo with Unlimited Wireless.',
+
             'Save $99 Setup / Installation Fee',
         ],
     },
@@ -19,8 +19,8 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
-            'Save $10/mo with Unlimited Wireless.',
-            '$18 Verizon Router Rental Fee'
+
+            'Verizon Router Rental Included',
         ],
     },
     {
@@ -29,8 +29,8 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
-            'Save $10/mo with Unlimited Wireless.',
-            '$18 Verizon Router Rental Fee'
+
+            'Verizon Router Rental Included',
         ],
     },
 ];

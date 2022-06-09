@@ -13,7 +13,7 @@ const initialState: DataState = {
     expressAutoPay: 10,
     expressFirstResponder: false,
     expressHasFios: false,
-    expressWhithin30Days: false,
+    expressWhithin30Days: true,
     expressBonus: moment().isBefore(moment('2022-02-28').endOf('day')) ? 20 : 0,
     expressInternet: undefined,
 };

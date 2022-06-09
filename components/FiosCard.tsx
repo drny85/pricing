@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from '@mui/material';
 import React, { FC } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
+import { useAppSelector } from '../redux/hooks/reduxHooks';
 import AnimatedNumber from 'animated-number-react';
 
 interface Props {
@@ -12,15 +12,12 @@ interface Props {
     subtitle?: string;
 }
 const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
-    const dispatch = useAppDispatch();
-
     const theme = useAppSelector((state) => state.theme);
 
     const {
         fiosAutoPay,
         isFiosFirstResponder,
         hasWireless,
-        wirelessWithin30Days,
         isUnlimited,
         acpCustomer,
     } = useAppSelector((state) => state.fiosData);
@@ -44,38 +41,15 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
         return 0;
     };
 
-    const welcomeOffer = (hasWireless: boolean, within30: boolean) => {
-        if (hasWireless && within30) {
-            return 5;
-        }
-        return 0;
-    };
     const mobilePlusHomeDiscount = () => {
         if (hasWireless && isUnlimited) {
-            if (id === 'fiosGig') return 10;
-            return 5;
+            return 25;
         } else if (hasWireless && !isUnlimited) {
-            if (id === 'fiosGig') 5;
-            return 0;
+            return 10;
         } else {
             return 0;
         }
     };
-
-    const currentBonusOffer = (hasWireless: boolean, within30Days: boolean) => {
-        if (hasWireless && isUnlimited && within30Days) {
-            return 0;
-        } else if (hasWireless && isUnlimited && !within30Days) {
-            if (id === 'fiosGig') {
-                return 20;
-            } else if (id === 'fios200' || id === 'fios400') {
-                return 15;
-            }
-        } else {
-            return 0;
-        }
-    };
-    console.log(mobilePlusHomeDiscount());
 
     return (
         <Card
@@ -129,21 +103,14 @@ const FiosCard: FC<Props> = ({ title, details, price, id, subtitle }) => {
                                 duration={300}
                                 formatValue={(n: number) => n.toFixed(2)}
                                 value={
-                                    id === 'fios200' && acpCustomer
+                                    (id === 'fios200' && acpCustomer) ||
+                                    (id === 'fios400' && acpCustomer)
                                         ? 0
                                         : Math.fround(
                                               price -
                                                   fiosAutoPay -
                                                   mobilePlusHomeDiscount()! -
                                                   firstResponderDiscount()! -
-                                                  currentBonusOffer(
-                                                      hasWireless,
-                                                      wirelessWithin30Days
-                                                  )! -
-                                                  welcomeOffer(
-                                                      hasWireless,
-                                                      wirelessWithin30Days
-                                                  ) -
                                                   acpDiscountTotal()
                                           ).toFixed(2)
                                 }

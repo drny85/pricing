@@ -31,17 +31,3 @@ export const bonusOfferDiscount = (
         return 0;
     }
 };
-
-export const welcomeOffer = (
-    within30: boolean,
-    hasFios: boolean,
-    totalLines: number
-) => {
-    if (totalLines === 0 || !hasFios) return 0;
-
-    if (hasFios && within30 && totalLines > 0) {
-        return 5;
-    } else {
-        return 0;
-    }
-};
