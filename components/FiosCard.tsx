@@ -36,7 +36,13 @@ const FiosCard: FC<Props> = ({
 
     const firstResponderDiscount = () => {
         if (isFiosFirstResponder) {
-            if (id === 'fiosGig') return 15;
+            if (
+                id === 'fiosGig' ||
+                id === 'streaming' ||
+                id === 'gaming' ||
+                id === 'complete'
+            )
+                return 15;
             if (id === 'fios400') return 10;
             if (id === 'fios200') return 5;
         } else {
