@@ -2,15 +2,11 @@ export default [
     {
         id: 'fiosGig',
         name: 'Up to 940 / 880 Mbps',
-        subtitle: 'Plan Perks',
+        subtitle: '1 GIG 3.0',
         details: [
-            'The Disney Bundle (Disney+, Hulu, Espn+)  for 12 months on us',
-            'Get $300 off Stream TV Soundbar',
-            'Whole-Home -' +
-                'Verizon Router rental included + Wi-Fi extender provided',
-            '2TB Verizon Cloud storage included $14.99/mo value',
-
-            'Save $99 Setup / Installation Fee',
+            'Hover / Click to See All New Gigabit Plans',
+            'Starting at $89.99 with auto pay',
+            'Save $25 with Premium Wireless Plan',
         ],
     },
     {
@@ -19,7 +15,7 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
-
+            '3 Years Price Guarantee',
             'Verizon Router Rental Included',
         ],
     },
@@ -29,7 +25,7 @@ export default [
         subtitle: 'Plan Perks',
         details: [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
-
+            '2 Years Price Guarantee',
             'Verizon Router Rental Included',
         ],
     },

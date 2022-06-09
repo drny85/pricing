@@ -60,6 +60,7 @@ import {
     mobilePlusHomeRewards,
 } from '../utils/mobilePlusHomeRewards';
 import { useAuth } from '../hooks/useAuth';
+import Gigabit from '../components/Gigabit';
 
 interface Props {
     children: React.ReactChild;
@@ -92,6 +93,7 @@ const Plans = () => {
     const [loading, setLoading] = useState(true);
     const { userInfo, loading: l } = useAuth();
     const [opacity, setOpacity] = useState(0);
+    const [opacityX, setOpacityX] = useState(0);
 
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
@@ -1035,6 +1037,16 @@ const Plans = () => {
                                     id={plan.id}
                                     subtitle={plan.subtitle}
                                     key={plan.id}
+                                    onMouseEnter={() => {
+                                        if (plan.id === 'fiosGig') {
+                                            setOpacityX(1);
+                                        }
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (plan.id === 'fiosGig') {
+                                            setOpacityX(0);
+                                        }
+                                    }}
                                     price={
                                         fiosPrice[
                                             plan.id as
@@ -1048,6 +1060,7 @@ const Plans = () => {
                                 />
                             ))}
                         </div>
+                        <Gigabit opacity={opacityX} />
 
                         <div
                             style={{
