@@ -12,7 +12,7 @@ const Gigabit = ({ opacity }: Props) => {
                 display: 'flex',
 
                 opacity: opacity,
-                border: 'solid #756e6e 2px',
+                border: 'solid #8b8585 2px',
                 transition: 'all 0.5s ease-in-out',
                 height: opacity === 1 ? 'auto' : '0px',
                 transform: 'scale(' + opacity + ')',
@@ -24,7 +24,7 @@ const Gigabit = ({ opacity }: Props) => {
                 title={'1 Gig - Streaming'}
                 details={[
                     'Whole-Home Wi-Fi',
-                    'Verizon Cloud 2 TB',
+                    '2TB Verizon Cloud storage',
                     'Disney+ for 6 Months',
                     '4 yr Price Guarantee',
                 ]}
@@ -46,7 +46,7 @@ const Gigabit = ({ opacity }: Props) => {
                 title={'1 Gig - Complete Package'}
                 details={[
                     'Whole-Home Wi-Fi Plus',
-                    'Verizon Cloud 2 TB',
+                    '2TB Verizon Cloud storage',
                     'Disney+ for 6 Months',
                     'Moca Ethernet Adapter',
                     '$50 Xbox Gift Card',

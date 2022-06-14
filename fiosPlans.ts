@@ -7,6 +7,7 @@ export default [
             'Click to Show / Hide All New Gigabit Plans',
             'Starting at $89.99 with auto pay',
             'Save $25 with Premium Wireless Plan',
+            '4 Yr Price Guarantee',
         ],
     },
     {
