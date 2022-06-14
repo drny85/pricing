@@ -8,6 +8,8 @@ export default [
             'Starting at $89.99 with auto pay',
             'Save $25 with Premium Wireless Plan',
             '4 Yr Price Guarantee',
+            'SimpliSafe 8-Piece Bundle ($432 value)',
+            '$300 off Stream TV Soundbar or Soundbar Pro'
         ],
     },
     {
@@ -18,6 +20,9 @@ export default [
             'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
             '3 Yr Price Guarantee',
             'Verizon Router Rental Included',
+            'SimpliSafe 4-Piece Bundle ($342 value)',
+            '$200 off Stream TV Soundbar or Soundbar Pro'
+
         ],
     },
     {
@@ -28,6 +33,8 @@ export default [
             'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
             '2 Yr Price Guarantee',
             'Verizon Router Rental Included',
+            'SimpliSafe HD Wi-Fi Security Camera ($99 value)',
+            '$100 off Stream TV Soundbar or Soundbar Pro'
         ],
     },
 ];
