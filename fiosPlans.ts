@@ -17,7 +17,6 @@ export default [
         name: '500 / 500 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            'The Disney Bundle (Disney+, Hulu, Espn+)  for 6 months on us.',
             '3 Yr Price Guarantee',
             'Verizon Router Rental Included',
             'SimpliSafe 4-Piece Bundle ($342 value)',
@@ -30,7 +29,6 @@ export default [
         name: '300 / 300 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            'The Disney Bundle (Disney+, Hulu, Espn+) for 6 months on us.',
             '2 Yr Price Guarantee',
             'Verizon Router Rental Included',
             'SimpliSafe HD Wi-Fi Security Camera ($99 value)',
