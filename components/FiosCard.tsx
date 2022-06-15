@@ -191,7 +191,7 @@ const FiosCard: FC<Props> = ({
                             textDecoration:
                                 id !== 'fiosGig' &&
                                 acpCustomer &&
-                                index === details.length - 1 &&
+                               
                                 !d.includes('Router') &&
                                 !d.includes('yr')
                                     ? 'line-through'
