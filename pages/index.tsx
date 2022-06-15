@@ -1009,7 +1009,7 @@ const Plans = () => {
                                         >
                                             <Switcher
                                                 value={isUnlimited}
-                                                text="Premium Data Plan?"
+                                                text="Premium Unlimited Plan?"
                                                 checked={isUnlimited}
                                                 onChange={() => {
                                                     dispatch(
