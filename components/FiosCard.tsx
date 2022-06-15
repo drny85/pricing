@@ -188,6 +188,10 @@ const FiosCard: FC<Props> = ({
                 {details.map((d, index) => (
                     <p
                         style={{
+                            padding: '8px 4px',
+
+                            textDecorationStyle: 'solid',
+
                             fontWeight:
                                 index === 0 ||
                                 (index === details.length - 1 &&
