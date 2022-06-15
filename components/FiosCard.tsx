@@ -188,19 +188,6 @@ const FiosCard: FC<Props> = ({
                 {details.map((d, index) => (
                     <p
                         style={{
-                            textDecoration:
-                                id !== 'fiosGig' &&
-                                acpCustomer &&
-                               
-                                !d.includes('Router') &&
-                                !d.includes('yr')
-                                    ? 'line-through'
-                                    : 'none',
-                            padding: '8px 4px',
-                            textDecorationColor: '#b63535',
-                            textDecorationThickness: 2,
-                            textDecorationStyle: 'solid',
-
                             fontWeight:
                                 index === 0 ||
                                 (index === details.length - 1 &&
