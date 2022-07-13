@@ -10,6 +10,7 @@ import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Mobile from '@mui/icons-material/MobileFriendly';
 import AnimatedNumber from 'animated-number-react';
 
 import {
@@ -61,6 +62,7 @@ import {
 } from '../utils/mobilePlusHomeRewards';
 import { useAuth } from '../hooks/useAuth';
 import Gigabit from '../components/Gigabit';
+import MobileHome from '../components/MobileHome';
 
 interface Props {
     children: React.ReactChild;
@@ -436,8 +438,17 @@ const Plans = () => {
                             label="Express Store"
                             sx={{ color: theme.TEXT_COLOR }}
                         />
+                        <Tab
+                            icon={<Mobile />}
+                            iconPosition="start"
+                            label="Mobile + Home"
+                            sx={{ color: theme.TEXT_COLOR }}
+                        />
                     </Tabs>
                 </Box>
+                <TabPanel value={value} index={4}>
+                    <MobileHome />
+                </TabPanel>
                 <TabPanel value={value} index={1}>
                     <div>
                         <div>
