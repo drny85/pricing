@@ -1,11 +1,11 @@
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactElement, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useAppDispatch, useAppSelector } from './redux/hooks/reduxHooks';
 import { switchTheme } from './redux/themeSlide';
 
 import { darkTheme, lightTheme } from './Theme';
 
-const ThemeProviderComponent: FC<ReactNode> = ({ children }) => {
+const ThemeProviderComponent = (props: any) => {
     const theme = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -16,7 +16,7 @@ const ThemeProviderComponent: FC<ReactNode> = ({ children }) => {
             );
         }
     }, [dispatch]);
-    return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+    return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
 export default ThemeProviderComponent;
