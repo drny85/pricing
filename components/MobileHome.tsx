@@ -624,10 +624,15 @@ const MobileHome = () => {
                                 <motion.p style={{ textAlign: 'left' }}>
                                     • Click ‘Join Now’.
                                 </motion.p>
-                                <motion.p>
+                                <motion.p
+                                    style={{
+                                        textAlign: 'left',
+                                        padding: '6px 0px',
+                                    }}
+                                >
                                     {service === 'fios'
                                         ? ' • Make sure your internet is already installed'
-                                        : 'Make sure your Wireless service is already activated'}
+                                        : ' • Make sure your Wireless service is already activated'}
                                 </motion.p>
                             </div>
 
