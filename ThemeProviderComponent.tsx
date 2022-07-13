@@ -5,7 +5,7 @@ import { switchTheme } from './redux/themeSlide';
 
 import { darkTheme, lightTheme } from './Theme';
 
-const ThemeProviderComponent = (props: any) => {
+const ThemeProviderComponent: FC<ReactNode> = ({ children }) => {
     const theme = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -16,7 +16,12 @@ const ThemeProviderComponent = (props: any) => {
             );
         }
     }, [dispatch]);
-    return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+    return (
+        <ThemeProvider theme={theme}>
+            {/* @ts-ignore */}
+            {children}
+        </ThemeProvider>
+    );
 };
 
 export default ThemeProviderComponent;

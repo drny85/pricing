@@ -23,7 +23,7 @@ const MobileHome = () => {
 
     const handleSubmit = () => {
         if (service === null || internet === null) return;
-        console.log('CL:KEDD');
+
         window.open(
             'https://www.verizon.com/digital/nsa/secure/ui/mhdiscount/#/landing'
         );
@@ -615,10 +615,15 @@ const MobileHome = () => {
                                         padding: '12px 0px',
                                     }}
                                 >
-                                    • Log in to your Fios account.
+                                    • Log in to your Verizon account.
                                 </motion.p>
                                 <motion.p style={{ textAlign: 'left' }}>
                                     • Click ‘Join Now’.
+                                </motion.p>
+                                <motion.p>
+                                    {service === 'fios'
+                                        ? ' • Make sure your internet is already installed'
+                                        : 'Make sure your Wireless service is already activated'}
                                 </motion.p>
                             </div>
 
