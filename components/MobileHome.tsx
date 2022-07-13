@@ -22,7 +22,11 @@ const MobileHome = () => {
     const theme = useAppSelector((state) => state.theme);
 
     const handleSubmit = () => {
-        if (service === null || internet === null) return;
+        if (
+            (service === null && internet === null) ||
+            (service === null && wirelessPlan === null)
+        )
+            return;
 
         window.open(
             'https://www.verizon.com/digital/nsa/secure/ui/mhdiscount/#/landing'
