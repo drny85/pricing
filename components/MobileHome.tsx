@@ -333,9 +333,9 @@ const MobileHome = () => {
                                                     fontSize: '1.1rem',
                                                 }}
                                             >
-                                                We strongly recommend you to
-                                                switch the 1G so you can get $10
-                                                per line
+                                                We strongly recommend you
+                                                switching the 1 Gib Internet so
+                                                you can get $10 per line
                                             </motion.p>
                                         )}
                                     </motion.div>
@@ -555,8 +555,8 @@ const MobileHome = () => {
                                                         fontSize: '1.1rem',
                                                     }}
                                                 >
-                                                    We strongly recommend you to
-                                                    switch to a Premium
+                                                    We strongly recommend you
+                                                    switching to a Premium
                                                     Unlimited wireless plan to
                                                     get $25 off the internet
                                                 </motion.p>
