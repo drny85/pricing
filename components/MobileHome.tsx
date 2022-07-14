@@ -282,7 +282,7 @@ const MobileHome = () => {
                                             }}
                                         >
                                             2) - You just signed for Verizon
-                                            Wireless and wants to get your
+                                            Wireless and want to get your
                                             discount for being part of the
                                             family.
                                         </motion.p>
@@ -502,7 +502,7 @@ const MobileHome = () => {
                                             }}
                                         >
                                             2) - You just signed for Verizon
-                                            Fios Internet and wants to get your
+                                            Fios Internet and want to get your
                                             discount for being part of the
                                             family.
                                         </motion.p>
