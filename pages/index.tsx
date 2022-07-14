@@ -1481,7 +1481,7 @@ const Plans = () => {
                                 >
                                     <Switcher
                                         value={'200'}
-                                        text="200 or 300 Mbps"
+                                        text="300 Mbps"
                                         checked={expressInternet === '200'}
                                         onChange={() =>
                                             dispatch(setExpressInternet('200'))
@@ -1489,7 +1489,7 @@ const Plans = () => {
                                     />
                                     <Switcher
                                         value={'400'}
-                                        text="400 or 500 Mbps"
+                                        text="500 Mbps"
                                         checked={expressInternet === '400'}
                                         onChange={() =>
                                             dispatch(setExpressInternet('400'))
@@ -1497,7 +1497,7 @@ const Plans = () => {
                                     />
                                     <Switcher
                                         value={'gig'}
-                                        text="Up to 940/880 Mbps"
+                                        text="1 GB"
                                         checked={expressInternet === 'gig'}
                                         onChange={() =>
                                             dispatch(setExpressInternet('gig'))
