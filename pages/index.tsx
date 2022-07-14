@@ -187,6 +187,7 @@ const Plans = () => {
                 'Apple Arcade for 6 months on us',
                 'Google Play Pass for 6 months on us',
                 'Apple Music for 6 months on us',
+                '5 GB premium mobile hostspot data, then unlimted lower-speed data',
             ],
             price:
                 (lines === 1
