@@ -874,24 +874,47 @@ const Plans = () => {
                                 justifyContent: 'space-evenly',
                             }}
                         >
-                            <motion.a
-                                whileHover={{
-                                    scale: 1.05,
-                                    backgroundColor: '#706e6eab',
-                                }}
-                                style={{
-                                    padding: '0.5rem 0.8rem',
-                                    fontSize: '1.2rem',
-                                    backgroundColor: theme.CARD_BACKGROUND,
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                    marginBottom: '10px',
-                                }}
-                                href="MIX.pdf"
-                                target="_blank"
-                            >
-                                Download Event Form
-                            </motion.a>
+                            <motion.div>
+                                <motion.a
+                                    whileHover={{
+                                        scale: 1.05,
+                                        backgroundColor: '#706e6eab',
+                                    }}
+                                    style={{
+                                        padding: '0.5rem 0.8rem',
+                                        fontSize: '1.2rem',
+                                        backgroundColor: theme.CARD_BACKGROUND,
+                                        borderRadius: '10px',
+                                        cursor: 'pointer',
+                                        marginBottom: '10px',
+                                    }}
+                                    href="MIX.pdf"
+                                    target="_blank"
+                                >
+                                    Event Form
+                                </motion.a>
+
+                                <motion.a
+                                    whileHover={{
+                                        scale: 1.05,
+                                        backgroundColor: '#706e6eab',
+                                    }}
+                                    style={{
+                                        padding: '0.5rem 0.8rem',
+                                        fontSize: '1.2rem',
+                                        marginLeft: '10px',
+                                        backgroundColor: theme.CARD_BACKGROUND,
+                                        borderRadius: '10px',
+                                        cursor: 'pointer',
+                                        marginBottom: '10px',
+                                    }}
+                                    href="ACP.pdf"
+                                    target="_blank"
+                                >
+                                    ACP Form
+                                </motion.a>
+                            </motion.div>
+
                             <h2
                                 style={{
                                     textAlign: 'center',
