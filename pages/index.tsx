@@ -12,6 +12,7 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Mobile from '@mui/icons-material/MobileFriendly';
 import AnimatedNumber from 'animated-number-react';
+import { motion } from 'framer-motion';
 
 import {
     decreaseLine,
@@ -873,6 +874,24 @@ const Plans = () => {
                                 justifyContent: 'space-evenly',
                             }}
                         >
+                            <motion.a
+                                whileHover={{
+                                    scale: 1.05,
+                                    backgroundColor: '#706e6eab',
+                                }}
+                                style={{
+                                    padding: '0.5rem 0.8rem',
+                                    fontSize: '1.2rem',
+                                    backgroundColor: theme.CARD_BACKGROUND,
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                    marginBottom: '10px',
+                                }}
+                                href="MIX.pdf"
+                                target="_blank"
+                            >
+                                Download Event Form
+                            </motion.a>
                             <h2
                                 style={{
                                     textAlign: 'center',
