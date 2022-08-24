@@ -9,6 +9,7 @@ export default [
             '4 Yr Price Guarantee',
             'Save $25 with Premium Wireless Plan',
             'Verizon Router Rental Included',
+            '$100 Verizon Gift Card',
             '$350 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
@@ -19,7 +20,7 @@ export default [
         details: [
             '3 Yr Price Guarantee',
             'Verizon Router Rental Included',
-            '$200 off Stream TV Soundbar or Soundbar Pro',
+            '$250 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
     {
