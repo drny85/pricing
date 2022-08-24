@@ -1073,6 +1073,9 @@ const Plans = () => {
                                                     );
                                                 }}
                                             />
+                                            <p style={{ fontStyle: 'italic' }}>
+                                                (Except 5G Start)
+                                            </p>
                                         </div>
                                     )}
                                 </div>
