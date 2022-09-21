@@ -30,7 +30,6 @@ export default [
         details: [
             '2 Yr Price Guarantee',
             'Verizon Router Rental Included',
-            'SimpliSafe HD Wi-Fi Security Camera ($99 value)',
             '$100 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
