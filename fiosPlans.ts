@@ -6,11 +6,12 @@ export default [
         details: [
             'Click to Show / Hide All New Gigabit Plans',
             'Starting at $89.99 with auto pay',
-            '4 Yr Price Guarantee',
+            '10 Yr Price Guarantee',
+            'Amazon Echo Show 10 on US',
             'Save $25 with Premium Wireless Plan',
             'Verizon Router Rental Included',
             '$100 Verizon Gift Card',
-            '$350 off Stream TV Soundbar or Soundbar Pro',
+            '$300 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
     {
@@ -18,9 +19,10 @@ export default [
         name: '500 / 500 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '3 Yr Price Guarantee',
+            '10 Yr Price Guarantee',
+            'Amazon Echo Show 5 on US',
             'Verizon Router Rental Included',
-            '$250 off Stream TV Soundbar or Soundbar Pro',
+            '$200 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
     {
@@ -28,7 +30,8 @@ export default [
         name: '300 / 300 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '2 Yr Price Guarantee',
+            '10 Yr Price Guarantee',
+            'Amazon Echo Dot on US',
             'Verizon Router Rental Included',
             '$100 off Stream TV Soundbar or Soundbar Pro',
         ],
