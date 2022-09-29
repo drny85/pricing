@@ -26,7 +26,7 @@ const Gigabit = ({ opacity }: Props) => {
                     'Whole-Home Wi-Fi',
                     '2TB Verizon Cloud storage',
                     'Disney+ for 6 Months',
-                    '4 yr Price Guarantee',
+                    '10 yr Price Guarantee',
                 ]}
                 id="streaming"
                 price={99.99}
@@ -37,7 +37,7 @@ const Gigabit = ({ opacity }: Props) => {
                     'Whole-Home Wi-Fi',
                     'Moca Ethernet Adapter',
                     '$50 Xbox Gift Card',
-                    '4 yr Price Guarantee',
+                    '10 yr Price Guarantee',
                 ]}
                 id="gaming"
                 price={99.99}
@@ -50,7 +50,7 @@ const Gigabit = ({ opacity }: Props) => {
                     'Disney+ for 6 Months',
                     'Moca Ethernet Adapter',
                     '$50 Xbox Gift Card',
-                    '4 yr Price Guarantee',
+                    '10 yr Price Guarantee',
                 ]}
                 id="complete"
                 price={109.99}
