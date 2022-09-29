@@ -10,7 +10,6 @@ export default [
             'Amazon Echo Show 10 on US',
             'Save $25 with Premium Wireless Plan',
             'Verizon Router Rental Included',
-            '$100 Verizon Gift Card',
             '$300 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
