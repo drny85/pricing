@@ -48,6 +48,12 @@ p, h1, h2, h3, h4, h5, h6, span , i, b{
     background-color: ${({ theme }) => theme.CARD_BACKGROUND};
     margin: 10px auto;
 }
+.byod {
+    color: red;
+    font-weight:bold;
+    font-size:1.2rem;
+  
+}
 .btn {
     padding: 15px 25px;
     border-radius: 30px;

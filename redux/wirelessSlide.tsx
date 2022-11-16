@@ -8,6 +8,7 @@ interface DataState {
     expressBonus: number;
     expressWhithin30Days: boolean;
     expressInternet: '200' | '400' | 'gig' | undefined;
+    BYOD: boolean;
 }
 const initialState: DataState = {
     expressAutoPay: 10,
@@ -16,6 +17,7 @@ const initialState: DataState = {
     expressWhithin30Days: true,
     expressBonus: moment().isBefore(moment('2022-02-28').endOf('day')) ? 20 : 0,
     expressInternet: undefined,
+    BYOD: false,
 };
 const wirelessSlide = createSlice({
     name: 'wireless',
@@ -52,6 +54,9 @@ const wirelessSlide = createSlice({
         setExpressReset: (state) => {
             return (state = initialState);
         },
+        toogleBYOD: (state) => {
+            state.BYOD = !state.BYOD;
+        },
     },
 });
 
@@ -62,6 +67,7 @@ export const {
     setExpressInternet,
     setExpressWithin30Days,
     setExpressReset,
+    toogleBYOD,
 } = wirelessSlide.actions;
 
 export default wirelessSlide.reducer;

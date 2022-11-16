@@ -54,6 +54,7 @@ import {
     setExpressInternet,
     setExpressReset,
     setExpressWithin30Days,
+    toogleBYOD,
 } from '../redux/wirelessSlide';
 import PlanLine from '../components/PlanLine';
 import { firstResponderDiscount } from '../utils/firstResponderDiscount';
@@ -132,6 +133,7 @@ const Plans = () => {
         expressInternet,
         expressWhithin30Days,
         expressBonus,
+        BYOD,
     } = useAppSelector((state) => state.wireless);
     const theme = useAppSelector((state) => state.theme);
     const dispatch = useAppDispatch();
@@ -292,8 +294,24 @@ const Plans = () => {
 
     const calculateGrandTotal = (lines: number, isFirst: boolean) => {
         const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
-        return total - firstResponderDiscount(lines, isFirst);
+        return total - firstResponderDiscount(lines, isFirst) - byodDiscount();
     };
+
+    const byodDiscount = (): number =>
+        BYOD
+            ? plans
+                  .map((p) => {
+                      return {
+                          discount:
+                              p.line > 0
+                                  ? p.id === 'start'
+                                      ? (360 / 36) * p.line
+                                      : (500 / 36) * p.line
+                                  : 0,
+                      };
+                  })
+                  .reduce((pre, curr) => curr.discount + pre, 0)
+            : 0;
 
     const calculatePriceByLineMinus = (plan_id: PlanId) => {
         switch (plan_id) {
@@ -1480,6 +1498,14 @@ const Plans = () => {
                                 }}
                             >
                                 <Switcher
+                                    text="BYOD"
+                                    value={BYOD}
+                                    checked={BYOD}
+                                    onChange={() => {
+                                        dispatch(toogleBYOD());
+                                    }}
+                                />
+                                <Switcher
                                     text="Has Fios Internet"
                                     value={expressHasFios}
                                     checked={expressHasFios}
@@ -1577,8 +1603,8 @@ const Plans = () => {
                                         }}
                                     >
                                         Have a phone you love? Get up to{' '}
-                                        <b>$500</b> Verizon e-Gift Card when you
-                                        bring your phone.{' '}
+                                        <b>$500</b> BIC when you bring your
+                                        phone.{' '}
                                     </p>
                                 </div>
                                 <div>
@@ -1941,6 +1967,46 @@ const Plans = () => {
                                                     </b>
                                                 </p>
                                             )}
+                                            {BYOD && (
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    <p
+                                                        style={{
+                                                            padding: '5px 0px',
+                                                        }}
+                                                    >
+                                                        BYOD Credit{' '}
+                                                        <span
+                                                            style={{
+                                                                fontSize:
+                                                                    '0.8rem',
+                                                                fontStyle:
+                                                                    'italic',
+                                                                fontWeight:
+                                                                    'bold',
+                                                            }}
+                                                        >
+                                                            (36 months)
+                                                        </span>
+                                                        :
+                                                    </p>
+                                                    <b style={{ color: 'red' }}>
+                                                        -$
+                                                        <AnimatedNumber
+                                                            className="byod"
+                                                            duration={300}
+                                                            formatValue={(
+                                                                n: number
+                                                            ) => n.toFixed(2)}
+                                                            value={byodDiscount()}
+                                                        />
+                                                    </b>
+                                                </div>
+                                            )}
 
                                             {expressInternet &&
                                                 lines > 0 &&
@@ -1984,7 +2050,7 @@ const Plans = () => {
                                                         duration={300}
                                                         formatValue={(
                                                             n: number
-                                                        ) => n.toFixed(0)}
+                                                        ) => n.toFixed(2)}
                                                         value={calculateGrandTotal(
                                                             lines,
                                                             expressFirstResponder
@@ -2006,7 +2072,7 @@ const Plans = () => {
                                                 <AnimatedNumber
                                                     duration={300}
                                                     formatValue={(n: number) =>
-                                                        n.toFixed(0)
+                                                        n.toFixed(2)
                                                     }
                                                     value={
                                                         autoPayDiscount(
@@ -2030,7 +2096,8 @@ const Plans = () => {
                                                             expressHasFios,
                                                             expressBonus,
                                                             numberOfLines
-                                                        )!
+                                                        )! +
+                                                        byodDiscount()
                                                     }
                                                 />
                                             </p>
