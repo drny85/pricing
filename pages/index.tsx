@@ -305,7 +305,7 @@ const Plans = () => {
                           discount:
                               p.line > 0
                                   ? p.id === 'start'
-                                      ? (360 / 36) * p.line
+                                      ? (300 / 36) * p.line
                                       : (500 / 36) * p.line
                                   : 0,
                       };
