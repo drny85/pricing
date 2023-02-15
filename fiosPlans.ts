@@ -1,6 +1,3 @@
-import moment from 'moment';
-const isValid = moment().isBefore(moment('11-28-2022'));
-console.log('VALID', isValid);
 export default [
     {
         id: 'fiosGig',
@@ -8,17 +5,11 @@ export default [
         subtitle: '1 GIG 3.0',
         details: [
             'Click to Show / Hide All New Gigabit Plans',
-            '$200 Grubhub or DoorDash',
+            'Walmart+ for 12 months',
             'Starting at $89.99 with auto pay',
-            '10 Yr Price Guarantee',
-
+            '4 Yr Price Guarantee',
             'Verizon Router Rental Included',
             '$300 off Stream TV Soundbar or Soundbar Pro',
-            `${
-                isValid
-                    ? 'Amazon Echo Show 10 on US or $150 Verizon E-Gift Card'
-                    : ''
-            }`,
         ],
     },
     {
@@ -26,15 +17,9 @@ export default [
         name: '500 / 500 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '10 Yr Price Guarantee',
-            '$100 Grubhub or DoorDash',
+            '3 Yr Price Guarantee',
+            'Walmart+ for 6 months',
             'Verizon Router Rental Included',
-            '$200 off Stream TV Soundbar or Soundbar Pro',
-            `${
-                isValid
-                    ? 'Amazon Echo Show 5 on US or $100 Verizon E-Gift Card'
-                    : ''
-            }`,
         ],
     },
     {
@@ -42,15 +27,9 @@ export default [
         name: '300 / 300 Mbps',
         subtitle: 'Plan Perks',
         details: [
-            '10 Yr Price Guarantee',
-            '$50 Grubhub or DoorDash',
+            '2 Yr Price Guarantee',
+            'Walmart+ for 3 months',
             'Verizon Router Rental Included',
-            '$100 off Stream TV Soundbar or Soundbar Pro',
-            `${
-                isValid
-                    ? 'Amazon Echo Dot on US or $50 Verizon E-Gift Card'
-                    : ''
-            }`,
         ],
     },
 ];
