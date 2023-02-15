@@ -1,12 +1,15 @@
 export const mobilePlusHomeRewards = (
     totalLines: number,
     hasFios: boolean,
+    isWelcome: boolean,
     internetSpeed: '200' | '400' | 'gig'
 ) => {
     if (totalLines === 0 || !hasFios) return 0;
 
     switch (true) {
-        case hasFios && internetSpeed === 'gig':
+        case isWelcome && hasFios:
+            return 5;
+        case hasFios && internetSpeed === 'gig' && !isWelcome:
             return 10;
         case hasFios && internetSpeed === '400':
             return 5;

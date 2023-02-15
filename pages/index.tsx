@@ -107,7 +107,7 @@ const Plans = () => {
     const [playMore, setPlayMore] = useState(0);
     const [doMore, setDoMore] = useState(0);
     const [getMore, setGetMore] = useState(0);
-    const [jk, setJk] = useState(0);
+
     const {
         currentFios,
         isFirstResponder,
@@ -2088,6 +2088,7 @@ const Plans = () => {
                                                             {mobilePlusHomeRewards(
                                                                 lines,
                                                                 expressHasFios,
+                                                                welcome > 0,
                                                                 expressInternet!
                                                             ) * lines}
                                                         </b>
@@ -2149,6 +2150,7 @@ const Plans = () => {
                                                         mobilePlusHomeRewards(
                                                             lines,
                                                             expressHasFios,
+                                                            welcome > 0,
                                                             expressInternet!
                                                         ) *
                                                             lines +
