@@ -73,6 +73,7 @@ interface Props {
     others?: any;
 }
 enum PlanId {
+    welcome = 'welcome',
     start = 'start',
     play_more = 'play_more',
     do_more = 'do_more',
@@ -101,6 +102,7 @@ const Plans = () => {
 
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
+    const [welcome, setWelcome] = useState(0);
     const [start, setStart] = useState(0);
     const [playMore, setPlayMore] = useState(0);
     const [doMore, setDoMore] = useState(0);
@@ -180,6 +182,24 @@ const Plans = () => {
     };
 
     const plans = [
+        {
+            id: 'welcome',
+            name: 'Welcome',
+            line: welcome,
+            details: ['Unlimited 5G', '5G Nationwide'],
+            price:
+                (lines === 1
+                    ? 75 - expressAutoPay
+                    : lines === 2
+                    ? 55
+                    : lines === 3
+                    ? 40
+                    : lines === 4
+                    ? 30
+                    : lines >= 5
+                    ? 25
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
+        },
         {
             id: 'start',
             name: '5G Start',
@@ -305,7 +325,9 @@ const Plans = () => {
                           discount:
                               p.line > 0
                                   ? p.id === 'start'
-                                      ? (300 / 36) * p.line
+                                      ? (360 / 36) * p.line
+                                      : p.id === 'welcome'
+                                      ? (180 / 36) * p.line
                                       : (500 / 36) * p.line
                                   : 0,
                       };
@@ -315,6 +337,12 @@ const Plans = () => {
 
     const calculatePriceByLineMinus = (plan_id: PlanId) => {
         switch (plan_id) {
+            case 'welcome':
+                if (welcome > 0) {
+                    setLines((prev) => prev - 1);
+                    setWelcome((prev) => prev - 1);
+                }
+                break;
             case 'start':
                 if (start > 0) {
                     setLines((prev) => prev - 1);
@@ -346,6 +374,12 @@ const Plans = () => {
 
     const calculatePriceByLinePlus = (plan_id: PlanId) => {
         switch (plan_id) {
+            case 'welcome':
+                if (welcome < 10) {
+                    setLines((prev) => prev + 1);
+                    setWelcome((prev) => prev + 1);
+                }
+                break;
             case 'start':
                 if (start < 10) {
                     setStart((prev) => prev + 1);
@@ -384,6 +418,7 @@ const Plans = () => {
         setStart(0);
         setGetMore(0);
         setLines(0);
+        setWelcome(0);
     };
 
     useEffect(() => {
@@ -1701,6 +1736,31 @@ const Plans = () => {
                                         lines={p.line}
                                         details={p.details}
                                         onAdd={() => {
+                                            if (p.id !== 'welcome') {
+                                                if (welcome > 0) {
+                                                    alert(
+                                                        'Please remove all Welcome Unlimited if you want to add another plan'
+                                                    );
+                                                    return;
+                                                }
+                                            } else if (p.id === 'welcome') {
+                                                if (
+                                                    Object.values(plans).some(
+                                                        (l) => {
+                                                            return (
+                                                                l.line > 0 &&
+                                                                l.id !==
+                                                                    'welcome'
+                                                            );
+                                                        }
+                                                    )
+                                                ) {
+                                                    alert(
+                                                        'Please remove other plans if you want to add Welcome Unlimited'
+                                                    );
+                                                    return;
+                                                }
+                                            }
                                             if (lines < 10) {
                                                 calculatePriceByLinePlus(
                                                     p.id as PlanId
