@@ -64,7 +64,7 @@ const PlanLine: FC<Props> = ({
                             }}
                         >
                             <h2 style={{ paddingLeft: '10px' }}>{planName} </h2>
-                            <span>
+                            <span style={{ paddingLeft: '8px' }}>
                                 {planName.includes('More')
                                     ? '(Premium Plan)'
                                     : '(Non Premium)'}
