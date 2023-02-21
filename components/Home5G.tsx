@@ -296,12 +296,7 @@ const Home5G = (props: Props) => {
                         marginTop: '1rem',
                     }}
                 >
-                    <Button
-                        LinkComponent="a"
-                        href="https://secure.verizon.com/signin?&goto=http%3A%2F%2Fmyvpostpay.verizonwireless.com%3A443%2Fui%2Facct%2Fao%2Facb%2F"
-                        onClick={resetAll}
-                        variant="outlined"
-                    >
+                    <Button onClick={resetAll} variant="outlined">
                         Reset All
                     </Button>
                 </div>
