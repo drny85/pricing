@@ -12,7 +12,7 @@ export default [
     },
     {
         id: 'play_more',
-        name: '5G Play More',
+        name: '5G Play More (Premium Plan)',
         details: [
             '5G Total Access',
             '5G Ultra Wideband',
@@ -26,7 +26,7 @@ export default [
     },
     {
         id: 'do_more',
-        name: '5G Do More',
+        name: '5G Do More (Premium Plan)',
         details: [
             '5G Total Access',
             '5G Ultra Wideband',
@@ -41,7 +41,7 @@ export default [
     },
     {
         id: 'get_more',
-        name: '5G Get More',
+        name: '5G Get More (Premium Plan)',
         details: [
             '5G Total Access',
             '5G Ultra Wideband',
