@@ -184,7 +184,7 @@ const Plans = () => {
     const plans = [
         {
             id: 'welcome',
-            name: 'Welcome (Non Premium)',
+            name: 'Welcome',
             line: welcome,
             details: ['Unlimited 5G', '5G Nationwide'],
             price:
@@ -202,7 +202,7 @@ const Plans = () => {
         },
         {
             id: 'start',
-            name: '5G Start (Non Premium)',
+            name: '5G Start',
             line: start,
             details: [
                 '5G Access',
@@ -227,7 +227,7 @@ const Plans = () => {
         },
         {
             id: 'play_more',
-            name: '5G Play More (Premium Plan)',
+            name: '5G Play More',
             line: playMore,
             details: [
                 '5G Total Access',
@@ -254,7 +254,7 @@ const Plans = () => {
         },
         {
             id: 'do_more',
-            name: '5G Do More (Premium Plan)',
+            name: '5G Do More',
             line: doMore,
             details: [
                 '5G Total Access',
@@ -282,7 +282,7 @@ const Plans = () => {
         },
         {
             id: 'get_more',
-            name: '5G Get More (Premium Plan)',
+            name: '5G Get More',
             line: getMore,
             details: [
                 '5G Total Access',

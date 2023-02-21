@@ -63,7 +63,12 @@ const PlanLine: FC<Props> = ({
                                 alignItems: 'center',
                             }}
                         >
-                            <h2 style={{ paddingLeft: '10px' }}>{planName}</h2>
+                            <h2 style={{ paddingLeft: '10px' }}>{planName} </h2>
+                            <span>
+                                {planName.includes('More')
+                                    ? '(Premium Plan)'
+                                    : '(Non Premium)'}
+                            </span>
                             <div
                                 onClick={() => {
                                     if (expanded === planName) {
