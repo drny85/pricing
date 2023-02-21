@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import React from 'react';
 
 import { useAppSelector } from '../redux/hooks/reduxHooks';
@@ -57,14 +57,19 @@ const Home5GCard = ({ title, id, subtitle, details, price }: Props) => {
                 width: '100%',
             }}
         >
-            <CardHeader
-                title={title}
-                style={{
-                    color: theme.TEXT_COLOR,
+            <Typography align="center" paddingY={2} variant="h4">
+                {title}
+            </Typography>
+            {/* <CardHeader
+                sx={{
+                    fontSize: 40,
                     fontWeight: 'bold',
+                    color: theme.TEXT_COLOR,
                 }}
-            />
+                title={title}
+            /> */}
             <CardContent>
+                <h3 style={{ paddingBottom: '1rem' }}>{subtitle}</h3>
                 <p
                     style={{
                         color: '#964c43',

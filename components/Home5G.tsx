@@ -190,7 +190,7 @@ const Home5G = (props: Props) => {
                         <Home5GCard
                             key={p.id}
                             title={p.name}
-                            subtitle={'Hello'}
+                            subtitle={p.subtitle}
                             price={p.id === 'home' ? 60 : 80}
                             id={p.id}
                             details={p.details}

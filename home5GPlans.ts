@@ -2,6 +2,8 @@ export default [
     {
         id: 'home_plus',
         name: '5G Home Plus',
+        subtitle:
+            'Unleash the power of 5G Ultra Wideband, with our best perks yet.',
         details: [
             'Powered by 5G Ultra Wideband',
             '5G Ultra Wideband',
@@ -16,6 +18,7 @@ export default [
     {
         id: 'home',
         name: '5G Home',
+        subtitle: 'Wireless home internet, powered by 5G Ultra Wideband',
         details: [
             'Powered by 5G Ultra Wideband',
             '5G Ultra Wideband',
