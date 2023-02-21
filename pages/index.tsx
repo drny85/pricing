@@ -1,43 +1,19 @@
-import {
-    Button,
-    ButtonGroup,
-    Box,
-    Tabs,
-    Tab,
-    fabClasses,
-    Dialog,
-    DialogTitle,
-} from '@mui/material';
+import { Box, Tabs, Tab } from '@mui/material';
 import Head from 'next/head';
 import MainContainer from '../components/MainContainer';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 import moment from 'moment';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
+import FiveGIcon from '@mui/icons-material/FiveG';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Mobile from '@mui/icons-material/MobileFriendly';
 import AnimatedNumber from 'animated-number-react';
 import { motion } from 'framer-motion';
 
-import {
-    decreaseLine,
-    increaseLine,
-    setAutoPay,
-    setCurrentFiosCustomer,
-    setInternet,
-    setIsFirstResponder,
-    setWithin30Days,
-    setNumbersOfLines,
-    setPlansPrice,
-    setDiscount,
-    dataReset,
-} from '../redux/dataSlide';
-import PlanCard from '../components/PlanCard';
-import plansDetails from '../plansDetails';
+import { setNumbersOfLines, setPlansPrice } from '../redux/dataSlide';
 
 import React, { FC, useCallback, useEffect, useState } from 'react';
 
@@ -75,6 +51,13 @@ import { useAuth } from '../hooks/useAuth';
 import Gigabit from '../components/Gigabit';
 import MobileHome from '../components/MobileHome';
 import MyAlert from '../components/MyAlert';
+import Home5G from '../components/Home5G';
+import {
+    switch5GWirelessPlan,
+    toogle5GACP,
+    toogle5GAutoPay,
+    toogle5GHasWireless,
+} from '../redux/home5GSlide';
 
 interface Props {
     children: React.ReactChild;
@@ -122,17 +105,10 @@ const Plans = () => {
     const [doMore, setDoMore] = useState(0);
     const [getMore, setGetMore] = useState(0);
 
-    const {
-        currentFios,
-        isFirstResponder,
-        internet,
-        numberOfLines,
-        discount,
-        within30Days,
-        plansPrice,
+    const { numberOfLines } = useAppSelector((state) => state.data);
 
-        auto_pay,
-    } = useAppSelector((state) => state.data);
+    const { home5GACPCustomer, home5GHasWireless, home5GAutoPay } =
+        useAppSelector((state) => state.home5G);
     const {
         hasWireless,
         isFiosFirstResponder,
@@ -140,7 +116,6 @@ const Plans = () => {
         fiosAutoPay,
         isUnlimited,
         acpCustomer,
-        fiosDiscount,
     } = useAppSelector((state) => state.fiosData);
     const {
         expressAutoPay,
@@ -335,7 +310,6 @@ const Plans = () => {
     const allStart = Object.values(plans).some(
         (p) => p.id === 'start' && p.line === lines && lines > 0
     );
-    console.log('Start', someStart, allStart);
 
     const calculateGrandTotal = (lines: number, isFirst: boolean) => {
         const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
@@ -447,6 +421,21 @@ const Plans = () => {
     };
 
     useEffect(() => {
+        if (allWelcome) {
+            if (!home5GHasWireless) {
+                dispatch(toogle5GHasWireless());
+            }
+            dispatch(switch5GWirelessPlan('welcome'));
+        } else if (allStart) {
+            dispatch(switch5GWirelessPlan('start'));
+        } else {
+            if (lines > 0) {
+                dispatch(switch5GWirelessPlan('play_more'));
+            }
+        }
+    }, [lines, allStart, allWelcome, someStart]);
+
+    useEffect(() => {
         checkUser();
         dispatch(
             setPlansPrice({
@@ -499,9 +488,9 @@ const Plans = () => {
                             sx={{ color: theme.TEXT_COLOR }}
                         />
                         <Tab
-                            icon={<SignalCellularAltIcon />}
+                            icon={<FiveGIcon />}
                             iconPosition="start"
-                            label="Wireless"
+                            label="Home"
                             sx={{ color: theme.TEXT_COLOR }}
                         />
                         <Tab
@@ -530,417 +519,7 @@ const Plans = () => {
                     <MobileHome />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <div>
-                        <div>
-                            <h2
-                                style={{
-                                    textAlign: 'center',
-                                    marginBottom: '1rem',
-                                }}
-                                className="center"
-                            >
-                                Thank you for your interest in Verizon Wireless
-                            </h2>
-                            {moment().isBefore('06/16/2022') && (
-                                <p
-                                    style={{
-                                        textTransform: 'uppercase',
-                                        fontSize: '1.2rem',
-                                        color: '#991e1e',
-                                        fontWeight: 'bold',
-                                        textAlign: 'center',
-                                        paddingBottom: '12px',
-                                    }}
-                                >
-                                    important: these pricing are taking effect
-                                    on 06/16/2022
-                                </p>
-                            )}
-
-                            {/* DISCOUNTS */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flex: 1,
-                                    borderRadius: '15px',
-                                    backgroundColor: theme.CARD_BACKGROUND,
-                                    overflow: 'hidden',
-                                    minHeight: '3.5rem',
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        flex: '0.5',
-                                        display: 'flex',
-                                        justifyContent: 'space-evenly',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <Switcher
-                                        value={auto_pay}
-                                        checked={auto_pay === 10}
-                                        text="Auto Pay"
-                                        saving={auto_pay !== 0}
-                                        savingText={(
-                                            auto_pay * numberOfLines
-                                        ).toString()}
-                                        onChange={() =>
-                                            dispatch(
-                                                setAutoPay(
-                                                    auto_pay === 0 ? 10 : 0
-                                                )
-                                            )
-                                        }
-                                    />
-                                    <Switcher
-                                        value={isFirstResponder}
-                                        text={
-                                            <div>
-                                                <p style={{ marginTop: '8px' }}>
-                                                    Is First Responder /
-                                                </p>
-                                                <p>For Those Who Serve</p>
-                                            </div>
-                                        }
-                                        checked={isFirstResponder}
-                                        saving={isFirstResponder}
-                                        savingText={
-                                            numberOfLines === 1
-                                                ? 10
-                                                : numberOfLines === 2
-                                                ? 25
-                                                : numberOfLines === 3
-                                                ? 25
-                                                : 20
-                                        }
-                                        onChange={() =>
-                                            dispatch(
-                                                setIsFirstResponder(
-                                                    !isFirstResponder
-                                                )
-                                            )
-                                        }
-                                    />
-                                </div>
-
-                                <div
-                                    style={{
-                                        flex: '0.5',
-                                        display: 'flex',
-                                        justifyContent: 'space-evenly',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'flex-start',
-                                            alignItems: 'self-start',
-                                        }}
-                                    >
-                                        <Switcher
-                                            value={currentFios!}
-                                            text="Has Fios Internet"
-                                            checked={currentFios!}
-                                            onChange={() => {
-                                                const res = dispatch(
-                                                    setCurrentFiosCustomer(
-                                                        !currentFios
-                                                    )
-                                                );
-                                                if (!res.payload) {
-                                                    dispatch(
-                                                        setInternet(undefined)
-                                                    );
-                                                    dispatch(setDiscount(0));
-                                                }
-                                            }}
-                                        />
-                                        {currentFios && (
-                                            <Switcher
-                                                value={within30Days}
-                                                saving={discount > 0}
-                                                savingText={
-                                                    within30Days &&
-                                                    internet === 'gig'
-                                                        ? 10 * numberOfLines
-                                                        : within30Days &&
-                                                          internet !==
-                                                              undefined &&
-                                                          internet !== 'gig'
-                                                        ? 5 * numberOfLines
-                                                        : 0
-                                                }
-                                                checked={within30Days}
-                                                text={`Signed before ${moment().format(
-                                                    'lll'
-                                                )}`}
-                                                onChange={() =>
-                                                    dispatch(
-                                                        setWithin30Days(
-                                                            !within30Days
-                                                        )
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </div>
-
-                                    {currentFios && (
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'flex-end',
-                                                justifyContent: 'flex-end',
-                                            }}
-                                        >
-                                            <Switcher
-                                                value={'200'}
-                                                text="200 or 300 Mbps"
-                                                checked={internet === '200'}
-                                                onChange={() =>
-                                                    dispatch(setInternet('200'))
-                                                }
-                                            />
-                                            <Switcher
-                                                value={'400'}
-                                                text="400 or 500 Mbps"
-                                                checked={internet === '400'}
-                                                onChange={() =>
-                                                    dispatch(setInternet('400'))
-                                                }
-                                            />
-                                            <Switcher
-                                                value={'gig'}
-                                                text="Up to 940/880 Mbps"
-                                                checked={internet === 'gig'}
-                                                onChange={() =>
-                                                    dispatch(setInternet('gig'))
-                                                }
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                            <div>
-                                <div className="card" style={{ width: '100%' }}>
-                                    {/* #LINES */}
-                                    <div
-                                        style={{
-                                            alignSelf: 'center',
-                                            width: '100%',
-                                            margin: '10px auto',
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <ButtonGroup variant="contained">
-                                            <Button
-                                                style={{
-                                                    backgroundColor:
-                                                        theme.PRIMARY_BUTTON_COLOR,
-                                                    color:
-                                                        theme.mode === 'dark'
-                                                            ? '#212121'
-                                                            : '#ffffff',
-                                                }}
-                                                disabled={numberOfLines === 1}
-                                                onClick={() =>
-                                                    dispatch(
-                                                        decreaseLine(
-                                                            numberOfLines
-                                                        )
-                                                    )
-                                                }
-                                            >
-                                                <RemoveIcon />
-                                            </Button>
-                                            <Button
-                                                style={{
-                                                    backgroundColor:
-                                                        theme.PRIMARY_BUTTON_COLOR,
-                                                }}
-                                            >
-                                                <h2
-                                                    style={{
-                                                        color:
-                                                            theme.mode ===
-                                                            'dark'
-                                                                ? '#212121'
-                                                                : '#ffffff',
-                                                    }}
-                                                >
-                                                    {numberOfLines}
-                                                </h2>
-                                            </Button>
-                                            <Button
-                                                style={{
-                                                    backgroundColor:
-                                                        theme.PRIMARY_BUTTON_COLOR,
-                                                    color:
-                                                        theme.mode === 'dark'
-                                                            ? '#212121'
-                                                            : '#ffffff',
-                                                }}
-                                                disabled={numberOfLines === 10}
-                                                onClick={() =>
-                                                    dispatch(
-                                                        increaseLine(
-                                                            numberOfLines
-                                                        )
-                                                    )
-                                                }
-                                            >
-                                                <AddIcon />
-                                            </Button>
-                                        </ButtonGroup>
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            width: '100%',
-                                            margin: '0 auto',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        {plansDetails.map((plan) => (
-                                            <PlanCard
-                                                key={plan.id}
-                                                price={
-                                                    plansPrice[
-                                                        plan.id as
-                                                            | 'do_more'
-                                                            | 'get_more'
-                                                            | 'start'
-                                                            | 'play_more'
-                                                    ]
-                                                }
-                                                title={plan.name}
-                                                details={plan.details}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card" style={{ width: '100%' }}>
-                                <h2 style={{ textAlign: 'center' }}>
-                                    All plans include
-                                </h2>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        marginTop: '20px',
-                                        padding: '12px',
-                                    }}
-                                >
-                                    <div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ paddingLeft: '6px' }}>
-                                                Unlimited Talk & Text & Data
-                                            </p>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ padding: '8px' }}>
-                                                Mexico & Canada talk, text &
-                                                data
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ paddingLeft: '6px' }}>
-                                                4G LTE
-                                            </p>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ padding: '8px' }}>
-                                                International Texting
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ paddingLeft: '6px' }}>
-                                                Verizon Up rewards
-                                            </p>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <CheckCircleIcon />
-                                            <p style={{ padding: '8px' }}>
-                                                Call Filter spam blocker
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        height: '120px',
-                                        justifyContent: 'space-evenly',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <div
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => {
-                                            dispatch(dataReset());
-                                            dispatch(
-                                                setCurrentFiosCustomer(false)
-                                            );
-                                        }}
-                                    >
-                                        <p
-                                            style={{
-                                                color: '#445cc4',
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
-                                            Start Over
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Home5G />
                 </TabPanel>
                 <TabPanel value={value} index={0}>
                     {/* INTERNET INFO */}
@@ -1012,6 +591,14 @@ const Plans = () => {
                                         setOpacity(0);
                                     } else {
                                         setOpacity(1);
+                                    }
+                                    if (acpCustomer && home5GACPCustomer) {
+                                        dispatch(toogle5GACP());
+                                    } else if (
+                                        !acpCustomer &&
+                                        !home5GACPCustomer
+                                    ) {
+                                        dispatch(toogle5GACP());
                                     }
                                     dispatch(setAcpCustomer(!acpCustomer));
 
@@ -1517,13 +1104,24 @@ const Plans = () => {
                                 checked={expressAutoPay === 10}
                                 saving={expressAutoPay === 10}
                                 savingText={expressAutoPay * lines}
-                                onChange={() =>
+                                onChange={() => {
+                                    if (
+                                        expressAutoPay === 0 &&
+                                        !home5GAutoPay
+                                    ) {
+                                        dispatch(toogle5GAutoPay());
+                                    } else if (
+                                        expressAutoPay === 10 &&
+                                        home5GAutoPay
+                                    ) {
+                                        dispatch(toogle5GAutoPay());
+                                    }
                                     dispatch(
                                         setExpressAutoPay(
                                             expressAutoPay === 0 ? 10 : 0
                                         )
-                                    )
-                                }
+                                    );
+                                }}
                             />
                             <Switcher
                                 text={

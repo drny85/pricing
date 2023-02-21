@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dataSlide from './dataSlide';
 import fiosData from './fiosData';
+import home5GSlide from './home5GSlide';
 
 import themeSlide from './themeSlide';
 import wirelessSlide from './wirelessSlide';
@@ -12,6 +13,7 @@ export const store = configureStore({
         data: dataSlide,
         fiosData: fiosData,
         wireless: wirelessSlide,
+        home5G: home5GSlide,
     },
 });
 
