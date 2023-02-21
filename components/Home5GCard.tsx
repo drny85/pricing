@@ -37,11 +37,7 @@ const Home5GCard = ({ title, id, subtitle, details, price }: Props) => {
     };
 
     const ACPdiscount = (): number => {
-        return home5GACPCustomer && id === 'home' && discount() === 1
-            ? 30
-            : home5GACPCustomer && id !== 'home' && discount() === 1
-            ? 30
-            : 0;
+        return home5GACPCustomer ? 30 : 0;
     };
     const autopayDiscount = (): number => {
         return home5GAutoPay && wirelessPlan !== undefined && discount() === 2
@@ -69,22 +65,42 @@ const Home5GCard = ({ title, id, subtitle, details, price }: Props) => {
                 }}
             />
             <CardContent>
-                <h1>
-                    $
-                    <AnimatedNumber
-                        duration={300}
-                        formatValue={(n: number) => n.toFixed(2)}
-                        value={
-                            home5GACPCustomer &&
-                            discount() === 2 &&
-                            id === 'home'
-                                ? 0
-                                : price / discount() -
-                                  autopayDiscount() -
-                                  ACPdiscount()
-                        }
-                    />
-                </h1>
+                <p
+                    style={{
+                        color: '#964c43',
+                        fontSize: '1.2rem',
+
+                        textDecoration: 'line-through',
+                        textDecorationThickness: 2,
+                    }}
+                >
+                    was ${price}
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <h1>
+                        $
+                        <AnimatedNumber
+                            duration={300}
+                            formatValue={(n: number) => n.toFixed(2)}
+                            value={
+                                home5GACPCustomer &&
+                                discount() === 2 &&
+                                id === 'home'
+                                    ? 0
+                                    : price / discount() -
+                                      autopayDiscount() -
+                                      ACPdiscount()
+                            }
+                        />
+                    </h1>
+                    <span style={{ paddingLeft: '0.6rem' }}>
+                        {home5GAutoPay && wirelessPlan
+                            ? '/ mo with Auto Pay & select 5G mobile plans.'
+                            : home5GAutoPay && !wirelessPlan
+                            ? '/ mo with Auto Pay.'
+                            : '/ mo without auto pay'}
+                    </span>
+                </div>
 
                 {details.map((d, index) => (
                     <p
