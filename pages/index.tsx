@@ -180,13 +180,13 @@ const Plans = () => {
                 (lines === 1
                     ? 75 - expressAutoPay
                     : lines === 2
-                    ? 55
+                    ? 65 - expressAutoPay
                     : lines === 3
-                    ? 40
+                    ? 50 - expressAutoPay
                     : lines === 4
-                    ? 30
-                    : lines >= 5
-                    ? 25
+                    ? 40 - expressAutoPay
+                    : lines >= 5 - expressAutoPay
+                    ? 35
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
