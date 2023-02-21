@@ -5,12 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AnimatedNumber from 'animated-number-react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Typography,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 interface Props {
     planName: string;
     price: number;

@@ -1,4 +1,13 @@
-import { Button, ButtonGroup, Box, Tabs, Tab, fabClasses } from '@mui/material';
+import {
+    Button,
+    ButtonGroup,
+    Box,
+    Tabs,
+    Tab,
+    fabClasses,
+    Dialog,
+    DialogTitle,
+} from '@mui/material';
 import Head from 'next/head';
 import MainContainer from '../components/MainContainer';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
@@ -65,6 +74,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import Gigabit from '../components/Gigabit';
 import MobileHome from '../components/MobileHome';
+import MyAlert from '../components/MyAlert';
 
 interface Props {
     children: React.ReactChild;
@@ -99,6 +109,10 @@ const Plans = () => {
     const { userInfo, loading: l } = useAuth();
     const [opacity, setOpacity] = useState(0);
     const [opacityX, setOpacityX] = useState(0);
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertTitle, setAlertTitle] = useState('');
+    const [alertMessage, setAlertMessage] = useState('');
 
     const [lines, setLines] = useState(0);
     const [value, setValue] = useState(0);
@@ -311,6 +325,17 @@ const Plans = () => {
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
     ];
+
+    const allWelcome = Object.values(plans).some(
+        (p) => p.id === 'welcome' && p.line > 0
+    );
+    const someStart = Object.values(plans).some(
+        (p) => p.id === 'start' && p.line > 0
+    );
+    const allStart = Object.values(plans).some(
+        (p) => p.id === 'start' && p.line === lines && lines > 0
+    );
+    console.log('Start', someStart, allStart);
 
     const calculateGrandTotal = (lines: number, isFirst: boolean) => {
         const total = plans.reduce((pre, acc) => acc.line * acc.price + pre, 0);
@@ -1638,8 +1663,17 @@ const Plans = () => {
                                         }}
                                     >
                                         Have a phone you love? Get up to{' '}
-                                        <b>$504</b> BIC when you bring your
-                                        phone.{' '}
+                                        <b>
+                                            {' '}
+                                            {allWelcome && lines > 0
+                                                ? '$180'
+                                                : allStart
+                                                ? '$360'
+                                                : someStart
+                                                ? '$360 or $504'
+                                                : '$504'}
+                                        </b>{' '}
+                                        BIC when you bring your phone.{' '}
                                     </p>
                                 </div>
                                 <div>
@@ -1738,9 +1772,12 @@ const Plans = () => {
                                         onAdd={() => {
                                             if (p.id !== 'welcome') {
                                                 if (welcome > 0) {
-                                                    alert(
+                                                    setAlertTitle('Sorry!');
+                                                    setAlertMessage(
                                                         'Please remove all Welcome Unlimited if you want to add another plan'
                                                     );
+                                                    setShowAlert(true);
+
                                                     return;
                                                 }
                                             } else if (p.id === 'welcome') {
@@ -1755,9 +1792,12 @@ const Plans = () => {
                                                         }
                                                     )
                                                 ) {
-                                                    alert(
+                                                    setAlertTitle('Oppps!');
+                                                    setAlertMessage(
                                                         'Please remove other plans if you want to add Welcome Unlimited'
                                                     );
+                                                    setShowAlert(true);
+
                                                     return;
                                                 }
                                             }
@@ -2176,6 +2216,12 @@ const Plans = () => {
                     </div>
                 </TabPanel>
             </div>
+            <MyAlert
+                open={showAlert}
+                onClick={() => setShowAlert(false)}
+                title={alertTitle}
+                message={alertMessage}
+            />
         </MainContainer>
     );
 };
