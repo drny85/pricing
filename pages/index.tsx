@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab } from '@mui/material';
+import { Box, Tabs, Tab, Button } from '@mui/material';
 import Head from 'next/head';
 import MainContainer from '../components/MainContainer';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
@@ -58,6 +58,7 @@ import {
     toogle5GAutoPay,
     toogle5GHasWireless,
 } from '../redux/home5GSlide';
+import { textTransform } from '@mui/system';
 
 interface Props {
     children: React.ReactChild;
@@ -1250,10 +1251,20 @@ const Plans = () => {
                             <div
                                 style={{
                                     display: 'flex',
-                                    flexDirection: 'column',
+                                    width: '100%',
+                                    //flexDirection: 'column',
+                                    margin: '0 auto',
+
+                                    alignItems: 'center',
+                                    justifyContent: 'space-evenly',
                                 }}
                             >
-                                <div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                    }}
+                                >
                                     <p
                                         style={{
                                             fontSize: '14px',
@@ -1273,37 +1284,63 @@ const Plans = () => {
                                         </b>{' '}
                                         BIC when you bring your phone.{' '}
                                     </p>
+                                    <div>
+                                        <p style={{ fontSize: '14px' }}>
+                                            Bring your Tablet or Smart Watch and
+                                            get Verizon <b>$100</b> e-Gift Card
+                                        </p>
+                                        <div
+                                            onClick={() => {
+                                                window.open(
+                                                    'https://www.verizon.com/bring-your-own-device/'
+                                                );
+                                            }}
+                                            style={{
+                                                cursor: 'pointer',
+                                                color: 'blue',
+                                                display: 'flex',
+                                                opacity: 0.7,
+                                                padding: '1px 2rem',
+                                                textDecoration: 'underline',
+                                                textDecorationThickness: 2,
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                marginTop: '10px',
+                                            }}
+                                        >
+                                            <p
+                                                style={{
+                                                    color: 'blue',
+                                                    fontWeight: 'bold',
+                                                }}
+                                            >
+                                                Learn More
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p style={{ fontSize: '14px' }}>
-                                        Bring your Tablet or Smart Watch and get
-                                        Verizon <b>$100</b> e-Gift Card
-                                    </p>
-                                </div>
-                            </div>
-                            <div
-                                onClick={() => {
-                                    window.open(
-                                        'https://www.verizon.com/bring-your-own-device/'
-                                    );
-                                }}
-                                style={{
-                                    cursor: 'pointer',
-                                    color: 'blue',
-                                    opacity: 0.7,
-                                    padding: '1px 2rem',
-                                    textDecoration: 'underline',
-                                    textDecorationThickness: 2,
-                                }}
-                            >
-                                <p
+
+                                <div
                                     style={{
-                                        color: 'blue',
-                                        fontWeight: 'bold',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'flex-end',
+
+                                        // flexGrow: 1,
+                                        alignItems: 'center',
                                     }}
                                 >
-                                    Learn More
-                                </p>
+                                    <h4 style={{ textTransform: 'capitalize' }}>
+                                        Free phones with a new line
+                                    </h4>
+                                    <Button
+                                        LinkComponent={'a'}
+                                        target="_blank"
+                                        href="https://www.verizon.com/shop/online/free-cell-phones/"
+                                    >
+                                        Click here
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                         <div
