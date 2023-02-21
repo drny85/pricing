@@ -328,7 +328,7 @@ const Plans = () => {
                                       ? (360 / 36) * p.line
                                       : p.id === 'welcome'
                                       ? (180 / 36) * p.line
-                                      : (500 / 36) * p.line
+                                      : (504 / 36) * p.line
                                   : 0,
                       };
                   })
@@ -1638,7 +1638,7 @@ const Plans = () => {
                                         }}
                                     >
                                         Have a phone you love? Get up to{' '}
-                                        <b>$500</b> BIC when you bring your
+                                        <b>$504</b> BIC when you bring your
                                         phone.{' '}
                                     </p>
                                 </div>
