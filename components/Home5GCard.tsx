@@ -51,6 +51,7 @@ const Home5GCard = ({ title, id, subtitle, details, price }: Props) => {
 
     return (
         <Card
+            sx={{ margin: '4px' }}
             style={{
                 backgroundColor: theme.CARD_BACKGROUND,
                 minWidth: '15rem',
