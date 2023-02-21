@@ -15,7 +15,7 @@ import {
 } from '../redux/home5GSlide';
 import { Wireless_Plan } from '../redux/home5GSlide';
 import { motion } from 'framer-motion';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 type Props = {};
 
 const Home5G = (props: Props) => {
@@ -197,6 +197,97 @@ const Home5G = (props: Props) => {
                         />
                     ))}
                 </div>
+                {home5GACPCustomer && (
+                    <motion.div
+                        initial={{ opacity: 0, translateY: -10 }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        style={{
+                            display: 'flex',
+                            width: '100%',
+                            marginTop: '12px',
+                        }}
+                    >
+                        <div
+                            style={{
+                                backgroundColor: theme.CARD_BACKGROUND,
+                                padding: '1rem',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexGrow: 1,
+                                width: '100%',
+                            }}
+                        >
+                            <h2 style={{ textAlign: 'center' }}>Step 1</h2>
+                            <Typography variant="subtitle2" paddingY={2}>
+                                Apply to the Affordable Connectivity Program by
+                                clicking here.
+                            </Typography>
+
+                            <Button
+                                sx={{
+                                    alignSelf: 'center',
+                                    color: theme.TEXT_COLOR,
+                                    backgroundColor: theme.BACKGROUND_COLOR,
+                                    fontWeight: 'bold',
+                                }}
+                                LinkComponent="a"
+                                target={'_blank'}
+                                href="https://www.affordableconnectivity.gov"
+                                variant="contained"
+                            >
+                                Click Here
+                            </Button>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: theme.CARD_BACKGROUND,
+                                padding: '1rem',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexGrow: 1,
+                                width: '100%',
+                            }}
+                        >
+                            <h2 style={{ textAlign: 'center' }}>Step 2</h2>
+                            <Typography variant="subtitle2" paddingY={2}>
+                                Order 5G Home Internet service for your home
+                                with your EM.
+                            </Typography>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: theme.CARD_BACKGROUND,
+                                padding: '1rem',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexGrow: 1,
+                                width: '100%',
+                            }}
+                        >
+                            <h2 style={{ textAlign: 'center' }}>Step 3</h2>
+                            <Typography variant="subtitle2" paddingY={2}>
+                                Once installed, call 1.800.922.0204 or click
+                                down here to get the discounts applied to your
+                                bill.
+                            </Typography>
+
+                            <Button
+                                sx={{
+                                    alignSelf: 'center',
+                                    color: theme.TEXT_COLOR,
+                                    backgroundColor: theme.BACKGROUND_COLOR,
+                                    fontWeight: 'bold',
+                                }}
+                                LinkComponent="a"
+                                target={'_blank'}
+                                href="https://secure.verizon.com/signin?&goto=http%3A%2F%2Fmyvpostpay.verizonwireless.com%3A443%2Fui%2Facct%2Fao%2Facb%2F"
+                                variant="contained"
+                            >
+                                Click Here
+                            </Button>
+                        </div>
+                    </motion.div>
+                )}
 
                 <div
                     style={{
@@ -205,7 +296,12 @@ const Home5G = (props: Props) => {
                         marginTop: '1rem',
                     }}
                 >
-                    <Button onClick={resetAll} variant="outlined">
+                    <Button
+                        LinkComponent="a"
+                        href="https://secure.verizon.com/signin?&goto=http%3A%2F%2Fmyvpostpay.verizonwireless.com%3A443%2Fui%2Facct%2Fao%2Facb%2F"
+                        onClick={resetAll}
+                        variant="outlined"
+                    >
                         Reset All
                     </Button>
                 </div>
