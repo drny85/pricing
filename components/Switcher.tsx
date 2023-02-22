@@ -46,7 +46,12 @@ const Switcher: FC<Props> = ({
                     {text}
                 </p>
 
-                <Switch onChange={onChange} value={value} checked={checked} />
+                <Switch
+                    onChange={onChange}
+                    value={value}
+                    color="success"
+                    checked={checked}
+                />
             </div>
             <div>
                 {checked && saving && (

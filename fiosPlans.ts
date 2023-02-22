@@ -8,7 +8,7 @@ export default [
             'Walmart+ for 12 months',
             'Starting at $89.99 with auto pay',
             '4 Yr Price Guarantee',
-            'Verizon Router Rental Included',
+            'Router Rental with Whole-Home Wi-Fi included',
             '$300 off Stream TV Soundbar or Soundbar Pro',
         ],
     },
