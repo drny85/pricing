@@ -1057,6 +1057,25 @@ const Plans = () => {
                         <div
                             style={{
                                 display: 'flex',
+                                margin: '1rem auto',
+                                alignSelf: 'center',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <h3
+                                style={{
+                                    textAlign: 'center',
+                                    textTransform: 'uppercase',
+                                }}
+                            >
+                                {' '}
+                                Yes, Now with taxes
+                            </h3>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
                                 padding: '2rem',
                                 justifyContent: 'center',
                                 alignItems: 'center',
