@@ -550,7 +550,16 @@ const Plans = () => {
                                 justifyContent: 'space-evenly',
                             }}
                         >
-                            <motion.div>
+                            <motion.div
+                                className="forms"
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    width: '18rem',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
                                 <motion.a
                                     whileHover={{
                                         scale: 1.05,
@@ -558,11 +567,14 @@ const Plans = () => {
                                     }}
                                     style={{
                                         padding: '0.5rem 0.8rem',
-                                        fontSize: '1.2rem',
+                                        fontSize: '1rem',
                                         backgroundColor: theme.CARD_BACKGROUND,
                                         borderRadius: '10px',
                                         cursor: 'pointer',
-                                        marginBottom: '10px',
+
+                                        alignItems: 'center',
+                                        display: 'flex',
+                                        width: '100%',
                                     }}
                                     href="MIX.pdf"
                                     target="_blank"
@@ -577,12 +589,15 @@ const Plans = () => {
                                     }}
                                     style={{
                                         padding: '0.5rem 0.8rem',
-                                        fontSize: '1.2rem',
-                                        marginLeft: '10px',
+                                        fontSize: '1rem',
+                                        margin: '0.5rem 0.2rem',
                                         backgroundColor: theme.CARD_BACKGROUND,
                                         borderRadius: '10px',
                                         cursor: 'pointer',
-                                        marginBottom: '10px',
+                                        display: 'flex',
+
+                                        alignItems: 'center',
+                                        width: '100%',
                                     }}
                                     href="ACP.pdf"
                                     target="_blank"

@@ -113,6 +113,14 @@ p, h1, h2, h3, h4, h5, h6, span , i, b{
     font-style: 'italic'
 }
 
+@media only screen and (max-width: 600px) {
+    .forms {
+      flex-direction: column;
+      width: 7rem;
+    }
+  }
+
+
 `;
 
 export default GlobalStyle;
