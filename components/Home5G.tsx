@@ -192,14 +192,22 @@ const Home5G = (props: Props) => {
                     }}
                 >
                     {home5GPlans.map((p) => (
-                        <Home5GCard
-                            key={p.id}
-                            title={p.name}
-                            subtitle={p.subtitle}
-                            price={p.id === 'home' ? 60 : 80}
-                            id={p.id}
-                            details={p.details}
-                        />
+                        <motion.div
+                            style={{ flex: 1, display: 'flex' }}
+                            whileHover={{
+                                scale: 1.01,
+                                backgroundColor: theme.PRIMARY_BUTTON_COLOR,
+                            }}
+                        >
+                            <Home5GCard
+                                key={p.id}
+                                title={p.name}
+                                subtitle={p.subtitle}
+                                price={p.id === 'home' ? 60 : 80}
+                                id={p.id}
+                                details={p.details}
+                            />
+                        </motion.div>
                     ))}
                 </div>
                 {home5GACPCustomer && (
