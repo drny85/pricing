@@ -773,7 +773,7 @@ const Plans = () => {
                                                 }}
                                             />
                                             <p style={{ fontStyle: 'italic' }}>
-                                                (Except 5G Start)
+                                                (Except 5G Start and Welcome)
                                             </p>
                                         </div>
                                     )}
