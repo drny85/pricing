@@ -1251,39 +1251,50 @@ const Plans = () => {
                             </div>
 
                             {expressHasFios && (
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'flex-end',
-                                        justifyContent: 'flex-end',
-                                    }}
+                                <motion.div
+                                    initial={{ opacity: 0, translateX: -20 }}
+                                    animate={{ opacity: 1, translateX: 0 }}
                                 >
-                                    <Switcher
-                                        value={'200'}
-                                        text="300 Mbps"
-                                        checked={expressInternet === '200'}
-                                        onChange={() =>
-                                            dispatch(setExpressInternet('200'))
-                                        }
-                                    />
-                                    <Switcher
-                                        value={'400'}
-                                        text="500 Mbps"
-                                        checked={expressInternet === '400'}
-                                        onChange={() =>
-                                            dispatch(setExpressInternet('400'))
-                                        }
-                                    />
-                                    <Switcher
-                                        value={'gig'}
-                                        text="1 GB"
-                                        checked={expressInternet === 'gig'}
-                                        onChange={() =>
-                                            dispatch(setExpressInternet('gig'))
-                                        }
-                                    />
-                                </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
+                                        }}
+                                    >
+                                        <Switcher
+                                            value={'200'}
+                                            text="300 Mbps"
+                                            checked={expressInternet === '200'}
+                                            onChange={() =>
+                                                dispatch(
+                                                    setExpressInternet('200')
+                                                )
+                                            }
+                                        />
+                                        <Switcher
+                                            value={'400'}
+                                            text="500 Mbps"
+                                            checked={expressInternet === '400'}
+                                            onChange={() =>
+                                                dispatch(
+                                                    setExpressInternet('400')
+                                                )
+                                            }
+                                        />
+                                        <Switcher
+                                            value={'gig'}
+                                            text="1 GB"
+                                            checked={expressInternet === 'gig'}
+                                            onChange={() =>
+                                                dispatch(
+                                                    setExpressInternet('gig')
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                </motion.div>
                             )}
                         </div>
                         {/* WIRELESS LINES CONTAINER */}
@@ -1509,7 +1520,15 @@ const Plans = () => {
                             </div>
                         </div>
                         {lines > 0 && (
-                            <div>
+                            <motion.div
+                                initial={{ opacity: 0, translateY: -20 }}
+                                animate={{ opacity: 1, translateY: 0 }}
+                                exit={{ opacity: 0, translateY: -20 }}
+                                transition={{
+                                    type: 'tween',
+                                    ease: 'easeInOut',
+                                }}
+                            >
                                 <div
                                     style={{
                                         display: 'flex',
@@ -1900,7 +1919,7 @@ const Plans = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         )}
                     </div>
                 </TabPanel>
