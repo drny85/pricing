@@ -93,6 +93,7 @@ const Plans = () => {
     const { userInfo, loading: l } = useAuth();
     const [opacity, setOpacity] = useState(0);
     const [opacityX, setOpacityX] = useState(0);
+    const [tvAutoPay, setTvAutoPay] = useState(true);
 
     const [showAlert, setShowAlert] = useState(false);
     const [alertTitle, setAlertTitle] = useState('');
@@ -212,7 +213,7 @@ const Plans = () => {
                     : lines === 4
                     ? 45 - expressAutoPay
                     : lines >= 5
-                    ? 35 - expressAutoPay
+                    ? 40 - expressAutoPay
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
@@ -1032,6 +1033,12 @@ const Plans = () => {
                             >
                                 Thank you for in interest in Fios TV
                             </h2>
+                            <Switcher
+                                text={'Auto Pay'}
+                                value={tvAutoPay}
+                                checked={tvAutoPay}
+                                onChange={() => setTvAutoPay((prev) => !prev)}
+                            />
                         </div>
                         <hr />
                         <div
@@ -1048,7 +1055,7 @@ const Plans = () => {
                                     id={plan.id}
                                     subtitle={plan.subtitle}
                                     key={plan.id}
-                                    price={plan.price}
+                                    price={plan.price - (tvAutoPay ? 10 : 0)}
                                     title={plan.name}
                                     details={plan.details}
                                 />

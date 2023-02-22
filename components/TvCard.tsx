@@ -10,7 +10,7 @@ interface Props {
     id: string;
     title: string;
     details: string[];
-    price: string;
+    price: number;
     perk: string;
     subtitle?: string;
 }
