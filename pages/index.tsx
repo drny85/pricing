@@ -175,7 +175,7 @@ const Plans = () => {
     const plans = [
         {
             id: 'welcome',
-            name: 'Welcome',
+            name: 'Welcome ',
             line: welcome,
             details: ['Unlimited 5G', '5G Nationwide'],
             price:
@@ -1455,7 +1455,7 @@ const Plans = () => {
                                 {plans.map((p) => (
                                     <PlanLine
                                         key={p.id}
-                                        price={p.price}
+                                        price={lines === 0 ? 0 : p.price}
                                         lines={p.line}
                                         details={p.details}
                                         onAdd={() => {

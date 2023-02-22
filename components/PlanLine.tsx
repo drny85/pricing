@@ -26,12 +26,6 @@ const PlanLine: FC<Props> = ({
     const theme = useAppSelector((state) => state.theme);
     const [expanded, setExpanded] = useState<false | string>(false);
 
-    const handleChange =
-        (panel: string) =>
-        (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
-
     return (
         <div>
             <Accordion
@@ -174,104 +168,6 @@ const PlanLine: FC<Props> = ({
                     </div>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
-                <AccordionSummary
-                    expandIcon={ExpandMoreIcon}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flex: 1,
-                            padding: '12px',
-                            width: '100%',
-                            boxShadow: '12px 10px 8px rgba(0,0,0,0.125)',
-                            backgroundColor: theme.BACKGROUND_COLOR,
-                            margin: '10px 0px',
-                            borderRadius: '15px',
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                flex: 0.33,
-                                alignItems: 'center',
-                            }}
-                        >
-                            <h2 style={{ paddingLeft: '10px' }}>{planName}</h2>
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flex: 0.33,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    height: '100%',
-                                    width: '70%',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-evenly',
-                                    display: 'flex',
-                                    backgroundColor: theme.CARD_BACKGROUND,
-                                    borderRadius: '35px',
-                                    boxShadow: '6px 8px 6px rgba(0,0,0,0.136)',
-                                }}
-                            >
-                                <div
-                                    onClick={onRemove}
-                                    style={{
-                                        cursor: 'pointer',
-                                        padding: '8px',
-                                    }}
-                                >
-                                    <RemoveIcon fontSize="large" />
-                                </div>
-                                <div>
-                                    <h2>{lines}</h2>
-                                </div>
-                                <div
-                                    onClick={onAdd}
-                                    style={{
-                                        cursor: 'pointer',
-                                        padding: '8px',
-                                    }}
-                                >
-                                    <AddIcon fontSize="large" />
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flex: 0.33,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <h2>
-                                ${' '}
-                                <AnimatedNumber
-                                    duration={300}
-                                    formatValue={(n: number) => n.toFixed(0)}
-                                    value={Math.fround(price)}
-                                />
-                            </h2>
-                        </div>
-                    </div>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Impedit doloribus ducimus excepturi, dolorum molestiae
-                        minima ipsam eaque modi in laboriosam aliquid dolor
-                        quos?
-                    </div>
-                </AccordionDetails>
-            </Accordion> */}
         </div>
     );
 };

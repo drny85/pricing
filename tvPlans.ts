@@ -32,6 +32,7 @@ export default [
     `,
         perk: 'Plan Perks',
         details: [
+            'Unlimited streaming on your own devices with the streaming device connection bundle included',
             '$200 Verizon Gift Card',
             'One set Top Box Included',
             'Multi-Room DVR service included',

@@ -48,6 +48,7 @@ const TvCard: FC<Props> = ({ title, details, price, id, subtitle, perk }) => {
                         ).toFixed(2)}
                     </h1> */}
                     <h1>
+                        $
                         <AnimatedNumber
                             duration={300}
                             formatValue={(n: number) => n.toFixed(2)}
