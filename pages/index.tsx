@@ -866,7 +866,8 @@ const Plans = () => {
                                             marginTop: '1.5rem',
                                             alignSelf: 'center',
                                             borderRadius: '35px',
-                                            width: '40%',
+                                            width: '80%',
+                                            maxWidth: '9rem',
                                             cursor: 'pointer',
                                             boxShadow: '-3px 6px 6px #4b3a3a27',
                                         }}
