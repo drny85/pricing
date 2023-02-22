@@ -187,7 +187,7 @@ const Plans = () => {
                     : lines === 4
                     ? 40 - expressAutoPay
                     : lines >= 5 - expressAutoPay
-                    ? 35
+                    ? 35 - expressAutoPay
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
@@ -212,7 +212,7 @@ const Plans = () => {
                     : lines === 4
                     ? 45 - expressAutoPay
                     : lines >= 5
-                    ? 40 - expressAutoPay
+                    ? 35 - expressAutoPay
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
         {
@@ -517,14 +517,31 @@ const Plans = () => {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={4}>
-                    <MobileHome />
+                    <div
+                        style={{
+                            alignItems: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        <MobileHome />
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <Home5G />
+                    <div
+                        style={{
+                            alignItems: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        <Home5G />
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={0}>
                     {/* INTERNET INFO */}
                     <div>
+                        <Head>
+                            <title>Fios Internet</title>
+                        </Head>
                         <div
                             style={{
                                 display: 'flex',
@@ -1003,6 +1020,9 @@ const Plans = () => {
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <div>
+                        <Head>
+                            <title>Fios TV</title>
+                        </Head>
                         <div>
                             <h2
                                 style={{
@@ -1089,6 +1109,9 @@ const Plans = () => {
                             flexDirection: 'column',
                         }}
                     >
+                        <Head>
+                            <title>Express Store</title>
+                        </Head>
                         <div
                             style={{
                                 display: 'flex',
@@ -1297,7 +1320,7 @@ const Plans = () => {
                                             }}
                                             style={{
                                                 cursor: 'pointer',
-                                                color: 'blue',
+                                                color: theme.PRIMARY_BUTTON_COLOR,
                                                 display: 'flex',
                                                 opacity: 0.7,
                                                 padding: '1px 2rem',
@@ -1310,7 +1333,7 @@ const Plans = () => {
                                         >
                                             <p
                                                 style={{
-                                                    color: 'blue',
+                                                    color: theme.PRIMARY_BUTTON_COLOR,
                                                     fontWeight: 'bold',
                                                 }}
                                             >
@@ -1330,7 +1353,12 @@ const Plans = () => {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <h4 style={{ textTransform: 'capitalize' }}>
+                                    <h4
+                                        style={{
+                                            textTransform: 'capitalize',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
                                         Free phones with a new line
                                     </h4>
                                     <Button

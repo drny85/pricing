@@ -2,10 +2,10 @@ import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
     mode: 'light',
-    BACKGROUND_COLOR: '#e9ecef',
+    BACKGROUND_COLOR: '#edede9',
     TEXT_COLOR: '#212121',
     BUTTON_TEXT_COLOR: '#ffffff',
-    CARD_BACKGROUND: '#adb5bd',
+    CARD_BACKGROUND: '#bcb8b1',
     PRIMARY_BUTTON_COLOR: '#212121',
     SHADOW_COLOR: 'rgba(0, 0, 0, 0.19)',
     SECONDARY_BUTTON_COLOR: '#4361ee',
@@ -17,7 +17,7 @@ export const lightTheme: DefaultTheme = {
 
 export const darkTheme: DefaultTheme = {
     mode: 'dark',
-    BACKGROUND_COLOR: '#212529',
+    BACKGROUND_COLOR: '#2b2d42',
     TEXT_COLOR: '#ffffff',
     DANGER: '#e07a5f',
     CARD_BACKGROUND: '#006466',

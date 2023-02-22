@@ -42,16 +42,20 @@ const Home5G = (props: Props) => {
     };
     return (
         <MainContainer>
-            <Head>5G Home Internet</Head>
+            <Head>
+                <title>5G Home Internet</title>
+            </Head>
             <div
                 style={{
                     margin: '15px auto',
                     display: 'flex',
-                    width: '100vh',
+                    width: '100%',
                     height: '100%',
                     flexDirection: 'column',
-                    justifyContent: 'center',
+                    maxWidth: '1080px',
+                    alignItems: 'center',
                     padding: '0px 20px',
+                    // backgroundColor: 'red',
                 }}
             >
                 <div
@@ -78,6 +82,7 @@ const Home5G = (props: Props) => {
                         margin: '0.8rem 0rem',
                         padding: '1rem',
                         borderRadius: '1rem',
+                        width: '100%',
                     }}
                 >
                     <Switcher

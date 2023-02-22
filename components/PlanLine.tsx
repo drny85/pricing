@@ -77,9 +77,15 @@ const PlanLine: FC<Props> = ({
                                 style={{ marginLeft: '1rem' }}
                             >
                                 {expanded === false ? (
-                                    <ExpandMoreIcon fontSize="large" />
+                                    <ExpandMoreIcon
+                                        fontSize="large"
+                                        sx={{ color: theme.TEXT_COLOR }}
+                                    />
                                 ) : (
-                                    <ExpandLessIcon fontSize="large" />
+                                    <ExpandLessIcon
+                                        fontSize="large"
+                                        sx={{ color: theme.TEXT_COLOR }}
+                                    />
                                 )}
                             </div>
                         </div>
@@ -110,7 +116,10 @@ const PlanLine: FC<Props> = ({
                                         padding: '8px',
                                     }}
                                 >
-                                    <RemoveIcon fontSize="large" />
+                                    <RemoveIcon
+                                        fontSize="large"
+                                        sx={{ color: theme.TEXT_COLOR }}
+                                    />
                                 </div>
                                 <div>
                                     <h2>{lines}</h2>
@@ -122,7 +131,10 @@ const PlanLine: FC<Props> = ({
                                         padding: '8px',
                                     }}
                                 >
-                                    <AddIcon fontSize="large" />
+                                    <AddIcon
+                                        fontSize="large"
+                                        sx={{ color: theme.TEXT_COLOR }}
+                                    />
                                 </div>
                             </div>
                         </div>

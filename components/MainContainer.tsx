@@ -19,44 +19,53 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
         <div
             style={{
                 backgroundColor: theme.BACKGROUND_COLOR,
-                display: 'flex',
-                maxWidth: '1440px',
+                height: '100vh',
+                width: '100vw',
+                overflow: 'scroll',
                 scrollBehavior: 'smooth',
-                margin: '0 auto',
-                
                 overscrollBehavior: 'contain',
-                             
             }}
         >
-            <Head>{title}</Head>
-            {children}
-            <Fab
-                onClick={() =>
-                    dispatch(
-                        switchTheme(
-                            theme.mode === 'dark' ? lightTheme : darkTheme
-                        )
-                    )
-                }
+            <div
                 style={{
-                    position: 'fixed',
-                    left: '30px',
-                    bottom: '30px',
-                    zIndex: 9999,
-                    backgroundColor: theme.TEXT_COLOR,
+                    backgroundColor: theme.BACKGROUND_COLOR,
+                    display: 'flex',
+                    maxWidth: '1440px',
+                    scrollBehavior: 'smooth',
+                    margin: '0 auto',
+                    overscrollBehavior: 'contain',
                 }}
             >
-                {theme.mode === 'light' ? (
-                    <DarkModeIcon
-                        color="secondary"
-                        style={{ backgroundColor: theme.TEXT_COLOR }}
-                    />
-                ) : (
-                    <LightModeIcon
-                        style={{ backgroundColor: theme.TEXT_COLOR }}
-                    />
-                )}
-            </Fab>
+                <Head>{title}</Head>
+                {children}
+                <Fab
+                    onClick={() =>
+                        dispatch(
+                            switchTheme(
+                                theme.mode === 'dark' ? lightTheme : darkTheme
+                            )
+                        )
+                    }
+                    style={{
+                        position: 'fixed',
+                        left: '30px',
+                        bottom: '30px',
+                        zIndex: 9999,
+                        backgroundColor: theme.TEXT_COLOR,
+                    }}
+                >
+                    {theme.mode === 'light' ? (
+                        <DarkModeIcon
+                            color="secondary"
+                            style={{ backgroundColor: theme.TEXT_COLOR }}
+                        />
+                    ) : (
+                        <LightModeIcon
+                            style={{ backgroundColor: theme.TEXT_COLOR }}
+                        />
+                    )}
+                </Fab>
+            </div>
         </div>
     );
 };
