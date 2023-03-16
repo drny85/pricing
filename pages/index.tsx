@@ -158,8 +158,10 @@ function Login({}: Props) {
                         margin: '0 auto',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        padding: '2rem',
                     }}
                 >
+                    <h1>Disclaimer</h1>
                     <p
                         style={{
                             fontSize: '1.5rem',
