@@ -154,8 +154,8 @@ function Login({}: Props) {
                         display: 'flex',
                         flexDirection: 'column',
                         width: '100vw',
-                        height: '100vh',
-                        margin: '0 auto',
+                        height: '100%',
+                        margin: '3rem auto',
                         justifyContent: 'center',
                         alignItems: 'center',
                         padding: '2rem',
@@ -236,6 +236,7 @@ function Login({}: Props) {
                     >
                         Accept and Agree Terms
                     </Button>
+                    <div style={{ marginTop: '20px' }}></div>
                 </div>
             </MainContainer>
         );
