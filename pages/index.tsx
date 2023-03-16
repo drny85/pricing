@@ -24,6 +24,7 @@ type Props = {};
 
 function Login({}: Props) {
     const { user } = useAppSelector((state) => state.auth);
+    const [agreed, setAgreed] = useState(false);
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
@@ -132,7 +133,110 @@ function Login({}: Props) {
         if (user.emailVerified) replace('/home');
     }, [user]);
 
+    useEffect(() => {
+        const t = localStorage.getItem('agreed_terms');
+        if (t !== null && t !== undefined) {
+            const r = JSON.parse(t) as { agreed: boolean };
+            console.log(t);
+            if (r.agreed) {
+                setAgreed(true);
+            }
+        }
+    }, []);
+
     if (loading) return null;
+
+    if (!agreed)
+        return (
+            <MainContainer>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        width: '100vw',
+                        height: '100vh',
+                        margin: '0 auto',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <p
+                        style={{
+                            fontSize: '1.5rem',
+                            lineHeight: 1.5,
+                            padding: '1rem',
+                        }}
+                    >
+                        Please be advised that this website is owned and
+                        operated by Drasco, LLC, and is not an official website
+                        of Verizon Communications Inc. The purpose of this
+                        website is to provide information and resources to
+                        Drasco employees for work-related purposes.
+                    </p>
+                    <p
+                        style={{
+                            fontSize: '1.5rem',
+                            lineHeight: 1.5,
+                            padding: '1rem',
+                        }}
+                    >
+                        Access to this website is restricted to authorized
+                        Drasco employees only. Any unauthorized access or use of
+                        this website is strictly prohibited and may result in
+                        disciplinary action or legal consequences.
+                    </p>
+                    <p
+                        style={{
+                            fontSize: '1.5rem',
+                            lineHeight: 1.5,
+                            padding: '1rem',
+                        }}
+                    >
+                        The information and content provided on this website are
+                        for informational purposes only and should not be
+                        construed as legal or professional advice. Drasco makes
+                        no representations or warranties of any kind, express or
+                        implied, regarding the accuracy, reliability, or
+                        completeness of the information provided on this
+                        website.
+                    </p>
+                    <p
+                        style={{
+                            fontSize: '1.5rem',
+                            lineHeight: 1.5,
+                            padding: '1rem',
+                        }}
+                    >
+                        By accessing and using this website, you agree to be
+                        bound by these terms and conditions. If you do not agree
+                        to these terms, please refrain from using this website.
+                    </p>
+                    <p
+                        style={{
+                            fontSize: '1.5rem',
+                            lineHeight: 1.5,
+                            padding: '1rem',
+                            margin: '2rem',
+                        }}
+                    >
+                        Thank you for your cooperation and understanding.
+                    </p>
+                    <Button
+                        onClick={() => {
+                            localStorage.setItem(
+                                'agreed_terms',
+                                JSON.stringify({ agreed: true })
+                            );
+                            setAgreed(true);
+                        }}
+                        size="large"
+                        variant="contained"
+                    >
+                        Accept and Agree Terms
+                    </Button>
+                </div>
+            </MainContainer>
+        );
     return (
         <MainContainer>
             <div
