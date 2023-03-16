@@ -338,6 +338,7 @@ function Login({}: Props) {
                                 Confirm Password
                             </InputLabel>
                             <OutlinedInput
+                                color="success"
                                 id="outlined-adornment-password9"
                                 value={confirm}
                                 onChange={(e) => setConfirm(e.target.value)}
@@ -380,11 +381,31 @@ function Login({}: Props) {
                     </Button>
                 </Box>
                 <div style={{ cursor: 'pointer' }} onClick={toogle}>
-                    <Typography style={{ marginTop: '2rem' }}>
-                        {mode === 'login'
-                            ? 'Do not have an account? Create One'
-                            : 'Have an account? Login'}
-                    </Typography>
+                    {mode === 'login' ? (
+                        <p style={{ margin: '2rem' }}>
+                            Do not have account{' '}
+                            <b
+                                style={{
+                                    textDecoration: 'underline',
+                                    paddingLeft: '8px',
+                                }}
+                            >
+                                Create One
+                            </b>
+                        </p>
+                    ) : (
+                        <p style={{ margin: '2rem' }}>
+                            Have an account?{' '}
+                            <b
+                                style={{
+                                    textDecoration: 'underline',
+                                    paddingLeft: '8px',
+                                }}
+                            >
+                                Sign in
+                            </b>
+                        </p>
+                    )}
                 </div>
             </div>
 

@@ -61,9 +61,14 @@ const Counts = () => {
                                 Email: {user.email}
                             </p>
                             <p>Verified: {user.emailVerified ? 'Yes' : 'No'}</p>
+
                             <p style={{ padding: '12px 0px' }}>
                                 Last Login:{' '}
                                 {moment(user.lastLogin).format('lll')}
+                            </p>
+                            <p>
+                                Created At:{' '}
+                                {moment(user.createdAt).format('lll')}
                             </p>
                         </div>
                     ))}

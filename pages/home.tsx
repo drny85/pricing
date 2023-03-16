@@ -95,7 +95,7 @@ const Plans = () => {
     const { loading } = useAuth();
     const { user } = useAppSelector((state) => state.auth);
 
-    console.log('Home', user);
+    const name = user?.email.split('.')[0] || '';
 
     const [opacity, setOpacity] = useState(0);
     const [opacityX, setOpacityX] = useState(0);
@@ -445,9 +445,11 @@ const Plans = () => {
 
     useEffect(() => {
         if (user) {
-            db.collection('users').doc(user.id).update({lastLogin:new Date().toDateString()})
+            db.collection('users')
+                .doc(user.id)
+                .update({ lastLogin: new Date().toISOString() });
         }
-    }, [])
+    }, []);
 
     if (loading) return null;
     if (!user || !user.emailVerified) return <Login />;
@@ -1489,7 +1491,14 @@ const Plans = () => {
                                         onAdd={() => {
                                             if (p.id !== 'welcome') {
                                                 if (welcome > 0) {
-                                                    setAlertTitle('Sorry!');
+                                                    setAlertTitle(
+                                                        `Sorry ${
+                                                            name
+                                                                .charAt(0)
+                                                                .toUpperCase() +
+                                                            name.slice(1)
+                                                        }!`
+                                                    );
                                                     setAlertMessage(
                                                         'Please remove all Welcome Unlimited if you want to add another plan'
                                                     );
