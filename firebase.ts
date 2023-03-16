@@ -7,12 +7,14 @@ import 'firebase/firestore';
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyAvcR7Xr40KQwwXTUwJwlDzhcqWwanFhWE',
-    authDomain: 'virtual-meetings-b7b3d.firebaseapp.com',
-    projectId: 'virtual-meetings-b7b3d',
-    storageBucket: 'virtual-meetings-b7b3d.appspot.com',
-    messagingSenderId: '697680908333',
-    appId: '1:697680908333:web:b809d0254d2accc039a8a4',
+    apiKey: 'AIzaSyCb7eOICk0NSfrV0cQ7T2zj4X7MHGbY-z4',
+    authDomain: 'ayuda-b2079.firebaseapp.com',
+    databaseURL: 'https://ayuda-b2079.firebaseio.com',
+    projectId: 'ayuda-b2079',
+    storageBucket: 'ayuda-b2079.appspot.com',
+    messagingSenderId: '164845165625',
+    appId: '1:164845165625:web:58ee14d6bff227fd0c01e8',
+    measurementId: 'G-WTY03LGS8D',
 };
 
 let app;
