@@ -16,6 +16,7 @@ interface PageProps {
 
 const MainContainer: FC<PageProps> = ({ children, title }) => {
     const theme = useAppSelector((state) => state.theme);
+    const {user} = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     return (
         <div
@@ -43,7 +44,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                 <footer
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                    <Fab
+                    {user && ( <Fab
                         onClick={() =>
                             dispatch(
                                 switchTheme(
@@ -85,7 +86,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                         }}
                     >
                         <ExitToAppIcon color="primary" />
-                    </Fab>
+                    </Fab>)}
                 </footer>
             </div>
         </div>
