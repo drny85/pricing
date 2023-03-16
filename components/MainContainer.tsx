@@ -16,7 +16,7 @@ interface PageProps {
 
 const MainContainer: FC<PageProps> = ({ children, title }) => {
     const theme = useAppSelector((state) => state.theme);
-    const {user} = useAppSelector((state) => state.auth);
+    const { user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     return (
         <div
@@ -44,49 +44,58 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                 <footer
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                    {user && ( <Fab
-                        onClick={() =>
-                            dispatch(
-                                switchTheme(
-                                    theme.mode === 'dark'
-                                        ? lightTheme
-                                        : darkTheme
-                                )
-                            )
-                        }
-                        style={{
-                            position: 'fixed',
-                            left: '30px',
-                            bottom: '30px',
-                            zIndex: 9999,
-                            backgroundColor: theme.TEXT_COLOR,
-                        }}
-                    >
-                        {theme.mode === 'light' ? (
-                            <DarkModeIcon
-                                color="secondary"
-                                style={{ backgroundColor: theme.TEXT_COLOR }}
-                            />
-                        ) : (
-                            <LightModeIcon
-                                style={{ backgroundColor: theme.TEXT_COLOR }}
-                            />
-                        )}
-                    </Fab>
-                    <Fab
-                        onClick={() => {
-                            auth.signOut();
-                        }}
-                        style={{
-                            position: 'fixed',
-                            right: '30px',
-                            bottom: '30px',
-                            zIndex: 9999,
-                            backgroundColor: theme.TEXT_COLOR,
-                        }}
-                    >
-                        <ExitToAppIcon color="primary" />
-                    </Fab>)}
+                    {user && (
+                        <>
+                            {' '}
+                            <Fab
+                                onClick={() =>
+                                    dispatch(
+                                        switchTheme(
+                                            theme.mode === 'dark'
+                                                ? lightTheme
+                                                : darkTheme
+                                        )
+                                    )
+                                }
+                                style={{
+                                    position: 'fixed',
+                                    left: '30px',
+                                    bottom: '30px',
+                                    zIndex: 9999,
+                                    backgroundColor: theme.TEXT_COLOR,
+                                }}
+                            >
+                                {theme.mode === 'light' ? (
+                                    <DarkModeIcon
+                                        color="secondary"
+                                        style={{
+                                            backgroundColor: theme.TEXT_COLOR,
+                                        }}
+                                    />
+                                ) : (
+                                    <LightModeIcon
+                                        style={{
+                                            backgroundColor: theme.TEXT_COLOR,
+                                        }}
+                                    />
+                                )}
+                            </Fab>
+                            <Fab
+                                onClick={() => {
+                                    auth.signOut();
+                                }}
+                                style={{
+                                    position: 'fixed',
+                                    right: '30px',
+                                    bottom: '30px',
+                                    zIndex: 9999,
+                                    backgroundColor: theme.TEXT_COLOR,
+                                }}
+                            >
+                                <ExitToAppIcon color="primary" />
+                            </Fab>
+                        </>
+                    )}
                 </footer>
             </div>
         </div>
