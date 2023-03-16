@@ -44,7 +44,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                 <footer
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                    {user && ( <Fab
+                    {user && (<> <Fab
                         onClick={() =>
                             dispatch(
                                 switchTheme(
@@ -86,7 +86,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                         }}
                     >
                         <ExitToAppIcon color="primary" />
-                    </Fab>)}
+                    </Fab></>)}
                 </footer>
             </div>
         </div>
