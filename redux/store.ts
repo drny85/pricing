@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authSlide from './authSlide';
 import dataSlide from './dataSlide';
 import fiosData from './fiosData';
 import home5GSlide from './home5GSlide';
@@ -9,6 +10,7 @@ import wirelessSlide from './wirelessSlide';
 
 export const store = configureStore({
     reducer: {
+        auth: authSlide,
         theme: themeSlide,
         data: dataSlide,
         fiosData: fiosData,
