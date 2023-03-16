@@ -41,9 +41,7 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
             >
                 <Head>{title}</Head>
                 {children}
-                <footer
-                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
+                <footer style={{ display: 'flex' }}>
                     {user && (
                         <>
                             {' '}
@@ -86,8 +84,8 @@ const MainContainer: FC<PageProps> = ({ children, title }) => {
                                 }}
                                 style={{
                                     position: 'fixed',
-                                    right: '30px',
-                                    bottom: '30px',
+                                    left: '30px',
+                                    bottom: '100px',
                                     zIndex: 9999,
                                     backgroundColor: theme.TEXT_COLOR,
                                 }}
