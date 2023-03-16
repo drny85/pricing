@@ -314,17 +314,19 @@ function Login({}: Props) {
                             }
                             label="Password"
                         />
-                        <div
-                            onClick={() => router.push('/resetPassword')}
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                paddingTop: '12px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            Forgot password?
-                        </div>
+                        {mode === 'login' && (
+                            <div
+                                onClick={() => router.push('/resetPassword')}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                    paddingTop: '12px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Forgot password?
+                            </div>
+                        )}
                     </FormControl>
                     {mode === 'signup' && (
                         <FormControl
