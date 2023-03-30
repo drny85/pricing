@@ -4,7 +4,7 @@ export interface AppUser {
     id: string;
     email: string;
     emailVerified: boolean;
-    lastLogin: string;
+    lastLogin?: string;
     createdAt?: string;
 }
 interface IState {
