@@ -59,9 +59,8 @@ import {
     toogle5GHasWireless,
 } from '../redux/home5GSlide';
 
-import { useRouter } from 'next/router';
 import Login from '.';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 
 interface Props {
     children: React.ReactChild;
@@ -75,6 +74,7 @@ enum PlanId {
     play_more = 'play_more',
     do_more = 'do_more',
     get_more = 'get_more',
+    one_unlimited = 'one_unlimited',
 }
 
 const TabPanel: FC<Props> = ({ children, others, value, index }) => {
@@ -111,6 +111,7 @@ const Plans = () => {
     const [playMore, setPlayMore] = useState(0);
     const [doMore, setDoMore] = useState(0);
     const [getMore, setGetMore] = useState(0);
+    const [oneUnlimited, setOneUnlimited] = useState(0);
 
     const { numberOfLines } = useAppSelector((state) => state.data);
 
@@ -295,6 +296,34 @@ const Plans = () => {
                     ? 60 - expressAutoPay
                     : 0) - newDiscountPerLine(expressInternet, expressHasFios),
         },
+        {
+            id: 'one_unlimited',
+            name: 'One Unlimited',
+            line: oneUnlimited,
+            details: [
+                '5G Ultra Wideband',
+                '5G Nationwide',
+                'Unlimited Premium Network Access',
+                '25 GB premium mobile hotspot data, then unlimited lower-speed data',
+                'Apple Music included',
+                'Apple TV+',
+                'Apple Arcade',
+                'Apple iCloud+',
+                'Up to 50% off select connected device plans ($5 Smart Watch / $10 Tablets)',
+            ],
+            price:
+                (lines === 1
+                    ? 100 - expressAutoPay
+                    : lines === 2
+                    ? 85 - expressAutoPay
+                    : lines === 3
+                    ? 70 - expressAutoPay
+                    : lines === 4
+                    ? 60 - expressAutoPay
+                    : lines >= 5
+                    ? 55 - expressAutoPay
+                    : 0) - newDiscountPerLine(expressInternet, expressHasFios),
+        },
     ];
 
     const allWelcome = Object.values(plans).some(
@@ -362,6 +391,12 @@ const Plans = () => {
                     setGetMore((prev) => prev - 1);
                 }
                 break;
+            case 'one_unlimited':
+                if (oneUnlimited > 0) {
+                    setLines((prev) => prev - 1);
+                    setOneUnlimited((prev) => prev - 1);
+                }
+                break;
             default:
                 break;
         }
@@ -399,6 +434,12 @@ const Plans = () => {
                     setLines((prev) => prev + 1);
                 }
                 break;
+            case 'one_unlimited':
+                if (oneUnlimited < 10) {
+                    setOneUnlimited((prev) => prev + 1);
+                    setLines((prev) => prev + 1);
+                }
+                break;
             default:
                 break;
         }
@@ -414,6 +455,7 @@ const Plans = () => {
         setGetMore(0);
         setLines(0);
         setWelcome(0);
+        setOneUnlimited(0);
     };
 
     useEffect(() => {
@@ -1521,6 +1563,37 @@ const Plans = () => {
                                                     setAlertTitle('Oppps!');
                                                     setAlertMessage(
                                                         'Please remove other plans if you want to add Welcome Unlimited'
+                                                    );
+                                                    setShowAlert(true);
+
+                                                    return;
+                                                }
+                                            }
+                                            if (p.id !== 'one_unlimited') {
+                                                if (oneUnlimited > 0) {
+                                                    setAlertTitle('Oppps!');
+                                                    setAlertMessage(
+                                                        'Please remove One Unlimted plan if you want to Mix & Match another plans'
+                                                    );
+                                                    setShowAlert(true);
+
+                                                    return;
+                                                }
+                                            } else {
+                                                if (
+                                                    Object.values(plans).some(
+                                                        (l) => {
+                                                            return (
+                                                                l.line > 0 &&
+                                                                l.id !==
+                                                                    'one_unlimited'
+                                                            );
+                                                        }
+                                                    )
+                                                ) {
+                                                    setAlertTitle('Oppps!');
+                                                    setAlertMessage(
+                                                        'Please remove other plans if you want to add One Unlimited for Iphone'
                                                     );
                                                     setShowAlert(true);
 
