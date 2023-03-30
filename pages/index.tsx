@@ -14,7 +14,7 @@ import MainContainer from '../components/MainContainer';
 import { isValidEmail } from '../utils/isValidEmail';
 import { auth, db } from '../firebase';
 import { useRouter } from 'next/router';
-import Plans from './home';
+
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
 import { AppUser, setUser } from '../redux/authSlide';
 import { useAuth } from '../hooks/useAuth';
@@ -49,7 +49,6 @@ function Login({}: Props) {
         try {
             const u: AppUser = {
                 ...userData,
-                createdAt: new Date().toISOString(),
             };
             await db
                 .collection('users')
@@ -87,6 +86,13 @@ function Login({}: Props) {
                 );
                 if (user) {
                     user.sendEmailVerification();
+                    const userData: AppUser = {
+                        id: user.uid,
+                        email: user.email!,
+                        emailVerified: user.emailVerified,
+                        createdAt: new Date().toISOString(),
+                    };
+                    await createUser(userData);
                     replace('/emailVerification');
                 }
             } else if (mode === 'login') {
