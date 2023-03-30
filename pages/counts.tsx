@@ -17,7 +17,7 @@ const Counts = () => {
                         .map(
                             (doc) => ({ id: doc.id, ...doc.data() } as AppUser)
                         )
-                        .sort((a, b) => (a.lastLogin > b.lastLogin ? 0 : 1))
+                        .sort((a, b) => (a.lastLogin! > b.lastLogin! ? 0 : 1))
                 )
             );
         return sub;
