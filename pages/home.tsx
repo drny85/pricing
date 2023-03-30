@@ -1573,7 +1573,7 @@ const Plans = () => {
                                                 if (oneUnlimited > 0) {
                                                     setAlertTitle('Oppps!');
                                                     setAlertMessage(
-                                                        'Please remove One Unlimted plan if you want to Mix & Match another plans'
+                                                        'Please remove One Unlimited plan if you want to Mix & Match another plans'
                                                     );
                                                     setShowAlert(true);
 
