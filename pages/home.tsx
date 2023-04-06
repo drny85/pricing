@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 
 import { setNumbersOfLines, setPlansPrice } from '../redux/dataSlide';
 
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import {
     fiosReset,
@@ -349,10 +349,10 @@ const Plans = () => {
                           discount:
                               p.line > 0
                                   ? p.id === 'start'
-                                      ? (360 / 36) * p.line
+                                      ? (180 / 36) * p.line
                                       : p.id === 'welcome'
                                       ? (180 / 36) * p.line
-                                      : (504 / 36) * p.line
+                                      : (360 / 36) * p.line
                                   : 0,
                       };
                   })
@@ -1398,10 +1398,10 @@ const Plans = () => {
                                             {allWelcome && lines > 0
                                                 ? '$180'
                                                 : allStart
-                                                ? '$360'
+                                                ? '$180'
                                                 : someStart
-                                                ? '$360 or $504'
-                                                : '$504'}
+                                                ? '$180 or $360'
+                                                : '$360'}
                                         </b>{' '}
                                         BIC when you bring your phone.{' '}
                                     </p>
