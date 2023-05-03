@@ -351,8 +351,8 @@ const Plans = () => {
                                   ? p.id === 'start'
                                       ? (180 / 36) * p.line
                                       : p.id === 'welcome'
-                                      ? (180 / 36) * p.line
-                                      : (360 / 36) * p.line
+                                      ? (360 / 36) * p.line
+                                      : (504 / 36) * p.line
                                   : 0,
                       };
                   })
@@ -1400,8 +1400,8 @@ const Plans = () => {
                                                 : allStart
                                                 ? '$180'
                                                 : someStart
-                                                ? '$180 or $360'
-                                                : '$360'}
+                                                ? '$360 or $504'
+                                                : '$504'}
                                         </b>{' '}
                                         BIC when you bring your phone.{' '}
                                     </p>
