@@ -1398,7 +1398,7 @@ const Plans = () => {
                                             {allWelcome && lines > 0
                                                 ? '$180'
                                                 : allStart
-                                                ? '$180'
+                                                ? '$360'
                                                 : someStart
                                                 ? '$360 or $504'
                                                 : '$504'}
