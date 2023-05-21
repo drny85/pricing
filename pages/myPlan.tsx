@@ -58,6 +58,7 @@ const MyPlan = () => {
     };
 
     const canPerkBeAdded = (perk: Perk): boolean => {
+          if (perk.selected) return true;
         const exists = lines
             .map((l) => l.perks)
             .flatMap((p) => p)
