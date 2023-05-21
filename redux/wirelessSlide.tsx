@@ -16,7 +16,7 @@ interface DataState {
     planView: 'myPlan' | 'oldPlan';
 }
 export interface Line {
-    id: number;
+    id: string;
     name: 'Unlimited Plus' | 'Unlimited Welcome';
     price: number;
     byod: boolean;
