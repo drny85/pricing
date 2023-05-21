@@ -1,6 +1,7 @@
 import { Box, Button, Modal } from '@mui/material';
 import React from 'react';
 import { Perk } from '../PerksView';
+import { useAppSelector } from '../../redux/hooks/reduxHooks';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const PerkAlertModal = ({ onClose, open, perk, onSubmitted }: Props) => {
+    const theme = useAppSelector((state) => state.theme);
     return (
         <Modal
             open={open}
@@ -28,7 +30,11 @@ const PerkAlertModal = ({ onClose, open, perk, onSubmitted }: Props) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box width={{ xs: '90%', md: '50%' }} borderRadius={4} sx={style}>
+            <Box
+                width={{ xs: '90%', md: '50%' }}
+                borderRadius={4}
+                sx={{ ...style, backgroundColor: theme.BACKGROUND_COLOR }}
+            >
                 <h3 style={{ textAlign: 'center', marginBottom: 12 }}>
                     Perk Warning
                 </h3>
