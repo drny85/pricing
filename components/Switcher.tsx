@@ -37,14 +37,14 @@ const Switcher: FC<Props> = ({
                     alignItems: 'center',
                 }}
             >
-                <p
+                <div
                     style={{
                         fontSize: '1rem',
                         fontWeight: 'bold',
                     }}
                 >
-                    {text}
-                </p>
+                    {typeof text === 'string' ? <p>{text}</p> : text}
+                </div>
 
                 <Switch
                     onChange={onChange}
