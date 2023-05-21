@@ -1192,7 +1192,16 @@ const Plans = () => {
                 </TabPanel>
                 <TabPanel index={3} value={value}>
                     {planView === 'myPlan' ? (
-                        <>
+                        <div
+                            style={{
+                                display: 'flex',
+                                width: '100%',
+                                margin: '0 auto',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
                             <Tooltip title="Click to view old plans" arrow>
                                 <Box
                                     justifyContent={'center'}
@@ -1210,7 +1219,7 @@ const Plans = () => {
                                 </Box>
                             </Tooltip>
                             <MyPlan />
-                        </>
+                        </div>
                     ) : (
                         <div
                             style={{
