@@ -389,7 +389,7 @@ function Login({}: Props) {
                 <div style={{ cursor: 'pointer' }} onClick={toogle}>
                     {mode === 'login' ? (
                         <p style={{ margin: '2rem' }}>
-                            Do not have account{' '}
+                            Do not have an account{' '}
                             <b
                                 style={{
                                     textDecoration: 'underline',
