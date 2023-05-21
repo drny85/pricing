@@ -191,9 +191,19 @@ const MyPlan = () => {
             );
     };
 
-    const mobilePlusHome = (): number => {
-        if (expressInternet === 'gig' && expressHasFios) {
+    const mobilePlusHome = (line: Line): number => {
+        if (
+            expressInternet === 'gig' &&
+            expressHasFios &&
+            line.name === 'Unlimited Plus'
+        ) {
             return 10;
+        } else if (
+            expressHasFios &&
+            expressInternet === 'gig' &&
+            line.name === 'Unlimited Welcome'
+        ) {
+            return 5;
         } else if (expressHasFios && expressInternet !== 'gig') {
             return 5;
         } else {
@@ -218,7 +228,7 @@ const MyPlan = () => {
                             ? 40
                             : 0) -
                         expressAutoPay -
-                        mobilePlusHome() -
+                        mobilePlusHome(line) -
                         (line.byod ? NON_PREMIUM_BYOD_VALUE : 0) +
                         perksTotal(line)
                     );
@@ -236,7 +246,7 @@ const MyPlan = () => {
                             ? 55
                             : 0) -
                         expressAutoPay -
-                        mobilePlusHome() -
+                        mobilePlusHome(line) -
                         (line.byod ? PREMIUM_BYOD_VALUE : 0) +
                         perksTotal(line)
                     );
