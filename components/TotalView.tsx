@@ -99,6 +99,21 @@ const TotalView = ({ lines, modalView = false }: Props) => {
             }}
             mt={2}
         >
+             <Box>
+                <p
+                    style={{
+                        fontSize: '0.9rem',
+                        fontStyle: 'italic',
+                        margin: '0.8rem 0',
+                    }}
+                >
+                    Note:{' '}
+                    <span>
+                        First bill will include ${lines.length * 30} activation
+                        fee.
+                    </span>
+                </p>
+            </Box>
             <Box
                 my={1}
                 display={'flex'}
