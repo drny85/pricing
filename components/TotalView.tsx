@@ -33,16 +33,26 @@ const TotalView = ({ lines, modalView = false }: Props) => {
     const theme = useAppSelector((s) => s.theme);
     const dispatch = useAppDispatch();
 
-    const { expressFirstResponder, expressAutoPay, expressHasFios } =
-        useAppSelector((s) => s.wireless);
+    const {
+        expressFirstResponder,
+        expressAutoPay,
+        expressHasFios,
+        expressInternet,
+    } = useAppSelector((s) => s.wireless);
 
     const mobilePlusHomeDiscount = (): number => {
         return lines
             .map((line) =>
-                line.name === 'Unlimited Welcome' && expressHasFios
-                    ? { discount: 5 }
-                    : line.name === 'Unlimited Plus' && expressHasFios
+                line.name === 'Unlimited Plus' &&
+                expressHasFios &&
+                expressInternet === 'gig'
                     ? { discount: 10 }
+                    : line.name === 'Unlimited Plus' &&
+                      expressHasFios &&
+                      expressInternet !== 'gig'
+                    ? { discount: 5 }
+                    : line.name === 'Unlimited Welcome' && expressHasFios
+                    ? { discount: 5 }
                     : { discount: 0 }
             )
             .reduce((acc, line) => acc + line.discount, 0);
@@ -99,7 +109,7 @@ const TotalView = ({ lines, modalView = false }: Props) => {
             }}
             mt={2}
         >
-             <Box>
+            <Box>
                 <p
                     style={{
                         fontSize: '0.9rem',
