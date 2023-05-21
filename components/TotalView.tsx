@@ -119,7 +119,7 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                 >
                     Note:{' '}
                     <span>
-                        First bill will include ${lines.length * 30} activation
+                        First bill will include ${lines.length * 35} activation
                         fee.
                     </span>
                 </p>
