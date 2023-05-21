@@ -41,7 +41,7 @@ const MyPlan = () => {
         expressInternet,
     } = useAppSelector((state) => state.wireless);
     const dispatch = useAppDispatch();
-    const deleteLine = (id: number) => {
+    const deleteLine = (id: string) => {
         const newLines = lines.filter((line) => line.id !== id);
         dispatch(setLinesData(newLines));
     };
@@ -58,7 +58,6 @@ const MyPlan = () => {
     };
 
     const canPerkBeAdded = (perk: Perk): boolean => {
-          if (perk.selected) return true;
         const exists = lines
             .map((l) => l.perks)
             .flatMap((p) => p)
@@ -98,7 +97,6 @@ const MyPlan = () => {
     };
 
     const cantAddPerkWarning = (perk: Perk, line: Line) => {
-        console.log('cant be added', perk.name);
         setPerkToAdd({ perK: perk, line: line });
         setShowPerkAlertModal(true);
     };
@@ -107,7 +105,7 @@ const MyPlan = () => {
         const exists = lines.find((l) => l.id === line.id);
         if (!exists) return;
         const canBeAdded = canPerkBeAdded(perk);
-        console.log('canBeAdded', canBeAdded);
+
         if (canBeAdded) {
             addPerk(line, perk);
         } else {
@@ -115,7 +113,7 @@ const MyPlan = () => {
         }
     };
 
-    const onSwitchBYOD = (id: number) => {
+    const onSwitchBYOD = (id: string) => {
         const newLines = lines.map((line) => {
             if (line.id === id) {
                 return {
@@ -131,7 +129,7 @@ const MyPlan = () => {
         dispatch(setLinesData(newLines));
     };
 
-    const onSwitchLine = (id: number) => {
+    const onSwitchLine = (id: string) => {
         const newLines = lines.map((line) => {
             const n = {
                 ...line,
@@ -604,6 +602,7 @@ const MyPlan = () => {
                                 {lines.map((line, index) => {
                                     return (
                                         <LineItem
+                                            lineNumber={index + 1}
                                             onSwitchBYOD={onSwitchBYOD}
                                             onSwitch={onSwitchLine}
                                             onClick={deleteLine}
@@ -638,9 +637,8 @@ const MyPlan = () => {
                 onClose={() => setShowPerkAlertModal(false)}
                 perk={perkToAdd?.perK!}
                 onSubmitted={() => {
-                    console.log('HAAAAHHH');
                     if (!perkToAdd) return;
-                    console.log('HHHH');
+
                     addPerk(perkToAdd.line, perkToAdd.perK);
                     setShowPerkAlertModal(false);
                     //setPerkToAdd(undefined);
