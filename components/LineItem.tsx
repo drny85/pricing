@@ -32,7 +32,7 @@ const LineItem = ({
     onSelectPerk: (perk: Perk) => void;
 }) => {
     const theme = useAppSelector((state) => state.theme);
-    const [expanded, setExpanded] = React.useState<string | undefined>();
+    const [expanded, setExpanded] = React.useState<string>('');
 
     return (
         <motion.div
@@ -61,9 +61,7 @@ const LineItem = ({
                             <ExpandMoreIcon
                                 onClick={() =>
                                     setExpanded(
-                                        line.id === expanded
-                                            ? undefined
-                                            : line.id
+                                        line.id === expanded ? '' : line.id
                                     )
                                 }
                                 sx={{
