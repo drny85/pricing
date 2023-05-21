@@ -49,20 +49,22 @@ const Switcher: FC<Props> = ({
                 <Switch
                     onChange={onChange}
                     value={value}
-                    color="success"
+                    color="info"
                     checked={checked}
                 />
             </div>
             <div>
                 {checked && saving && (
-                    <p
-                        style={{
-                            textDecoration: 'underline',
-                            fontSize: '1rem',
-                        }}
-                    >
-                        ${savingText} saving
-                    </p>
+                    <div>
+                        <p
+                            style={{
+                                textDecoration: 'underline',
+                                fontSize: '1rem',
+                            }}
+                        >
+                            ${savingText} saving
+                        </p>
+                    </div>
                 )}
             </div>
             {acp && (
