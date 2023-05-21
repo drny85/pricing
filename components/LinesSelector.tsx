@@ -7,6 +7,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AnimatedNumber from 'animated-number-react';
 import { Line, setLinesData } from '../redux/wirelessSlide';
 import { perks } from '../perks';
+import { v4 } from 'uuid';
 
 type Props = {};
 
@@ -63,7 +64,7 @@ const LinesSelector = (props: Props) => {
                 onClick={() => {
                     if (lines.length < 10) {
                         const newLine: Line = {
-                            id: lines.length + 1,
+                            id: v4(),
                             name: 'Unlimited Welcome',
                             price: 75 - expressAutoPay,
                             byod: false,

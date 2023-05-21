@@ -22,15 +22,17 @@ const LineItem = ({
     onSwitch,
     onSwitchBYOD,
     onSelectPerk,
+    lineNumber,
 }: {
     line: Line;
-    onClick: (lineId: number) => void;
-    onSwitch: (lineId: number) => void;
-    onSwitchBYOD: (lineId: number) => void;
+    onClick: (lineId: string) => void;
+    lineNumber: number;
+    onSwitch: (lineId: string) => void;
+    onSwitchBYOD: (lineId: string) => void;
     onSelectPerk: (perk: Perk) => void;
 }) => {
     const theme = useAppSelector((state) => state.theme);
-    const [expanded, setExpanded] = React.useState<number | undefined>();
+    const [expanded, setExpanded] = React.useState<string | undefined>();
 
     return (
         <motion.div
@@ -93,7 +95,8 @@ const LineItem = ({
                                 >
                                     <Box>
                                         <h3>
-                                            {line.id} - {line.name || 'No Name'}
+                                            {lineNumber} -{' '}
+                                            {line.name || 'No Name'}
                                         </h3>
                                     </Box>
                                 </Tooltip>

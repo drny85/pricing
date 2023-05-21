@@ -205,12 +205,12 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                         </Box>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {perks().map((perk) => (
+                        {perks().map((perk, index) => (
                             <Box
                                 px={3}
                                 display={'flex'}
                                 justifyContent={'space-between'}
-                                key={perk.name}
+                                key={index}
                                 my={1}
                             >
                                 <p
