@@ -239,7 +239,12 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                     width={'100%'}
                     my={1}
                 >
-                    <p style={{ fontSize: '1.1rem' }}>Auto Pay Discount</p>
+                    <p style={{ fontSize: '1.1rem' }}>
+                        Auto Pay Discount
+                        <i style={{ fontSize: '0.8rem', marginLeft: '5px' }}>
+                            ($10 per line)
+                        </i>
+                    </p>
                     <p
                         style={{
                             fontSize: '1.1rem',
@@ -320,7 +325,8 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                             fontSize: '1.1rem',
                         }}
                     >
-                        BYOD Monthly Savings
+                        BYOD Monthly Savings{' '}
+                        <i style={{ fontSize: '0.8rem' }}>(36 months)</i>
                     </p>
                     <p style={{ fontSize: '1.1rem' }}>
                         -$
