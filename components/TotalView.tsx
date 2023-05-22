@@ -23,6 +23,7 @@ import { firstResponderDiscount } from '../utils/firstResponderDiscount';
 import { totalPerksCount } from '../utils/totalPerksCount';
 import AnimateElementIf from './AnimateElementIf';
 import { Perk } from './PerksView';
+import { byodSavings } from '../utils/byodSavings';
 
 type Props = {
     lines: Line[];
@@ -39,6 +40,8 @@ const TotalView = ({ lines, modalView = false }: Props) => {
         expressHasFios,
         expressInternet,
     } = useAppSelector((s) => s.wireless);
+
+    const byod = byodSavings(lines);
 
     const mobilePlusHomeDiscount = (): number => {
         return lines
@@ -157,7 +160,8 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                             ) +
                             mobilePlusHomeDiscount() +
                             autoPayDiscount() +
-                            perksTotal()
+                            perksTotal() +
+                            byod
                         }
                     />
                 </h2>
@@ -299,6 +303,31 @@ const TotalView = ({ lines, modalView = false }: Props) => {
                             duration={300}
                             formatValue={(n: number) => n.toFixed(0)}
                             value={mobilePlusHomeDiscount()}
+                        />
+                    </p>
+                </Box>
+            </AnimateElementIf>
+            <AnimateElementIf show={byod > 0}>
+                <Box
+                    my={1}
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                    width={'100%'}
+                >
+                    <p
+                        style={{
+                            fontSize: '1.1rem',
+                        }}
+                    >
+                        BYOD Monthly Savings
+                    </p>
+                    <p style={{ fontSize: '1.1rem' }}>
+                        -$
+                        <AnimatedNumber
+                            duration={300}
+                            formatValue={(n: number) => n.toFixed(0)}
+                            value={byod}
                         />
                     </p>
                 </Box>
