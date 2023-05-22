@@ -19,9 +19,7 @@ import ReviewModal from '../components/modals/ReviewModal';
 import TotalView from '../components/TotalView';
 import PerkAlertModal from '../components/modals/PerkAlertModal';
 import { toogleHoverPlan } from '../redux/wirelessSlide';
-
-const PREMIUM_BYOD_VALUE = 540 / 36;
-const NON_PREMIUM_BYOD_VALUE = 180 / 36;
+import { NON_PREMIUM_BYOD_VALUE, PREMIUM_BYOD_VALUE } from '../constant';
 
 const MyPlan = () => {
     const theme = useAppSelector((state) => state.theme);
